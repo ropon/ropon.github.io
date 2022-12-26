@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Django初识 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142MVC模型M 模型V 视图C 控制器MTVM Model模型 业务对象与数据库的关系映射T Template模板 如何将页面展示给用户V View视图 业务逻辑,适当时候调用Model和TemplateURL分发器 将一个个URL页面的请求分发给不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django初识">
+<meta property="og:url" content="https://blog.ropon.top/2018/11/20/django%E5%88%9D%E8%AF%86/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142MVC模型M 模型V 视图C 控制器MTVM Model模型 业务对象与数据库的关系映射T Template模板 如何将页面展示给用户V View视图 业务逻辑,适当时候调用Model和TemplateURL分发器 将一个个URL页面的请求分发给不同">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-11-20T08:04:29.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.241Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-django初识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/20/django%E5%88%9D%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2018-11-20T08:04:29.000Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Django/">Django</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Django初识
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">MVC模型</span><br><span class="line">M 模型</span><br><span class="line">V 视图</span><br><span class="line">C 控制器</span><br><span class="line"></span><br><span class="line">MTV</span><br><span class="line">M Model模型 业务对象与数据库的关系映射</span><br><span class="line">T Template模板 如何将页面展示给用户</span><br><span class="line">V View视图 业务逻辑,适当时候调用Model和Template</span><br><span class="line">URL分发器 将一个个URL页面的请求分发给不同的View处理</span><br><span class="line">         ________根据URL匹配相应视图函数___________</span><br><span class="line">      _去Model取数据__</span><br><span class="line">   </span><br><span class="line"> Model View Template URL控制器</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line"> 数据库用户输入URL请求</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">安装</span><br><span class="line">pip3 install django</span><br><span class="line"></span><br><span class="line">创建Django项目demo1</span><br><span class="line">django-admin.py startproject demo1</span><br><span class="line"></span><br><span class="line">manage.py Django项目里的工具 借助他调用django shell 数据库</span><br><span class="line">demo1</span><br><span class="line">__int__.py</span><br><span class="line">setting.py 项目默认配置 数据库信息 调试标志 工作的变量</span><br><span class="line">urls.py URL模式映射到应用程序</span><br><span class="line">wsgi.py 封装socket</span><br><span class="line"></span><br><span class="line">在demo1项目创建应用</span><br><span class="line">python manage.py startapp blog</span><br><span class="line"></span><br><span class="line">启动django项目</span><br><span class="line">python manage.py runserver 8000</span><br><span class="line"></span><br><span class="line"># 查看django版本</span><br><span class="line"># python -m django --version</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/11/20/django%E5%88%9D%E8%AF%86/" data-id="clc4klg4y002eojob7k87es0y" data-title="Django初识" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/20/django%E4%B9%8Burl%E8%B7%AF%E7%94%B1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Django之urlconf路由
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/18/python%E6%A8%A1%E5%9D%97%E4%B9%8Bpymysql%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python模块之pymysql使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

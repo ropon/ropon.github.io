@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Redis相关知识 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Redis redis中字符串 12345678910111213141516171819202122232425262728#设置值set key val#获取值get key#删除值del key#自增INCR key-name#自减DECR key-name#将存储值加上整数INCRBY key-name amount#将存储值减去整数DECRBY key-name amount#将存储值加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis相关知识">
+<meta property="og:url" content="https://blog.ropon.top/2022/12/26/Redis%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Redis redis中字符串 12345678910111213141516171819202122232425262728#设置值set key val#获取值get key#删除值del key#自增INCR key-name#自减DECR key-name#将存储值加上整数INCRBY key-name amount#将存储值减去整数DECRBY key-name amount#将存储值加">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-12-26T08:29:02.000Z">
+<meta property="article:modified_time" content="2022-12-26T08:29:13.682Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Redis相关知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/26/Redis%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2022-12-26T08:29:02.000Z" itemprop="datePublished">2022-12-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Redis相关知识
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><ul>
+<li><p>redis中字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#设置值</span><br><span class="line">set key val</span><br><span class="line">#获取值</span><br><span class="line">get key</span><br><span class="line">#删除值</span><br><span class="line">del key</span><br><span class="line">#自增</span><br><span class="line">INCR key-name</span><br><span class="line">#自减</span><br><span class="line">DECR key-name</span><br><span class="line">#将存储值加上整数</span><br><span class="line">INCRBY key-name amount</span><br><span class="line">#将存储值减去整数</span><br><span class="line">DECRBY key-name amount</span><br><span class="line">#将存储值加上浮点数</span><br><span class="line">INCRBYFLOAT key-name amount</span><br><span class="line">#将值value追加到给定键key-name当前存储的值的末尾</span><br><span class="line">APPEND key-name value</span><br><span class="line">#获取从偏移量start至偏移量end范围内的子串</span><br><span class="line">GETRANGE key-name start end</span><br><span class="line">#将start偏移量开始的子串设置为给定值</span><br><span class="line">SETRANGE key-name offset value</span><br><span class="line">#将字节串看作二进制串 并返回字串中offset的二进制位的值</span><br><span class="line">GETBIT key-name offset</span><br><span class="line">#将字节串看作二进制串 并将字串中offset的二进制位的值设置为value</span><br><span class="line">SETBIT key-name offset value</span><br><span class="line">BITCOUNT key-name [start end]</span><br><span class="line">BITTOP operation dest-key key-name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis中的列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">LPUSH 将元素推入列表左端</span><br><span class="line">lpush lstkey lval1</span><br><span class="line">RPUSH 将元素推入列表右端</span><br><span class="line">rpush lstkey rval1</span><br><span class="line">LPOP 从列表左端弹出元素</span><br><span class="line">lpush lstkey</span><br><span class="line">RPOS 从列表右端弹出元素</span><br><span class="line">rpush lstkey</span><br><span class="line">LINDEX 获取列表在给定位置上的一个元素</span><br><span class="line">lindex lstkey 1</span><br><span class="line">LRANGE 获取列表在给定范围上的所有元素</span><br><span class="line">lrange lstkey 0 2</span><br><span class="line">LTRIM 对列表进行修剪 只保留start偏移量到end偏移量范围内的元素</span><br><span class="line">ltrim lstkey 0 2</span><br><span class="line">BLPOP 从非空列表中弹出位于最左端的元素</span><br><span class="line">BRPOP 从非空列表中弹出位于最右端的元素</span><br><span class="line">RPOPLPUSH </span><br><span class="line">rpoplpush source-key dest-key</span><br><span class="line">BRPOPLPUSH</span><br><span class="line">brpoplpush source-key dest-key</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis的集合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SADD 将元素添加到集合</span><br><span class="line">sadd setkey val22</span><br><span class="line">SREM 从集合移除元素</span><br><span class="line">srem setkey val22</span><br><span class="line">SISMEMBER 检查集合中是否存在此元素</span><br><span class="line">sismember setkey val22</span><br><span class="line">SMEMBERS 获取集合中所有元素</span><br><span class="line">smembers setkey</span><br><span class="line">SCARD 获取集合包含元素的数量</span><br><span class="line">scard setkey</span><br><span class="line">SRANDMEMBER 从集合里面随机返回一个或多个元素</span><br><span class="line">srandmember setkey 2</span><br><span class="line">SPOP 随机从集合中移除一个元素 并返回被移除的元素</span><br><span class="line">spop setkey</span><br><span class="line">SMOVE 如果item存在source-key集合中 移除此元素添加到dest-key集合</span><br><span class="line">smove source-key dest-key item </span><br><span class="line"></span><br><span class="line">#额外还支持</span><br><span class="line">SINTER 交集</span><br><span class="line">SUNION 并集</span><br><span class="line">SDIFF 差集</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis的散列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">HSET 散列中关联给定的键值对</span><br><span class="line">hset hashkey key1 val1</span><br><span class="line">HGET 获取指定散列键的值</span><br><span class="line">hget hashkey key1</span><br><span class="line">HGETALL 获取散列中所有键值对</span><br><span class="line">hgetall hashkey</span><br><span class="line">HDEL 删除散列中指定键值对</span><br><span class="line">hdel hashkey key1</span><br><span class="line">HMSET 为散列里一个或多个键设置值</span><br><span class="line">hmset hashkey key1 val1 key2 val2</span><br><span class="line">HLEN 获取散列包含键值对的数量</span><br><span class="line">hlen hashkey</span><br><span class="line">HEXISTS 检查给定键是否存在于散列中</span><br><span class="line">hexists hashkey key1</span><br><span class="line">HKEYS 获取散列包含的所有键</span><br><span class="line">hkeys hashkey</span><br><span class="line">HVALS hashkey 获取散列包含的所有值</span><br><span class="line">hvals hashkey</span><br><span class="line">HINCRBYFLOAT 将key存储的值加上浮点数</span><br><span class="line">hincrbyfloat hashkey key1 increment</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis的有序集合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ZADD 将一个给定分值的成员添加到有序集合</span><br><span class="line">zadd zsetkey 90 zhansan</span><br><span class="line">ZRANGE 从有序集合李获取多个元素</span><br><span class="line">zrange zsetkey 0 2 withscores</span><br><span class="line">ZRANGEBYSCORE 获取给定分值范围内的所有元素</span><br><span class="line">zrangebyscore zsetkey 82 95 withscores</span><br><span class="line">ZREM 移除成员</span><br><span class="line">zrem zsetkey zhansan</span><br><span class="line">ZCARD 获取有序集合包含成员的数量</span><br><span class="line">zcard zsetkey</span><br><span class="line">ZCOUNT 返回分值介于min和max之间的成员数量</span><br><span class="line">zcount zsetkey 80 90</span><br><span class="line">ZRANK 返回某个成员在集合中的排名</span><br><span class="line">zrank zsetkey zhangsan</span><br><span class="line">ZSCORE 返回某个成员的分值</span><br><span class="line">zscore zsetkey lisi</span><br><span class="line">ZINCRBY 将某个成员的分值加上increment</span><br><span class="line">zincrby zsetkey 2 lisi</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：投票</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time    : 2020/6/5 11:17</span></span><br><span class="line"><span class="comment"># @Author  : Ropon</span></span><br><span class="line"><span class="comment"># @File    : test.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time, redis</span><br><span class="line"></span><br><span class="line">pool = redis.ConnectionPool(host=<span class="string">&quot;172.16.7.127&quot;</span>, port=<span class="number">6379</span>, password=<span class="string">&quot;&quot;</span>, max_connections=<span class="number">1024</span>)</span><br><span class="line">conn = redis.Redis(connection_pool=pool)</span><br><span class="line"></span><br><span class="line">ONE_WEEK_IN_SECONDS = <span class="number">7</span> * <span class="number">86400</span></span><br><span class="line">VOTE_SCORE = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">article_vote</span>(<span class="params">conn, user, article</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    投票函数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 计算投票截止时间</span></span><br><span class="line">    cutoff = time.time() - ONE_WEEK_IN_SECONDS</span><br><span class="line">    <span class="keyword">if</span> conn.zscore(<span class="string">&#x27;time:&#x27;</span>, article) &lt; cutoff:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    article_id = article.split(<span class="string">&#x27;:&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> conn.sadd(<span class="string">&#x27;voted:&#x27;</span> + article_id, user):</span><br><span class="line">        <span class="comment"># ZINCRBY 对有序集合成员的分值执行自增</span></span><br><span class="line">        conn.zincrby(<span class="string">&#x27;score:&#x27;</span>, article, VOTE_SCORE)</span><br><span class="line">        <span class="comment"># HINCRBY 对散列存储的值进行自增</span></span><br><span class="line">        conn.hincrby(article, <span class="string">&#x27;vote&#x27;</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">post_article</span>(<span class="params">conn, user, title, link</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    新增文章函数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># INCR 计数器自增</span></span><br><span class="line">    article_id = <span class="built_in">str</span>(conn.incr(<span class="string">&#x27;article:&#x27;</span>))</span><br><span class="line">    voted = <span class="string">&#x27;voted:&#x27;</span> + article_id</span><br><span class="line">    conn.sadd(voted, user)</span><br><span class="line">    conn.expire(voted, ONE_WEEK_IN_SECONDS)</span><br><span class="line"></span><br><span class="line">    now = time.time()</span><br><span class="line">    article = <span class="string">&#x27;article:&#x27;</span> + article_id</span><br><span class="line">    conn.hmset(article, &#123;</span><br><span class="line">        <span class="string">&#x27;title&#x27;</span>: title,</span><br><span class="line">        <span class="string">&#x27;link&#x27;</span>: link,</span><br><span class="line">        <span class="string">&#x27;poster&#x27;</span>: user,</span><br><span class="line">        <span class="string">&#x27;time&#x27;</span>: now,</span><br><span class="line">        <span class="string">&#x27;votes&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">    conn.zadd(<span class="string">&#x27;score:&#x27;</span>, &#123;article: now + VOTE_SCORE&#125;)</span><br><span class="line">    conn.zadd(<span class="string">&#x27;time:&#x27;</span>, &#123;article: now&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> article_id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ARTICLES_PER_PAGE = <span class="number">25</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_articles</span>(<span class="params">conn, page, order=<span class="string">&#x27;score:&#x27;</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">  获取所有文章</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    start = (page - <span class="number">1</span>) * ARTICLES_PER_PAGE</span><br><span class="line">    end = start + ARTICLES_PER_PAGE - <span class="number">1</span></span><br><span class="line">    ids = conn.zrevrange(order, start, end)</span><br><span class="line">    articles = []</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">id</span> <span class="keyword">in</span> ids:</span><br><span class="line">        article_data = conn.hgetall(<span class="built_in">id</span>)</span><br><span class="line">        article_data[<span class="string">&#x27;id&#x27;</span>] = <span class="built_in">id</span></span><br><span class="line">        articles.append(article_data)</span><br><span class="line">    <span class="keyword">return</span> articles</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_remove_groups</span>(<span class="params">conn, article_id, to_add=<span class="literal">None</span>, to_remove=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    添加或删除分类</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> to_remove <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        to_remove = []</span><br><span class="line">    <span class="keyword">if</span> to_add <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        to_add = []</span><br><span class="line">    article = <span class="string">&#x27;article:&#x27;</span> + article_id</span><br><span class="line">    <span class="keyword">for</span> group <span class="keyword">in</span> to_add:</span><br><span class="line">        conn.sadd(<span class="string">&#x27;group:&#x27;</span> + group, article)</span><br><span class="line">    <span class="keyword">for</span> group <span class="keyword">in</span> to_remove:</span><br><span class="line">        conn.srem(<span class="string">&#x27;group:&#x27;</span> + group, article)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_group_articles</span>(<span class="params">conn, group, page, order=<span class="string">&#x27;score:&#x27;</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    通过分类获取所有文章</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    key = order + group</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> conn.exists(key):</span><br><span class="line">        conn.zinterstore(key, [<span class="string">&#x27;group:&#x27;</span> + group, order], aggregate=<span class="string">&#x27;max&#x27;</span>)</span><br><span class="line">        conn.expire(key, <span class="number">60</span>)</span><br><span class="line">    <span class="keyword">return</span> get_articles(conn, page, key)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># post_article(conn, &quot;Ropon&quot;, &quot;Python从入门到放弃&quot;, &quot;https://www.ropon.top/1.html&quot;)</span></span><br><span class="line">article_vote(conn, <span class="string">&quot;Ropon&quot;</span>, <span class="string">&quot;article:5&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2022/12/26/Redis%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" data-id="clc4jp0kc00048eobgiwh0def" data-title="Redis相关知识" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/12/26/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Docker相关知识总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/26/kubernets%E7%9F%A5%E8%AF%86%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">kubernets知识点</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

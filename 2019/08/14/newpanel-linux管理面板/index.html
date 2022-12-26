@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NewPanel Linux管理面板 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="技术栈 前端：Vue Vue-router Vue-cookies Vuex Axios Element-ui 后端: Flask Flask-restful Shell脚本  主要功能 网站创建管理、FTP创建管理、数据库创建管理 系统信息在线查看（CPU、内存、负载、带宽使用情况、磁盘使用率） 在线安装软件、修改密码、文件管理  网站管理 输入站点名一键创建网站、FTP、数据库 支持部署htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NewPanel Linux管理面板">
+<meta property="og:url" content="https://blog.ropon.top/2019/08/14/newpanel-linux%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="技术栈 前端：Vue Vue-router Vue-cookies Vuex Axios Element-ui 后端: Flask Flask-restful Shell脚本  主要功能 网站创建管理、FTP创建管理、数据库创建管理 系统信息在线查看（CPU、内存、负载、带宽使用情况、磁盘使用率） 在线安装软件、修改密码、文件管理  网站管理 输入站点名一键创建网站、FTP、数据库 支持部署htt">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.ropon.top/wp-content/uploads/2019/08/1.jpg">
+<meta property="og:image" content="https://www.ropon.top/wp-content/uploads/2019/08/2-1024x572.jpg">
+<meta property="og:image" content="https://www.ropon.top/wp-content/uploads/2019/08/4-1024x386.jpg">
+<meta property="og:image" content="https://www.ropon.top/wp-content/uploads/2019/08/5-1024x280.jpg">
+<meta property="og:image" content="https://www.ropon.top/wp-content/uploads/2019/08/6-1024x317.jpg">
+<meta property="article:published_time" content="2019-08-14T08:32:45.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.366Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ropon.top/wp-content/uploads/2019/08/1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-newpanel-linux管理面板" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/14/newpanel-linux%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF/" class="article-date">
+  <time class="dt-published" datetime="2019-08-14T08:32:45.000Z" itemprop="datePublished">2019-08-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NewPanel Linux管理面板
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h4><ul>
+<li>前端：Vue Vue-router Vue-cookies Vuex Axios Element-ui</li>
+<li>后端: Flask Flask-restful</li>
+<li>Shell脚本</li>
+</ul>
+<h4 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h4><ul>
+<li>网站创建管理、FTP创建管理、数据库创建管理</li>
+<li>系统信息在线查看（CPU、内存、负载、带宽使用情况、磁盘使用率）</li>
+<li>在线安装软件、修改密码、文件管理</li>
+</ul>
+<h4 id="网站管理"><a href="#网站管理" class="headerlink" title="网站管理"></a>网站管理</h4><ul>
+<li>输入站点名一键创建网站、FTP、数据库</li>
+<li>支持部署https</li>
+<li>支持配置301，伪静态</li>
+<li>支持调整额外参数 404错误页、安全加固、防盗链等</li>
+</ul>
+<h4 id="FTP管理"><a href="#FTP管理" class="headerlink" title="FTP管理"></a>FTP管理</h4><ul>
+<li>增删改查FTP站点</li>
+<li>开关FTP站点</li>
+</ul>
+<h4 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h4><ul>
+<li>一键创建数据库</li>
+<li>一键开关远程连接</li>
+</ul>
+<h4 id="软件管理"><a href="#软件管理" class="headerlink" title="软件管理"></a>软件管理</h4><ul>
+<li>一键安装或卸载Nginx、Php、Mysql、Ftp</li>
+</ul>
+<h4 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h4><ul>
+<li>在线查看文件</li>
+<li>编辑文件</li>
+<li>删除文件</li>
+<li>新建文件</li>
+</ul>
+<h4 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h4><p><code>wget http://panel.ropon.top/panel/lnmp.tar.gz &amp;&amp; tar xf lnmp.tar.gz &amp;&amp; cd lnmp &amp;&amp; ./install.sh</code></p>
+<h4 id="源码获取"><a href="#源码获取" class="headerlink" title="源码获取"></a>源码获取</h4><p><code>wget http://panel.ropon.top/panel/lnmp/panel-1.1.tar.gz</code></p>
+<h4 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h4><ul>
+<li>启动关闭重启面板服务 <code>systemctl startstoprestart newpanel</code></li>
+<li>重置管理用户名及密码： <code>source /home/panel/newpanel/.py3env/bin/activate &amp;&amp; cd /home/panel/newpanel &amp;&amp; python3 manager.py repasswd</code></li>
+</ul>
+<h4 id="Panel界面"><a href="#Panel界面" class="headerlink" title="Panel界面"></a>Panel界面</h4><p><img src="https://www.ropon.top/wp-content/uploads/2019/08/1.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/2-1024x572.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/4-1024x386.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/5-1024x280.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/6-1024x317.jpg"></p>
+<h4 id="API接口文档"><a href="#API接口文档" class="headerlink" title="API接口文档"></a>API接口文档</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ropon.top/593.html">https://www.ropon.top/593.html</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/08/14/newpanel-linux%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF/" data-id="clc4klg680067ojob5b8e7wgf" data-title="NewPanel Linux管理面板" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/20/python-%E7%B1%BB%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E6%A2%B3%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python 类高级用法梳理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/09/ftp-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ftp 一键安装shell脚本</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

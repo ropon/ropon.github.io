@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Django之orm模型 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django之orm模型">
+<meta property="og:url" content="https://blog.ropon.top/2018/11/22/django%E4%B9%8Borm%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-11-22T09:40:53.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.253Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-django之orm模型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/22/django%E4%B9%8Borm%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2018-11-22T09:40:53.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Django/">Django</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Django之orm模型
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br></pre></td><td class="code"><pre><span class="line"># 默认使用sqlite</span><br><span class="line"># DATABASES = &#123;</span><br><span class="line">#     &#x27;default&#x27;: &#123;</span><br><span class="line">#         &#x27;ENGINE&#x27;: &#x27;django.db.backends.sqlite3&#x27;,</span><br><span class="line">#         &#x27;NAME&#x27;: os.path.join(BASE_DIR, &#x27;db.sqlite3&#x27;),</span><br><span class="line">#     &#125;</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line"># 修改使用mysql</span><br><span class="line"># 导入pymysql模块</span><br><span class="line">import pymysql</span><br><span class="line"></span><br><span class="line">pymysql.install_as_MySQLdb()</span><br><span class="line"></span><br><span class="line"># 配置以下代码</span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    &#x27;default&#x27;: &#123;</span><br><span class="line">        &#x27;ENGINE&#x27;: &#x27;django.db.backends.mysql&#x27;,</span><br><span class="line">        &#x27;NAME&#x27;: &#x27;db_name&#x27;,</span><br><span class="line">        &#x27;HOST&#x27;: &#x27;x.x.x.x&#x27;,</span><br><span class="line">        &#x27;PORT&#x27;: &#x27;3306&#x27;,</span><br><span class="line">        &#x27;USER&#x27;: &#x27;user&#x27;,</span><br><span class="line">        &#x27;PASSWORD&#x27;: &#x27;password&#x27;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line"># Create your models here.</span><br><span class="line"># ORM 对象--关系--映射</span><br><span class="line"></span><br><span class="line"># 单表操作</span><br><span class="line"># 比如创建一个图书表</span><br><span class="line"></span><br><span class="line"># 创建模型</span><br><span class="line">class Book(models.Model):</span><br><span class="line">    id = models.AutoField(primary_key=True)</span><br><span class="line">    title = models.CharField(max_length=32)</span><br><span class="line">    state = models.BooleanField()</span><br><span class="line">    pub_date = models.DateField()</span><br><span class="line">    price = models.DecimalField(max_digits=5, decimal_places=2) # 最大999.99</span><br><span class="line">    publish = models.CharField(max_length=32)</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">字段</span><br><span class="line">AutoField</span><br><span class="line">    自定义一个主键 my_id = models.AutoField(primary_key=True)</span><br><span class="line">    </span><br><span class="line">CharField</span><br><span class="line">    字符串字段 用于较短的字符串</span><br><span class="line">    CharField 必须有一个参数max_length 允许的最大字符数</span><br><span class="line">    title = models.CharField(max_length=32)</span><br><span class="line"></span><br><span class="line">IntegerField</span><br><span class="line">    一个整数</span><br><span class="line">    sid = models.IntegerField</span><br><span class="line"></span><br><span class="line">FloatFieldDecimalField</span><br><span class="line">    一个浮点数 必须提供两个参数</span><br><span class="line">    max_digits 总位数 不包括小数点和符号</span><br><span class="line">    decimal_places 小数位数</span><br><span class="line">    price = models.DecimalField(max_digits=5, decimal_places=2) # 最大999.99</span><br><span class="line">    </span><br><span class="line">BooleanField</span><br><span class="line">    一个布尔值True或False</span><br><span class="line"></span><br><span class="line">TextField</span><br><span class="line">    大容量的文本字段</span><br><span class="line">    </span><br><span class="line">EmailField</span><br><span class="line">    带校验Email是否合法的CharField 不需要参数max_length</span><br><span class="line">    </span><br><span class="line">DateField</span><br><span class="line">    一个日期字段</span><br><span class="line">    可选参数</span><br><span class="line">        Argument 描述</span><br><span class="line">        auto_now 当对象被保存时 自动将改字段的值设置为当前时间</span><br><span class="line">        auto_now_add 当对象首次被创建时 自动将该字段的值设置为当前时间</span><br><span class="line">        </span><br><span class="line">DateTimeField</span><br><span class="line">    一个时间字段</span><br><span class="line">    可选参数</span><br><span class="line">        同DateField</span><br><span class="line"></span><br><span class="line">FileField</span><br><span class="line">    一个文件上传字段</span><br><span class="line">    必须提供参数 upload_to 用于保存上传文件的本地系统路径</span><br><span class="line">    </span><br><span class="line">ImageField</span><br><span class="line">    类似于FileField 不过要校验上传对象是否是合法图片 </span><br><span class="line">    可选参数</span><br><span class="line">        height_field</span><br><span class="line">        width_field</span><br><span class="line">    加这两个参数 则图片将按提供的宽度和高度保存</span><br><span class="line">    </span><br><span class="line">注意 要在model中使用FileField 和ImageField 需要以下步骤</span><br><span class="line">    setting文件中定义一个完整路径给MEDIA_ROOT 以便于django在此保存上传文件</span><br><span class="line">    同时要定义 MEDIA_URL 作为该目录的公共 URL</span><br><span class="line">    </span><br><span class="line">    在model中添加FileField 和ImageField 确认定义upload_to 选项 告诉django使用MEDIA_ROOT</span><br><span class="line">    的那个子目录保存上传文件 数据库中保存文件路径</span><br><span class="line"></span><br><span class="line">URLField</span><br><span class="line">    用于保存URL 加参数verify_exists 默认为True 检查URL是否存在也就是URL是否有效且没有返回403响应</span><br><span class="line">    </span><br><span class="line">NullBooleanField</span><br><span class="line">    类似于BooleanField 不允许为空</span><br><span class="line">    </span><br><span class="line">SlugField</span><br><span class="line">    短签 只包含字母 数字 下划线_ 连字符.</span><br><span class="line">    </span><br><span class="line">XMLField</span><br><span class="line">    一个校验值是否为合法XML的TextField 必须提供参数schema_path</span><br><span class="line">    用于校验文本的 RelaxNG schema 的文件系统路径</span><br><span class="line">    </span><br><span class="line">FilePathField</span><br><span class="line">  可选项目 某个指定目录的文件名 支持三个特殊参数 第一个必须</span><br><span class="line">  path 必需参数 一个目录的绝对路径 </span><br><span class="line">  math </span><br><span class="line">  recursive</span><br><span class="line">    </span><br><span class="line">IPAddressField</span><br><span class="line">    一个字符串形式的IP地址 &quot;1.2.4.8&quot;</span><br><span class="line"></span><br><span class="line">CommaSeparatedIntegerField</span><br><span class="line">    用于存放逗号分隔的整数值 类似于CharField 必须提供maxlength参数</span><br><span class="line"> </span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">参数</span><br><span class="line"></span><br><span class="line">null </span><br><span class="line">如果为True django 将用null存数据库中空值 默认为False</span><br><span class="line"></span><br><span class="line">blank</span><br><span class="line">如果为True 该字段允许不填 默认为False</span><br><span class="line">与null区别</span><br><span class="line">    null是数据库范畴</span><br><span class="line">    blank是数据验证范畴</span><br><span class="line">如果一个字段blank=True 表单验证允许该字段是空值 反之不允许</span><br><span class="line"></span><br><span class="line">default</span><br><span class="line">字段的默认值 可以是一个值或者可调用对象</span><br><span class="line"></span><br><span class="line">primary key</span><br><span class="line">如果为True 那么该字段 就是模型的主键 如果没有指定任何字段</span><br><span class="line">django 就会自动添加一个IntegerField字段作为主键</span><br><span class="line"></span><br><span class="line">unique</span><br><span class="line">如果为True 这个数据自动的值在整张表必须是唯一的</span><br><span class="line"></span><br><span class="line">choices</span><br><span class="line">由二元组组成一个可迭代对象(如 列表 元组)</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"># 通过以下两条数据库迁移命令更新创建表</span><br><span class="line"># python manage.py makemigrations</span><br><span class="line"># python manage.py migrate</span><br><span class="line"></span><br><span class="line"># 新增记录</span><br><span class="line"># book_obj = Book.objects.create(</span><br><span class="line">#     title=&#x27;Python从入门到精通&#x27;,</span><br><span class="line">#     state=True,</span><br><span class="line">#     price=100,</span><br><span class="line">#     publish=&#x27;XXX出版社&#x27;,</span><br><span class="line">#     pub_date=&#x27;2016-12-10&#x27;</span><br><span class="line"># )</span><br><span class="line">#</span><br><span class="line"># book_obj2 = Book(</span><br><span class="line">#     title=&#x27;Php从入门到实战&#x27;,</span><br><span class="line">#     state=True,</span><br><span class="line">#     price=90,</span><br><span class="line">#     publish=&#x27;YYY出版社&#x27;,</span><br><span class="line">#     pub_date=&#x27;2017-12-10&#x27;</span><br><span class="line"># )</span><br><span class="line"># book_obj2.save()</span><br><span class="line"></span><br><span class="line"># 删除记录</span><br><span class="line">def delbook(request, did=None):</span><br><span class="line">    # delete()方法由QuerySet调用</span><br><span class="line">    # model对象也有delete() 方法</span><br><span class="line">    # Book.objects.filter(id=did).delete()</span><br><span class="line">    Book.objects.get(id=did).delete()</span><br><span class="line">    return redirect(reverse(&quot;app01:books&quot;))</span><br><span class="line"></span><br><span class="line">更新记录</span><br><span class="line">data = request.POST.dict()</span><br><span class="line">        del data[&#x27;csrfmiddlewaretoken&#x27;]</span><br><span class="line">        # update() 方法只能由QuerySet调用</span><br><span class="line">        Book.objects.filter(id=eid).update(**data) # **将一个字典打散</span><br><span class="line">        return redirect(reverse(&quot;app01:books&quot;))</span><br><span class="line"></span><br><span class="line">查询记录</span><br><span class="line">查询所有结果 由object调用 返回QuerySet对象</span><br><span class="line">ret = Book.objects.all()</span><br><span class="line"></span><br><span class="line">查询所有筛选条件匹配的对象 由object调用 返回的是QuerySet</span><br><span class="line">Book.objects.filter(title=&#x27;Linux&#x27;)</span><br><span class="line"></span><br><span class="line">查询筛选条件匹配的对象 返回结果有且只有一个</span><br><span class="line">如果匹配对象超过一个或者没有将抛出错误</span><br><span class="line">由object调用 返回的是models对象</span><br><span class="line">Book.objects.get(title=&#x27;Java&#x27;)</span><br><span class="line"></span><br><span class="line">查询所有筛选条件不匹配的对象 由object调用 返回的是QuerySet</span><br><span class="line">Book.objects.exclude(price=100)</span><br><span class="line"></span><br><span class="line">对查询结果排序 &#x27;id&#x27; 升序 &#x27;-id&#x27; 降序 由QuerySet调用 返回的是QuerySet</span><br><span class="line">Book.objects.all().order_by(&#x27;-id&#x27;)</span><br><span class="line"></span><br><span class="line">对查询结果反向排序 由QuerySet调用 返回的是QuerySet</span><br><span class="line">Book.objects.all().order_by(&#x27;-price&#x27;, &#x27;-id&#x27;).reverse()</span><br><span class="line"></span><br><span class="line">返回匹配的对象数量 由QuerySet调用 返回init</span><br><span class="line">Book.objects.all().order_by(&#x27;-price&#x27;, &#x27;-id&#x27;).count()</span><br><span class="line"></span><br><span class="line">返回第一条记录 由QuerySet调用 返回的是models对象</span><br><span class="line">Book.objects.all().order_by(&#x27;-price&#x27;, &#x27;-id&#x27;).first()</span><br><span class="line"></span><br><span class="line">返回最后一条记录 由QuerySet调用 返回的是models对象</span><br><span class="line">Book.objects.all().order_by(&#x27;-price&#x27;, &#x27;-id&#x27;).last()</span><br><span class="line"></span><br><span class="line">查询对象是否包含数据 是否存在 存在True 否则False 由QuerySet调用 返回布尔值</span><br><span class="line">Book.objects.filter(title=&#x27;Linux入门&#x27;).exists()</span><br><span class="line"></span><br><span class="line">由QuerySet调用 返回的是QuerySet 元素是字典</span><br><span class="line">Book.objects.all().values(&#x27;title&#x27;)</span><br><span class="line"></span><br><span class="line">由QuerySet调用 返回的是QuerySet 元素是元组</span><br><span class="line">Book.objects.all().values_list(&#x27;title&#x27;)</span><br><span class="line"></span><br><span class="line">去重 由QuerySet调用 返回的是QuerySet</span><br><span class="line">Book.objects.all().values_list(&#x27;title&#x27;).distinct()</span><br><span class="line"></span><br><span class="line">模糊查询</span><br><span class="line">价格在100 200 300</span><br><span class="line">Book.objects.filter(price__in=[100,200,300])</span><br><span class="line"></span><br><span class="line">价格大于100</span><br><span class="line">Book.objects.filter(price__gt=100)</span><br><span class="line"></span><br><span class="line">价格大于等于100</span><br><span class="line">Book.objects.filter(price__gte=100)</span><br><span class="line"></span><br><span class="line">价格小于100</span><br><span class="line">Book.objects.filter(price__lt=100)</span><br><span class="line"></span><br><span class="line">价格小于等于100</span><br><span class="line">Book.objects.filter(price__lte=100)</span><br><span class="line">价格在100 到 200 之间 包括100和200</span><br><span class="line">Book.objects.filter(price__range=[100,200])</span><br><span class="line"></span><br><span class="line">标题含有Python关键字 精确</span><br><span class="line">Book.objects.filter(title__contains=&#x27;Python&#x27;)</span><br><span class="line"></span><br><span class="line">标题含有Python关键字 不区分大小写</span><br><span class="line">Book.objects.filter(title__icontains=&#x27;Python&#x27;)</span><br><span class="line"></span><br><span class="line">标题以Py关键字开头 精确</span><br><span class="line">Book.objects.filter(title__startswith=&quot;Py&quot;)</span><br><span class="line"></span><br><span class="line">标题含有Python关键字 不区分大小写</span><br><span class="line">Book.objects.filter(title__icontains=&#x27;Python&#x27;)</span><br><span class="line"></span><br><span class="line">标题以a关键字结尾 精确</span><br><span class="line">Book.objects.filter(title__endswith=&#x27;a&#x27;)</span><br><span class="line"></span><br><span class="line">标题以a关键字结尾 不区分大小写</span><br><span class="line">Book.objects.filter(title__iendswith=&#x27;a&#x27;)</span><br><span class="line">查询出版日期是</span><br><span class="line">2012 Book.objects.filter(pub_date__year=2012)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/11/22/django%E4%B9%8Borm%E6%A8%A1%E5%9E%8B/" data-id="clc4klg4u001tojobdr112qjv" data-title="Django之orm模型" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/29/django%E4%B9%8Borm%E6%A8%A1%E5%9E%8B2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Django之orm模型2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/21/django%E4%B9%8Btpl%E6%A8%A1%E6%9D%BF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Django之tpl模板</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

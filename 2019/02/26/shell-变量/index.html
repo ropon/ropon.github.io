@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>shell 变量 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899# 定义普通变量 只能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell 变量">
+<meta property="og:url" content="https://blog.ropon.top/2019/02/26/shell-%E5%8F%98%E9%87%8F/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899# 定义普通变量 只能">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-02-26T09:21:24.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.318Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-shell-变量" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/02/26/shell-%E5%8F%98%E9%87%8F/" class="article-date">
+  <time class="dt-published" datetime="2019-02-26T09:21:24.000Z" itemprop="datePublished">2019-02-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      shell 变量
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"># 定义普通变量 只能由字母、数字、下划线组成，只能以字母或下划线开头</span><br><span class="line">web_path=/home/wwwroot</span><br><span class="line">web_path=&#x27;/home/wwwroot&#x27;</span><br><span class="line">web_path=&quot;/home/wwwroot&quot;</span><br><span class="line">web_path=$(pwd) # 命令执行结果赋给变量</span><br><span class="line"></span><br><span class="line"># awk输出</span><br><span class="line"> web_tpye=123web_tpye=&#x27;ropon&#x27;web_tpye=&quot;ropon&quot;web_tpye=`pwd`</span><br><span class="line">awk &#x27;BEGIN &#123;print &quot;$test&quot;&#125;&#x27;    $web_tpye $web_tpye$web_tpye   $web_tpye</span><br><span class="line">awk &#x27;BEGIN &#123;print $test&#125;&#x27;    </span><br><span class="line">awk &#x27;BEGIN &#123;print &#x27;$test&#x27;&#125;&#x27;    123     语法报错</span><br><span class="line">awk &#x27;BEGIN &#123;print &quot;&#x27;$test&#x27;&quot;&#125;&#x27;    123 roponropon   ropon</span><br><span class="line"></span><br><span class="line"># 特殊位置参数变量</span><br><span class="line"># $0 获取当前执行shell脚本的文件名，如果执行脚本包含路径，那么就包含路径</span><br><span class="line"># $n 获取当前执行shell脚本的第n个参数值，n=1...9 当n为0时表示脚本的文件名 n大于9 用$&#123;10...&#125;表示</span><br><span class="line"># $# 获取当前执行shell脚本接收参数的总个数</span><br><span class="line"># $* 获取当前执行shell脚本所有参数，不加引号和$@相同 如果&quot;$*&quot; 表示将所有参数视为一个字符串 相当于&quot;$1$2$3&quot;</span><br><span class="line"># $@ 获取当前执行shell脚本所有参数，不加引号和$*相同 如果&quot;$@&quot; 表示将所有参数视为不同字符串 相当于&quot;$1&quot;&quot;$2&quot;&quot;$3&quot;</span><br><span class="line"></span><br><span class="line"># dirname 获取脚本的路径</span><br><span class="line">dirname /root/studyshell.sh </span><br><span class="line"># basename 获取脚本名字</span><br><span class="line">basename /root/studyshell.sh</span><br><span class="line"></span><br><span class="line">set -- 清除所有参数变量</span><br><span class="line"></span><br><span class="line">set -- &quot;My name&quot; is Ropon</span><br><span class="line">echo $#</span><br><span class="line">echo $1</span><br><span class="line">echo $2</span><br><span class="line">echo $3</span><br><span class="line"></span><br><span class="line">echo $*</span><br><span class="line">echo $@</span><br><span class="line"></span><br><span class="line">echo &quot;$*&quot;</span><br><span class="line">echo &quot;$@&quot;</span><br><span class="line"></span><br><span class="line">for i in $*; do echo $i; done</span><br><span class="line">for i in $@; do echo $i; done</span><br><span class="line"></span><br><span class="line">for i in &quot;$*&quot;; do echo $i; done</span><br><span class="line">for i in &quot;$@&quot;; do echo $i; done 等价于 for i; do echo $i; done</span><br><span class="line"></span><br><span class="line">$? 获取上一条指令执行状态返回值（0为成功，非零为失败）</span><br><span class="line">$$ 获取当前执行shell脚本的进程号</span><br><span class="line">$! 获取上一个在后台工作的进程的进程号</span><br><span class="line">$_ 获取在此之前执行的命令或脚本的最后一个参数</span><br><span class="line"></span><br><span class="line">sed -n &#x27;2,4p&#x27; studyshell.sh #查看studyshell.sh 第2到4行代码</span><br><span class="line"></span><br><span class="line">echo -n 不换行输出内容</span><br><span class="line"> -e 解析转义字符</span><br><span class="line"> \n 换行</span><br><span class="line"> \r 回车</span><br><span class="line"> \t tab</span><br><span class="line"> \b 退格</span><br><span class="line"> \v 纵向tab</span><br><span class="line"></span><br><span class="line">eval #语法 eval args</span><br><span class="line">eval &quot;echo \$$#&quot;</span><br><span class="line"></span><br><span class="line">exec #语法 eval 命令参数 不创建子进程前提下，去执行指定命令，执行完成后该进程就终止</span><br><span class="line"></span><br><span class="line">read</span><br><span class="line"></span><br><span class="line">shift #使用shift语句使用所有位置参数依次想左移动一个位置 $#值也会自动减1直到0为止</span><br><span class="line">echo $1 $2</span><br><span class="line">[ $# -eq 2 ] &amp;&amp; shift &amp;&amp; echo $1</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">shell变量子串</span><br><span class="line">$&#123;ropon&#125;#返回$ropon的内容</span><br><span class="line">$&#123;#ropon&#125;#返回$ropon内容的长度（按字符）也适用于特殊变量</span><br><span class="line">$&#123;ropon:offset&#125;#返回在变量$ropon中，从位置offset之后开始提取子串到结尾</span><br><span class="line">$&#123;ropon:offset:length&#125;#返回在变量$ropon中，从位置offset之后开始提取长度为length的子串</span><br><span class="line">$&#123;ropon#word&#125;#返回在变量$ropon开头删除首次匹配word剩余的子串</span><br><span class="line">$&#123;ropon##word&#125;#返回在变量$ropon开头删除匹配word多次剩余的子串</span><br><span class="line">$&#123;ropon%word&#125;#返回在变量$ropon结尾删除首次匹配word剩余的子串</span><br><span class="line">$&#123;ropon%%word&#125;#返回在变量$ropon结尾删除匹配word多次剩余的子串</span><br><span class="line">$&#123;ropon/pattern/string&#125; #返回使用string代替第一个匹配的pattern(贪婪模式匹配)</span><br><span class="line">$&#123;ropon//pattern/string&#125; #返回使用string代替第所有匹配的pattern</span><br><span class="line"></span><br><span class="line">ropon=&quot;abcABC123abcABCcaba&quot;</span><br><span class="line">echo $&#123;ropon#a*C&#125;#123abcABCcaba</span><br><span class="line">echo $&#123;ropon##a*C&#125;#caba</span><br><span class="line">echo $&#123;ropon%c*a&#125;#abcABC123abcABC</span><br><span class="line">echo $&#123;ropon%%c*a&#125;#ab</span><br><span class="line">echo $&#123;ropon/abc/11&#125; #11ABC123abcABCcaba</span><br><span class="line">echo $&#123;ropon//abc/11&#125; #11ABC12311ABCcaba</span><br><span class="line"></span><br><span class="line">shell特殊扩展变量</span><br><span class="line">$&#123;ropon:-word&#125;#如果ropon变量值为空或未定义，则返回word字符串</span><br><span class="line">$&#123;ropon:=word&#125;</span><br><span class="line">#如果ropon变量值为空或未定义，则返回word字符串，但位置变量和特殊变量不适用，与$&#123;ropon:-word&#125;用法相同，只不过将word赋给ropon</span><br><span class="line">$&#123;ropon:?word&#125;#如果ropon变量值为空或未定义，则word字符串作为标准错误输出，否则输出该变量的值</span><br><span class="line">$&#123;ropon:+word&#125;#如果ropon变量值为空或未定义，则什么都不做，否则wordp字符串替换变量值</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/02/26/shell-%E5%8F%98%E9%87%8F/" data-id="clc4klg6w008jojobgowdhe8u" data-title="shell 变量" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/20/flask-%E8%BF%94%E5%9B%9E%E6%96%B9%E5%BC%8F%E5%8F%8Arequest/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Flask Response及Request
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/21/centos%E6%89%B9%E9%87%8F%E7%BB%91%E5%AE%9Aipv6%E5%9C%B0%E5%9D%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Centos批量绑定IPV6地址</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

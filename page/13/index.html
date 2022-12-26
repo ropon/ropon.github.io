@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ropon运维">
+<meta property="og:url" content="https://blog.ropon.top/page/13/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:locale">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-wtforms-基本使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/10/wtforms-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2019-04-10T08:17:05.000Z" itemprop="datePublished">2019-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/10/wtforms-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">wtforms 基本使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, request, render_template</span><br><span class="line">from wtforms.fields import simple, core</span><br><span class="line">from wtforms import validators</span><br><span class="line">from wtforms import Form</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class LoginForm(Form):</span><br><span class="line">    username = simple.StringField(</span><br><span class="line">        label=&quot;用户名&quot;, # 标签标记</span><br><span class="line">        validators=[</span><br><span class="line">            validators.DataRequired(message=&quot;用户名不能为空&quot;),</span><br><span class="line">            validators.Length(min=3, max=10, message=&quot;用户名必须%(min)d-%(max)d个字符&quot;)</span><br><span class="line">        ], # 校验条件 可迭代对象</span><br><span class="line">        id=&quot;user_id&quot;, # 标签ID</span><br><span class="line">        default=None, # 默认值</span><br><span class="line">        widget=None, # 默认组件</span><br><span class="line">        render_kw=&#123;&quot;class&quot;: &quot;my_login&quot;&#125; # 模板渲染配置信息</span><br><span class="line">    )</span><br><span class="line">    password = simple.PasswordField(</span><br><span class="line">        label=&quot;密码&quot;,</span><br><span class="line">        validators=[</span><br><span class="line">            validators.DataRequired(message=&quot;密码不能为空&quot;),</span><br><span class="line">            validators.Length(min=6, max=12, message=&quot;密码必须%(min)d-%(max)d个字符&quot;)</span><br><span class="line">        ],</span><br><span class="line">        id=&quot;pwd_id&quot;,</span><br><span class="line">        render_kw=&#123;&quot;class&quot;: &quot;my_login&quot;&#125;</span><br><span class="line">    )</span><br><span class="line">    repassword = simple.PasswordField(</span><br><span class="line">        label=&quot;确认密码&quot;,</span><br><span class="line">        validators=[validators.EqualTo(fieldname=&quot;password&quot;, message=&quot;两次输入密码不一致&quot;)]</span><br><span class="line">    )</span><br><span class="line">    gender = core.RadioField(</span><br><span class="line">        label=&quot;性别&quot;,</span><br><span class="line">        coerce=int,</span><br><span class="line">        choices=(</span><br><span class="line">            (1, &quot;男&quot;),</span><br><span class="line">            (2, &quot;女&quot;)</span><br><span class="line">        ),</span><br><span class="line">        default=1</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;, methods=[&quot;GET&quot;, &quot;POST&quot;])</span><br><span class="line">def hello_world():</span><br><span class="line">    lf = LoginForm()</span><br><span class="line">    if request.method == &quot;POST&quot;:</span><br><span class="line">        lf = LoginForm(request.form)</span><br><span class="line">        if lf.validate():</span><br><span class="line">            return lf.data.get(&quot;username&quot;)</span><br><span class="line">    return render_template(&quot;login.html&quot;, wtf = lf)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/04/10/wtforms-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" data-id="clc4klg7i009yojob5na27p5s" data-title="wtforms 基本使用" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-flask-上传文件小例子" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/28/flask-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B0%8F%E4%BE%8B%E5%AD%90/" class="article-date">
+  <time class="dt-published" datetime="2019-03-28T03:45:41.000Z" itemprop="datePublished">2019-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/28/flask-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B0%8F%E4%BE%8B%E5%AD%90/">Flask 上传文件小例子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, views, request, jsonify</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">pkey = &#x27;xxxxxx&#x27;</span><br><span class="line">host = &#x27;127.0.0.1&#x27;</span><br><span class="line">port = 9080</span><br><span class="line">data = &#123;&#x27;code&#x27;: 200, &#x27;msg&#x27;: None&#125;</span><br><span class="line"># use:</span><br><span class="line"># curl -F &quot;rfile=@d:\12.txt&quot; -F &quot;ukey=xxxxxx&quot; http://127.0.0.1:9080/upfile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class UpFile(views.MethodView):</span><br><span class="line">    methods = [&#x27;GET&#x27;, &#x27;POST&#x27;]</span><br><span class="line">    decaorators = [&#x27;app.route&#x27;]</span><br><span class="line"></span><br><span class="line">    def get(self):</span><br><span class="line">        data[&#x27;code&#x27;] = 202</span><br><span class="line">        data[&#x27;msg&#x27;] = &#x27;forbidden&#x27;</span><br><span class="line">        return jsonify(data)</span><br><span class="line"></span><br><span class="line">    def post(self):</span><br><span class="line">        ukey = request.form.to_dict().get(&#x27;ukey&#x27;)</span><br><span class="line">        rfile = request.files.get(&#x27;rfile&#x27;)</span><br><span class="line">        if ukey == pkey and rfile is not None:</span><br><span class="line">            rfilename = rfile.filename</span><br><span class="line">            rfile.save(rfile.filename)</span><br><span class="line">            data[&#x27;msg&#x27;] = &#x27;%s upload success&#x27; % rfilename</span><br><span class="line">        else:</span><br><span class="line">            data[&#x27;code&#x27;] = 201</span><br><span class="line">            data[&#x27;msg&#x27;] = &#x27;error&#x27;</span><br><span class="line">        return jsonify(data)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.add_url_rule(&quot;/upfile&quot;, view_func=UpFile.as_view(&quot;upfile&quot;))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=host, port=port)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/03/28/flask-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B0%8F%E4%BE%8B%E5%AD%90/" data-id="clc4klg53002qojobdurz1x8z" data-title="Flask 上传文件小例子" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-flask-路由及蓝图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/22/flask-%E8%B7%AF%E7%94%B1%E5%8F%8A%E8%93%9D%E5%9B%BE/" class="article-date">
+  <time class="dt-published" datetime="2019-03-22T01:38:19.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/22/flask-%E8%B7%AF%E7%94%B1%E5%8F%8A%E8%93%9D%E5%9B%BE/">Flask 路由及蓝图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"># 路由</span><br><span class="line"># methods 配置请求允许方式 是复数也就是一个可迭代对象 [&quot;GET&quot;, &quot;POST&quot;]</span><br><span class="line"># endpoint 反向解析url地址的标志 默认是视图函数名 url_for()解析</span><br><span class="line"># defaults 配置视图函数的默认参数值 defaults=&#123;&quot;page&quot;: &quot;22&quot;&#125;</span><br><span class="line"># strict_slashes 是否严格遵循路由地址 默认是True 访问/index/1 会自动跳转到/index/1/</span><br><span class="line"># redirect_to 永久重定向 301</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/index/&lt;int:page&gt;/&#x27;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;], endpoint=&#x27;index&#x27;)</span><br><span class="line">def index(page):</span><br><span class="line">    # print(page, type(page))  # 接收的默认是字符串类型</span><br><span class="line">    # print(url_for(&#x27;index&#x27;, page=page))</span><br><span class="line">    # print(get_flashed_messages(category_filter=&quot;tag&quot;))</span><br><span class="line">    # print(get_flashed_messages(category_filter=&quot;tag1&quot;))</span><br><span class="line">    return &#x27;This is %s page&#x27; % page</span><br><span class="line"></span><br><span class="line"># flask实例化配置</span><br><span class="line"># template_folder=&quot;templates&quot; 配置模板路径</span><br><span class="line"># static_folder=&quot;static&quot; 配置静态文件路径</span><br><span class="line"># static_url_path=&quot;/static&quot; 配置静态文件路由地址 默认是&quot;/&quot;+static_folder</span><br><span class="line"># static_host=None 配置静态文件服务器地址</span><br><span class="line"># host_matching=False 需要先配置server_name</span><br><span class="line"># subdomain_matching=False 需要先配置server_name</span><br><span class="line"># instance_path=None 配置另外一个flask实例的路径</span><br><span class="line"># instance_relative_config=False 是否加载另外一个flask实例配置</span><br><span class="line"># root_path=None 配置主模块的绝对路径 默认是项目目录</span><br><span class="line"># subdomain=None 配置通过子域名访问</span><br><span class="line"></span><br><span class="line">from flask import Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[&quot;SERVER_NAME&quot;] = &quot;pg.top:5000&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/index&quot;, subdomain=&quot;index&quot;)</span><br><span class="line"># 通过 index.pg.top:5000/index 访问</span><br><span class="line"># subdomain 配置子域名</span><br><span class="line">def index():</span><br><span class="line">    print(&quot;index&quot;)</span><br><span class="line">    return &quot;index&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/space&quot;, subdomain=&quot;&lt;username&gt;&quot;)</span><br><span class="line"># 通过 lp.pg.top:5000/space 访问</span><br><span class="line"># 通过 xs.pg.top:5000/space 访问</span><br><span class="line">def userspace(username):</span><br><span class="line">    return username + &quot;.pg.top&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br><span class="line"></span><br><span class="line">app = Flask(__name__, template_folder=&quot;templates&quot;, static_folder=&quot;static&quot;, static_url_path=&quot;/static&quot;)</span><br><span class="line"></span><br><span class="line"># flask对象app配置</span><br><span class="line"># app.debug=False 是否开启调试模式</span><br><span class="line"># app.testing=False 是否开启测试模式</span><br><span class="line"># app.secret_key 配置使用内置session/flash 时加密字符串</span><br><span class="line"># app.permanent_session_lifetime=31 配置session生命周期 天为单位 默认31天</span><br><span class="line"># app.session_cookie_name 配置在cookie中存放session加密字符串的名字</span><br><span class="line"></span><br><span class="line">class FlaskDebug(object):</span><br><span class="line">    DEBUG = True</span><br><span class="line">    SECRET_KEY = &quot;debugjiamizifuchuan&quot;</span><br><span class="line">    PERMANENT_SESSION_LIFETIME = 7</span><br><span class="line">    SESSION_COOKIE_NAME = &quot;Debug_Session&quot;</span><br><span class="line"></span><br><span class="line"># 通过类方式导入配置</span><br><span class="line">app.config.from_object(FlaskDebug)</span><br><span class="line"></span><br><span class="line"># 蓝图</span><br><span class="line"># Blueprint 实际是一个不能被启动app flask实例</span><br><span class="line"># url_prefix=&quot;/stu&quot; 配置url前缀</span><br><span class="line"></span><br><span class="line">from flask import Blueprint</span><br><span class="line">stu = Blueprint(&quot;stu&quot;, __name__)</span><br><span class="line"></span><br><span class="line">@stu.route(&quot;/home&quot;)</span><br><span class="line">def index():</span><br><span class="line">    return &quot;这是stu首页&quot;</span><br><span class="line"></span><br><span class="line"># app中需要注册蓝图</span><br><span class="line">app.register_blueprint(student.stu)</span><br><span class="line"></span><br><span class="line"># 闪现 在session中存储一个暑假，读取是通过pop将数据移除</span><br><span class="line">from flask import flash</span><br><span class="line"># 存闪现并打个标签</span><br><span class="line">flash(&quot;闪现&quot;, &quot;tag&quot;)</span><br><span class="line">flash(&quot;闪现12&quot;, &quot;tag1&quot;)</span><br><span class="line"></span><br><span class="line"># 通过标签取闪现</span><br><span class="line">get_flashed_messages(category_filter=&quot;tag&quot;)</span><br><span class="line">get_flashed_messages(category_filter=[&quot;tag&quot;, &quot;tag1&quot;])</span><br><span class="line"></span><br><span class="line"># 中间件 用户发送请求时 执行__call__方法</span><br><span class="line"># class MiddleWare(object):</span><br><span class="line">#     def __init__(self, old_app):</span><br><span class="line">#         self.old_app = old_app</span><br><span class="line">#     def __call__(self, environ, start_response):</span><br><span class="line">#         print(&quot;执行前&quot;)</span><br><span class="line">#         ret = self.old_app(environ, start_response)</span><br><span class="line">#         print(&quot;执行后&quot;)</span><br><span class="line">#         return ret</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">#     app.wsgi_app = MiddleWare(app.wsgi_app)</span><br><span class="line">#     app.run(host=&quot;192.168.3.20&quot;)</span><br><span class="line"></span><br><span class="line"># 特殊装饰器函数</span><br><span class="line"># 请求进入视图之前</span><br><span class="line">@app.before_first_request</span><br><span class="line">def bfr1():</span><br><span class="line">    print(&quot;首次请求前执行&quot;)</span><br><span class="line"></span><br><span class="line">@app.before_request</span><br><span class="line">def br1():</span><br><span class="line">    print(&quot;每次请求前执行&quot;)</span><br><span class="line">    # return &quot;请求不合法!&quot;</span><br><span class="line">    err = &quot;请求不合法!&quot;</span><br><span class="line">    # return render_template(&quot;error.html&quot;, err_msg=err)</span><br><span class="line"></span><br><span class="line"># 在响应之前</span><br><span class="line">@app.after_request</span><br><span class="line">def ar1(args):</span><br><span class="line">    print(&quot;每次响应之前执行&quot;)</span><br><span class="line">    print(args)</span><br><span class="line">    return args</span><br><span class="line"></span><br><span class="line"># 正常情况下 before_request 自上而下执行 after_request 自下而上执行</span><br><span class="line"># 异常情况下 before_request1 after_request 自下而上执行</span><br><span class="line"></span><br><span class="line"># 自定义404错误页</span><br><span class="line">@app.errorhandler(404)</span><br><span class="line">def error404(err_info):</span><br><span class="line">    print(err_info)</span><br><span class="line">    return render_template(&quot;404.html&quot;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/03/22/flask-%E8%B7%AF%E7%94%B1%E5%8F%8A%E8%93%9D%E5%9B%BE/" data-id="clc4klg55002zojobgpwebp76" data-title="Flask 路由及蓝图" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-flask-模板及session" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/21/flask-%E6%A8%A1%E6%9D%BF%E5%8F%8Asession/" class="article-date">
+  <time class="dt-published" datetime="2019-03-21T01:44:26.000Z" itemprop="datePublished">2019-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/21/flask-%E6%A8%A1%E6%9D%BF%E5%8F%8Asession/">Flask 模板及session</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">总结</span><br><span class="line">&#123;&#123;  &#125;&#125; 引入变量</span><br><span class="line">Jinjia2模板语法 字典取值操作与python操作字典相似</span><br><span class="line">句点. 遍历复杂数据结构</span><br><span class="line">&#123;%  %&#125; 引入逻辑代码</span><br><span class="line"></span><br><span class="line">safe 或Markup 标识标签安全,取消转义</span><br><span class="line"></span><br><span class="line">后端定义函数,传入模板</span><br><span class="line">&#123;&#123; addfuc(199, 1) &#125;&#125;</span><br><span class="line"></span><br><span class="line">定义全局函数,无需传入前段直接使用</span><br><span class="line">@app.template_global()</span><br><span class="line">def testfunc(a, b):</span><br><span class="line">    return a - b</span><br><span class="line"></span><br><span class="line"># 定义全局过滤器,无需传入前段直接使用</span><br><span class="line">@app.template_filter()</span><br><span class="line">def ceshifunc(a, b, c):</span><br><span class="line">    return a + b + c</span><br><span class="line"></span><br><span class="line">宏定义</span><br><span class="line">&#123;% macro type_text(name, type) %&#125;</span><br><span class="line">    &#123;&#123; name &#125;&#125;: &lt;input type=&quot;&#123;&#123; type &#125;&#125;&quot; name=&quot;&#123;&#123; name &#125;&#125;&quot;&gt;</span><br><span class="line">&#123;% endmacro %&#125;</span><br><span class="line">&#123;&#123; type_text(&quot;cpu&quot;,&quot;text&quot;) &#125;&#125;</span><br><span class="line">&#123;&#123; type_text(&quot;memory&quot;,&quot;text&quot;) &#125;&#125;</span><br><span class="line"></span><br><span class="line">继承</span><br><span class="line">layout.html</span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line">...</span><br><span class="line">&#123;% endblock content %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% extends &quot;layout.html&quot; %&#125;</span><br><span class="line"></span><br><span class="line">include</span><br><span class="line">&#123;% include &quot;form.html&quot; %&#125;</span><br><span class="line"></span><br><span class="line"># session</span><br><span class="line"># app.secret_key = &quot;加密字符串&quot; 用于序列化和反序列化session</span><br><span class="line"># Flask默认将session存放到客户端Cookie中</span><br><span class="line"># 所以session用secret_key加密</span><br><span class="line"># 请求来临 进入视图函数 请求会带上cookie 从cookie取出session字符串 通过secret_key反序列化成字典</span><br><span class="line">session中存值 session[&quot;user&quot;] = &quot;ropon&quot;</span><br><span class="line">session中取值 user = session.get(&quot;user&quot;)</span><br><span class="line"># 可安装第三方组件Flask-Session 改变session存放位置</span><br><span class="line"></span><br><span class="line"># 装饰器回顾</span><br><span class="line">def wapper(func):</span><br><span class="line">    # @functools.wraps(func) 保留原始函数名</span><br><span class="line">    def inner(*args, **kwargs):</span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = func(*args, **kwargs)</span><br><span class="line">        end = time.time()</span><br><span class="line">        print(end - start)</span><br><span class="line">        return ret</span><br><span class="line"></span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@wapper</span><br><span class="line">def ceshi():</span><br><span class="line">    for i in range(100000000):</span><br><span class="line">        continue</span><br><span class="line">    return &quot;test&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(ceshi())</span><br><span class="line">print(ceshi.__name__)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/03/21/flask-%E6%A8%A1%E6%9D%BF%E5%8F%8Asession/" data-id="clc4klg54002vojobhbydgtni" data-title="Flask 模板及session" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-flask-返回方式及request" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/20/flask-%E8%BF%94%E5%9B%9E%E6%96%B9%E5%BC%8F%E5%8F%8Arequest/" class="article-date">
+  <time class="dt-published" datetime="2019-03-20T03:34:06.000Z" itemprop="datePublished">2019-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/20/flask-%E8%BF%94%E5%9B%9E%E6%96%B9%E5%BC%8F%E5%8F%8Arequest/">Flask Response及Request</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template, redirect, jsonify, send_file, request</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def hello_world():</span><br><span class="line">    # return &#x27;Flask Hello&#x27;</span><br><span class="line">    return redirect(&quot;/login&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/login&#x27;, methods=[&quot;GET&quot;, &quot;POST&quot;])</span><br><span class="line">def login():</span><br><span class="line">    # print(&quot;method:&quot;, request.method)</span><br><span class="line">    # print(&quot;form:&quot;, request.form.to_dict())</span><br><span class="line">    # print(request.form.get(&quot;username&quot;))</span><br><span class="line">    # print(&quot;get&quot;, request.args)</span><br><span class="line">    # print(request.args.get(&quot;username&quot;))</span><br><span class="line">    # print(request.path)</span><br><span class="line">    print(request.url)</span><br><span class="line">    print(request.host)</span><br><span class="line">    print(request.host_url)</span><br><span class="line">    # print(request.json)</span><br><span class="line">    # print(request.data)</span><br><span class="line">    # print(request.values)</span><br><span class="line">    # print(request.values.to_dict())</span><br><span class="line">    # print(request.cookies)</span><br><span class="line">    # print(request.headers)</span><br><span class="line">    if request.method == &quot;POST&quot;:</span><br><span class="line">        # if request.form.get(&quot;username&quot;) == &quot;ropon&quot; and request.form.get(&quot;password&quot;) == &quot;123&quot;:</span><br><span class="line">        #     return &quot;登录成功&quot;</span><br><span class="line">        # else:</span><br><span class="line">        #     return &quot;用户名或密码错误&quot;</span><br><span class="line">        # my_file = request.files.get(&quot;my_file&quot;)</span><br><span class="line">        # my_file.save(my_file.filename)</span><br><span class="line">        return &quot;test&quot;</span><br><span class="line"></span><br><span class="line">    return render_template(&quot;login.html&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/jsontest&#x27;)</span><br><span class="line">def jsontest():</span><br><span class="line">    return jsonify(&#123;&quot;name&quot;: &quot;ropon&quot;, &quot;age&quot;: 18&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/filetest&#x27;)</span><br><span class="line">def filetest():</span><br><span class="line">    return send_file(&quot;11.mp4&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br><span class="line"></span><br><span class="line"># 总结</span><br><span class="line"># 使用前需要先导入</span><br><span class="line"># django                    flask</span><br><span class="line"># HttpResponse(&quot;字符串&quot;)     return &quot;字符串&quot;</span><br><span class="line"># render(&quot;模板文件)          render_template(&quot;模板文件&quot;)</span><br><span class="line"># redirect(&quot;重定向URL&quot;)      redirect(&quot;重定向URL&quot;)</span><br><span class="line"></span><br><span class="line"># 额外新增</span><br><span class="line"># jsonify(&quot;&quot;) 返回标准json字符串</span><br><span class="line"># send_file(&quot;&quot;) 返回文件内容(自动识别文件类型)</span><br><span class="line"></span><br><span class="line"># request.method 请求方式</span><br><span class="line"># request.form 获取formdata中的数据 to_dict() 序列化成字典</span><br><span class="line"># request.args 获取URL中的数据 to_dict() 序列化成字典</span><br><span class="line"># request.values 获取formdata,URL中的数据 URL中数据会覆盖formdata中的数据,不要使用to_dict()</span><br><span class="line"># request.url 获取访问的完整路径</span><br><span class="line"># request.host 获取主机地址</span><br><span class="line"># request.host_url 获取加协议主机地址</span><br><span class="line"># request.path 获取路由地址</span><br><span class="line"># request.json 获取json数据,也就是说请求头中Content-Type:application/json</span><br><span class="line"># request.data 获取原始数据 byte</span><br><span class="line"># request.cookies 获取cookie中的数据</span><br><span class="line"># request.headers 获取请求头</span><br><span class="line"># request.files 获取上传文件信息,通过save(file_obj.filename)方法保存,注意form表单配置enctype=&quot;multipart/form-data&quot;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/03/20/flask-%E8%BF%94%E5%9B%9E%E6%96%B9%E5%BC%8F%E5%8F%8Arequest/" data-id="clc4klg560031ojobhi2j7el5" data-title="Flask Response及Request" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-shell-变量" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/02/26/shell-%E5%8F%98%E9%87%8F/" class="article-date">
+  <time class="dt-published" datetime="2019-02-26T09:21:24.000Z" itemprop="datePublished">2019-02-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/02/26/shell-%E5%8F%98%E9%87%8F/">shell 变量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"># 定义普通变量 只能由字母、数字、下划线组成，只能以字母或下划线开头</span><br><span class="line">web_path=/home/wwwroot</span><br><span class="line">web_path=&#x27;/home/wwwroot&#x27;</span><br><span class="line">web_path=&quot;/home/wwwroot&quot;</span><br><span class="line">web_path=$(pwd) # 命令执行结果赋给变量</span><br><span class="line"></span><br><span class="line"># awk输出</span><br><span class="line"> web_tpye=123web_tpye=&#x27;ropon&#x27;web_tpye=&quot;ropon&quot;web_tpye=`pwd`</span><br><span class="line">awk &#x27;BEGIN &#123;print &quot;$test&quot;&#125;&#x27;    $web_tpye $web_tpye$web_tpye   $web_tpye</span><br><span class="line">awk &#x27;BEGIN &#123;print $test&#125;&#x27;    </span><br><span class="line">awk &#x27;BEGIN &#123;print &#x27;$test&#x27;&#125;&#x27;    123     语法报错</span><br><span class="line">awk &#x27;BEGIN &#123;print &quot;&#x27;$test&#x27;&quot;&#125;&#x27;    123 roponropon   ropon</span><br><span class="line"></span><br><span class="line"># 特殊位置参数变量</span><br><span class="line"># $0 获取当前执行shell脚本的文件名，如果执行脚本包含路径，那么就包含路径</span><br><span class="line"># $n 获取当前执行shell脚本的第n个参数值，n=1...9 当n为0时表示脚本的文件名 n大于9 用$&#123;10...&#125;表示</span><br><span class="line"># $# 获取当前执行shell脚本接收参数的总个数</span><br><span class="line"># $* 获取当前执行shell脚本所有参数，不加引号和$@相同 如果&quot;$*&quot; 表示将所有参数视为一个字符串 相当于&quot;$1$2$3&quot;</span><br><span class="line"># $@ 获取当前执行shell脚本所有参数，不加引号和$*相同 如果&quot;$@&quot; 表示将所有参数视为不同字符串 相当于&quot;$1&quot;&quot;$2&quot;&quot;$3&quot;</span><br><span class="line"></span><br><span class="line"># dirname 获取脚本的路径</span><br><span class="line">dirname /root/studyshell.sh </span><br><span class="line"># basename 获取脚本名字</span><br><span class="line">basename /root/studyshell.sh</span><br><span class="line"></span><br><span class="line">set -- 清除所有参数变量</span><br><span class="line"></span><br><span class="line">set -- &quot;My name&quot; is Ropon</span><br><span class="line">echo $#</span><br><span class="line">echo $1</span><br><span class="line">echo $2</span><br><span class="line">echo $3</span><br><span class="line"></span><br><span class="line">echo $*</span><br><span class="line">echo $@</span><br><span class="line"></span><br><span class="line">echo &quot;$*&quot;</span><br><span class="line">echo &quot;$@&quot;</span><br><span class="line"></span><br><span class="line">for i in $*; do echo $i; done</span><br><span class="line">for i in $@; do echo $i; done</span><br><span class="line"></span><br><span class="line">for i in &quot;$*&quot;; do echo $i; done</span><br><span class="line">for i in &quot;$@&quot;; do echo $i; done 等价于 for i; do echo $i; done</span><br><span class="line"></span><br><span class="line">$? 获取上一条指令执行状态返回值（0为成功，非零为失败）</span><br><span class="line">$$ 获取当前执行shell脚本的进程号</span><br><span class="line">$! 获取上一个在后台工作的进程的进程号</span><br><span class="line">$_ 获取在此之前执行的命令或脚本的最后一个参数</span><br><span class="line"></span><br><span class="line">sed -n &#x27;2,4p&#x27; studyshell.sh #查看studyshell.sh 第2到4行代码</span><br><span class="line"></span><br><span class="line">echo -n 不换行输出内容</span><br><span class="line"> -e 解析转义字符</span><br><span class="line"> \n 换行</span><br><span class="line"> \r 回车</span><br><span class="line"> \t tab</span><br><span class="line"> \b 退格</span><br><span class="line"> \v 纵向tab</span><br><span class="line"></span><br><span class="line">eval #语法 eval args</span><br><span class="line">eval &quot;echo \$$#&quot;</span><br><span class="line"></span><br><span class="line">exec #语法 eval 命令参数 不创建子进程前提下，去执行指定命令，执行完成后该进程就终止</span><br><span class="line"></span><br><span class="line">read</span><br><span class="line"></span><br><span class="line">shift #使用shift语句使用所有位置参数依次想左移动一个位置 $#值也会自动减1直到0为止</span><br><span class="line">echo $1 $2</span><br><span class="line">[ $# -eq 2 ] &amp;&amp; shift &amp;&amp; echo $1</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">shell变量子串</span><br><span class="line">$&#123;ropon&#125;#返回$ropon的内容</span><br><span class="line">$&#123;#ropon&#125;#返回$ropon内容的长度（按字符）也适用于特殊变量</span><br><span class="line">$&#123;ropon:offset&#125;#返回在变量$ropon中，从位置offset之后开始提取子串到结尾</span><br><span class="line">$&#123;ropon:offset:length&#125;#返回在变量$ropon中，从位置offset之后开始提取长度为length的子串</span><br><span class="line">$&#123;ropon#word&#125;#返回在变量$ropon开头删除首次匹配word剩余的子串</span><br><span class="line">$&#123;ropon##word&#125;#返回在变量$ropon开头删除匹配word多次剩余的子串</span><br><span class="line">$&#123;ropon%word&#125;#返回在变量$ropon结尾删除首次匹配word剩余的子串</span><br><span class="line">$&#123;ropon%%word&#125;#返回在变量$ropon结尾删除匹配word多次剩余的子串</span><br><span class="line">$&#123;ropon/pattern/string&#125; #返回使用string代替第一个匹配的pattern(贪婪模式匹配)</span><br><span class="line">$&#123;ropon//pattern/string&#125; #返回使用string代替第所有匹配的pattern</span><br><span class="line"></span><br><span class="line">ropon=&quot;abcABC123abcABCcaba&quot;</span><br><span class="line">echo $&#123;ropon#a*C&#125;#123abcABCcaba</span><br><span class="line">echo $&#123;ropon##a*C&#125;#caba</span><br><span class="line">echo $&#123;ropon%c*a&#125;#abcABC123abcABC</span><br><span class="line">echo $&#123;ropon%%c*a&#125;#ab</span><br><span class="line">echo $&#123;ropon/abc/11&#125; #11ABC123abcABCcaba</span><br><span class="line">echo $&#123;ropon//abc/11&#125; #11ABC12311ABCcaba</span><br><span class="line"></span><br><span class="line">shell特殊扩展变量</span><br><span class="line">$&#123;ropon:-word&#125;#如果ropon变量值为空或未定义，则返回word字符串</span><br><span class="line">$&#123;ropon:=word&#125;</span><br><span class="line">#如果ropon变量值为空或未定义，则返回word字符串，但位置变量和特殊变量不适用，与$&#123;ropon:-word&#125;用法相同，只不过将word赋给ropon</span><br><span class="line">$&#123;ropon:?word&#125;#如果ropon变量值为空或未定义，则word字符串作为标准错误输出，否则输出该变量的值</span><br><span class="line">$&#123;ropon:+word&#125;#如果ropon变量值为空或未定义，则什么都不做，否则wordp字符串替换变量值</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/02/26/shell-%E5%8F%98%E9%87%8F/" data-id="clc4klg6w008jojobgowdhe8u" data-title="shell 变量" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-centos批量绑定ipv6地址" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/02/21/centos%E6%89%B9%E9%87%8F%E7%BB%91%E5%AE%9Aipv6%E5%9C%B0%E5%9D%80/" class="article-date">
+  <time class="dt-published" datetime="2019-02-21T07:10:17.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/02/21/centos%E6%89%B9%E9%87%8F%E7%BB%91%E5%AE%9Aipv6%E5%9C%B0%E5%9D%80/">Centos批量绑定IPV6地址</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># Author: Ropon</span><br><span class="line"># Blog: https://www.ropon.top</span><br><span class="line"></span><br><span class="line">eth0f=&quot;/etc/sysconfig/network-scripts/ifcfg-eth0&quot;</span><br><span class="line">resf=&quot;/etc/resolv.conf&quot;</span><br><span class="line">ipv6=&quot;&quot;</span><br><span class="line">ipgw=&quot;&quot;</span><br><span class="line">restartflag=0</span><br><span class="line"></span><br><span class="line">Help() &#123;</span><br><span class="line">echo &quot;Usage: ./$(basename $0) -s[-b] ipv6 [ipv6]&quot;</span><br><span class="line">echo</span><br><span class="line">echo &quot;OPTIONS:&quot;</span><br><span class="line">echo &quot;-s  --single: Binding IPV6&quot;</span><br><span class="line">echo &quot;-b  --batch: Batch Binding IPV6&quot;</span><br><span class="line">echo</span><br><span class="line">echo &quot;Example: ./$(basename $0) -s 240e:d9:c200:101:7bb2::120&quot;</span><br><span class="line">echo &quot;Example: ./$(basename $0) -b 240e:d9:c200:101:7bb2::120 240e:d9:c200:101:7bb2::130&quot;</span><br><span class="line">echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CheckIpv6() &#123;</span><br><span class="line">echo &quot;ipv6&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Batch() &#123;</span><br><span class="line">start=&quot;`echo $1awk -F &#x27;:&#x27; &#x27;&#123;print $NF&#125;&#x27;`&quot;</span><br><span class="line">end=&quot;`echo $2awk -F &#x27;:&#x27; &#x27;&#123;print $NF&#125;&#x27;`&quot;</span><br><span class="line">pre=`echo $&#123;1%:*&#125;`</span><br><span class="line">dstart=`printf %d 0X$&#123;start&#125;`</span><br><span class="line">dend=`printf %d 0X$&#123;end&#125;`</span><br><span class="line">total=$(($dend-$dstart+1))</span><br><span class="line">ipv6string=&quot;&quot;</span><br><span class="line">for ((i=1;i&lt;=$total;i++))</span><br><span class="line">do</span><br><span class="line">[ $i -eq $total ] &amp;&amp; ipv6string=$&#123;ipv6string&#125;$&#123;pre&#125;:`printf %x $dstart`&quot;/64&quot;  ipv6string=$&#123;ipv6string&#125;$&#123;pre&#125;:`printf %x $dstart`&quot;/64 \\ &quot;</span><br><span class="line">let dstart=dstart+1</span><br><span class="line">done</span><br><span class="line">echo &quot;Batch Binding IPV6&quot;</span><br><span class="line">echo &quot;IPV6ADDR_SECONDARIES=\&quot;$ipv6string\&quot;&quot; &gt;&gt; $eth0f</span><br><span class="line">SetIpv6 $1 &quot;-b&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SetIpv6() &#123;</span><br><span class="line">ipv6=$1</span><br><span class="line">ipgw=`echo $ipv6awk -F &#x27;:&#x27; &#x27;&#123;print $1&quot;:&quot;$2&quot;:&quot;$3&quot;:&quot;$4&quot;::1&quot;&#125;&#x27;`</span><br><span class="line">[ -f $eth0f ] &amp;&amp; cp $eth0f&#123;,.bak&#125;</span><br><span class="line">if [ -z &quot;`grep ^&#x27;IPV6INIT=yes&#x27; $eth0f`&quot; ]; then</span><br><span class="line">echo &quot;IPV6INIT=yes&quot; &gt;&gt; $eth0f</span><br><span class="line">echo &quot;IPV6_DEFROUTE=yes&quot; &gt;&gt; $eth0f</span><br><span class="line">[ -z $2 ] &amp;&amp; echo &quot;IPV6ADDR=$&#123;ipv6&#125;/64&quot; &gt;&gt; $eth0f</span><br><span class="line">echo &quot;IPV6_DEFAULTGW=$ipgw&quot; &gt;&gt; $eth0f</span><br><span class="line">restartflag=1</span><br><span class="line">else</span><br><span class="line">echo &quot;skip set ipv6&quot;</span><br><span class="line">fi</span><br><span class="line">[ -f $resf ] &amp;&amp; cp $resf&#123;,.bak&#125;</span><br><span class="line">if [ -z &quot;`grep ^&#x27;nameserver 240e:56:4000:8000::69&#x27; $resf`&quot; ]; then</span><br><span class="line">echo &quot;nameserver 240e:56:4000:8000::69&quot; &gt;&gt; $resf</span><br><span class="line">echo &quot;nameserver 240C::6666&quot; &gt;&gt; $resf</span><br><span class="line">restartflag=1</span><br><span class="line">else</span><br><span class="line">echo &quot;skip set ipv6 dns&quot;</span><br><span class="line">fi</span><br><span class="line">[ $restartflag -eq 1 ] &amp;&amp; service network restart &amp;&amp; ifconfiggrep inet6grep globalawk &#x27;&#123;print $2&#125;&#x27; &amp;&amp; echo &quot;set ipv6 success&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[ -z $1 ] &amp;&amp; ifconfiggrep inet6grep globalawk &#x27;&#123;print $2&#125;&#x27;</span><br><span class="line">while [ $1 ]; do</span><br><span class="line">case $1 in</span><br><span class="line">&#x27;-b&#x27;  &#x27;--batch&#x27; )</span><br><span class="line">[ -z &quot;$2&quot; -o -z &quot;$3&quot; ] &amp;&amp; echo &quot;Incomplete parameters&quot; &amp;&amp; exit</span><br><span class="line">Batch $2 $3</span><br><span class="line">break</span><br><span class="line">;;</span><br><span class="line">&#x27;-s&#x27;  &#x27;--single&#x27; )</span><br><span class="line">[ -z &quot;$2&quot; ] &amp;&amp; echo &quot;Incomplete parameters&quot; &amp;&amp; exit</span><br><span class="line">SetIpv6 $2</span><br><span class="line">break</span><br><span class="line">;;</span><br><span class="line">&#x27;-h&#x27;  &#x27;--help&#x27; )</span><br><span class="line">Help</span><br><span class="line">break</span><br><span class="line">;;</span><br><span class="line">* )</span><br><span class="line">Help</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">shift</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/02/21/centos%E6%89%B9%E9%87%8F%E7%BB%91%E5%AE%9Aipv6%E5%9C%B0%E5%9D%80/" data-id="clc4klg4p001hojob5cbc31m7" data-title="Centos批量绑定IPV6地址" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-初识shell" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/02/01/%E5%88%9D%E8%AF%86shell/" class="article-date">
+  <time class="dt-published" datetime="2019-02-01T09:04:17.000Z" itemprop="datePublished">2019-02-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/02/01/%E5%88%9D%E8%AF%86shell/">初识shell</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># 脚本第一行指定那个解释器来执行</span><br><span class="line"># Date: </span><br><span class="line"># Author: </span><br><span class="line"># Blog: </span><br><span class="line"># Description: </span><br><span class="line"># Version: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看默认shell</span><br><span class="line">echo $SHELL</span><br><span class="line">grep root /etc/passwd</span><br><span class="line"></span><br><span class="line">#增加vi别名</span><br><span class="line">alias vi=&#x27;vim&#x27;</span><br><span class="line">echo &quot;alias vi=&#x27;vim&#x27;&quot; &gt;&gt; /etc/profile</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"># 查看bash版本</span><br><span class="line">bash --version</span><br><span class="line"></span><br><span class="line"># 检查bash是否存在漏洞</span><br><span class="line">env x=&#x27;() &#123; :;&#125;; echo be careful&#x27; bash -c &quot;echo this is test&quot;</span><br><span class="line"></span><br><span class="line"># 升级bash方法</span><br><span class="line">yum -y update bash</span><br><span class="line"></span><br><span class="line"># shell脚本执行加载环境变量顺序</span><br><span class="line">/etc/profile &gt; ~/.bash_profile &gt; ~/.bashrc &gt; /etc/bashrc</span><br><span class="line"></span><br><span class="line"># shell脚本运行几种方式</span><br><span class="line"># 1、bash test.sh</span><br><span class="line"># 2、chmod +x test.sh</span><br><span class="line"># ./test.sh</span><br><span class="line"># 3、source test.sh或. test.sh</span><br><span class="line"># 第三种可以将test.sh脚本变量值或函数返回值传递到当前父shell脚本中使用</span><br><span class="line"># 而不是产生一个子shell来执行</span><br><span class="line"></span><br><span class="line"># 例如</span><br><span class="line"># cat test.sh </span><br><span class="line"># #!/bin/bash</span><br><span class="line"># user=`whoami`</span><br><span class="line"></span><br><span class="line"># bash test.sh</span><br><span class="line"># echo $user</span><br><span class="line"># echo $user 输出的值是？</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 变量</span><br><span class="line"># 环境变量(全局变量)</span><br><span class="line"># 普通变量(局部变量)</span><br><span class="line"></span><br><span class="line"># 环境变量命名 一般采用大写形式</span><br><span class="line"># 定义环境变量并赋值3种方法</span><br><span class="line">export LOGDIR=&quot;/home/wwwlogs&quot;</span><br><span class="line">declare -x LOGDIR=&quot;/home/wwwlogs&quot;</span><br><span class="line">LOGDIR=&quot;/home/wwwlogs&quot; ;export LOGDIR</span><br><span class="line"></span><br><span class="line"># 自定义全局变量</span><br><span class="line"># 编辑/etc/profile 添加</span><br><span class="line">export LOGDIR=&quot;/home/wwwlogs&quot;</span><br><span class="line"></span><br><span class="line"># 配置用户环境变量 一般配置~/.bashrc或~/.bashrc_profile文件</span><br><span class="line"># 配置全局环境变量 一般配置/etc/profile或、/etc/bashrc或/etc/profile.d/(登录后初始化或加载内容)</span><br><span class="line"></span><br><span class="line"># 配置登录提示</span><br><span class="line"># 1、cat /etc/motd 这里仅能配置字符串内容</span><br><span class="line"># 2、在/etc/profile.d/下增加脚本</span><br><span class="line"># cat /etc/profile.d/ropon.sh</span><br><span class="line"># echo &quot;this is login testing!&quot;</span><br><span class="line"># name=&quot;pengge&quot;</span><br><span class="line"># echo $name</span><br><span class="line"></span><br><span class="line"># 查看环境变量</span><br><span class="line"># echo $HOME</span><br><span class="line"># printf &quot;$HOME\n&quot;</span><br><span class="line"></span><br><span class="line"># 取消本地变量及环境变量的值</span><br><span class="line"># unset HOME</span><br><span class="line"></span><br><span class="line"># 登录Linux系统时，shell会作为登录shell启动，此时加载变量顺序</span><br><span class="line">/etc/profile &gt; ~/.bash_profile &gt; 操作bash</span><br><span class="line">  </span><br><span class="line">  _______ ~/.bashrc</span><br><span class="line"></span><br><span class="line">____ /etc/profile.d/*.sh  &lt;  /etc/bashrc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/etc/locale.conf</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/02/01/%E5%88%9D%E8%AF%86shell/" data-id="clc4klg7p00ahojob5a5xdjim" data-title="初识shell" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mysql-一键安装shell脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/01/25/mysql-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2019-01-25T12:18:26.000Z" itemprop="datePublished">2019-01-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/01/25/mysql-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/">Mysql 一键安装shell脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># Author: Ropon</span><br><span class="line"># Blog: https://www.ropon.top</span><br><span class="line">RunUser=mysql</span><br><span class="line"></span><br><span class="line">InstallMysql() &#123;</span><br><span class="line">pushd $BaseDir</span><br><span class="line">[ &quot;$&#123;MysqlVer&#125;&quot; == &quot;5.7.25&quot; ] &amp;&amp; MysqlModulesOptions=&quot;-DWITH_BOOST=boost&quot;</span><br><span class="line">#if [ &quot;$&#123;MysqlVer&#125;&quot; == &quot;8.0.14&quot; ]; then</span><br><span class="line">#[ ! -f $&#123;MysqlFiles[boost]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;MysqlFiles[boost]&#125;.tar.gz</span><br><span class="line">#[ ! -d $&#123;MysqlFiles[boost]&#125; ] &amp;&amp; tar xzf $&#123;MysqlFiles[boost]&#125;.tar.gz</span><br><span class="line">#MysqlModulesOptions=&quot;-DWITH_BOOST==../$&#123;MysqlFiles[boost]&#125;&quot;</span><br><span class="line">#fi</span><br><span class="line"></span><br><span class="line"># 批量检测并创建所需目录</span><br><span class="line">for key in $&#123;!MysqlDirs[*]&#125;;do</span><br><span class="line">[ ! -d &quot;$&#123;MysqlDirs[$key]&#125;&quot; ] &amp;&amp; mkdir -p $&#123;MysqlDirs[$key]&#125;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">id -u $RunUser &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; useradd -M -s /sbin/nologin $RunUser</span><br><span class="line"></span><br><span class="line">which cmake &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">if [ $? -ne 0 ]; then</span><br><span class="line">[ ! -f $&#123;MysqlFiles[cmake]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;MysqlFiles[cmake]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;MysqlFiles[cmake]&#125; ] &amp;&amp; tar xzf $&#123;MysqlFiles[cmake]&#125;.tar.gz</span><br><span class="line">pushd $&#123;MysqlFiles[cmake]&#125;</span><br><span class="line">./configure</span><br><span class="line">make -j$&#123;Thread&#125; &amp;&amp; make install</span><br><span class="line">popd</span><br><span class="line">fi</span><br><span class="line">[ ! -f $&#123;MysqlFiles[mysql]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;MysqlFiles[mysql]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;MysqlFiles[mysql]&#125; ] &amp;&amp; tar xzf $&#123;MysqlFiles[mysql]&#125;.tar.gz</span><br><span class="line">pushd $&#123;MysqlFiles[mysql]&#125;</span><br><span class="line">cmake . -DCMAKE_INSTALL_PREFIX=$&#123;MysqlDirs[MysqlInstallDir]&#125; -DMYSQL_DATADIR=$&#123;MysqlDirs[MysqlDataDir]&#125; -DSYSCONFDIR=/etc/mysql$&#123;MysqlFlag&#125; $MysqlModulesOptions</span><br><span class="line">make -j$&#123;Thread&#125; &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">if [ -d &quot;$&#123;MysqlDirs[MysqlInstallDir]&#125;/support-MysqlFiles&quot; ]; then</span><br><span class="line"># 批量清理下载文件及解压后文件夹</span><br><span class="line">popd</span><br><span class="line">for key in $&#123;!MysqlFiles[*]&#125;;do</span><br><span class="line">rm -rf $&#123;MysqlFiles[$key]&#125;.tar.gz $&#123;MysqlFiles[$key]&#125;</span><br><span class="line">done</span><br><span class="line">Echo &quot;success&quot; &quot;$&#123;MysqlFiles[mysql]&#125;安装成功&quot;</span><br><span class="line">else</span><br><span class="line">rm -rf $&#123;MysqlDirs[MysqlInstallDir]&#125;</span><br><span class="line">Echo &quot;failure&quot; &quot;$&#123;MysqlFiles[mysql]&#125;安装失败&quot; &amp;&amp; exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">/bin/cp $&#123;MysqlDirs[MysqlInstallDir]&#125;/support-MysqlFiles/mysql.server /etc/init.d/mysqld</span><br><span class="line">sed -i &quot;s@^basedir=.*@basedir=$&#123;MysqlDirs[MysqlInstallDir]&#125;@&quot; /etc/init.d/mysqld</span><br><span class="line">sed -i &quot;s@^datadir=.*@datadir=$&#123;MysqlDirs[MysqlDataDir]&#125;@&quot; /etc/init.d/mysqld</span><br><span class="line">chmod +x /etc/init.d/mysqld</span><br><span class="line">chkconfig --add mysqld &amp;&amp; chkconfig mysqld on</span><br><span class="line">mv /etc/my.cnf&#123;,_bk&#125;</span><br><span class="line">wget -O /etc/my.cnf http://panel.ropon.top/panel/lnmp/config/my.txt</span><br><span class="line">sed -i &quot;s@/usr/local/mysql@$&#123;MysqlDirs[MysqlInstallDir]&#125;@&quot; /etc/my.cnf</span><br><span class="line">sed -i &quot;s@/home/mysql@$&#123;MysqlDirs[MysqlDataDir]&#125;@&quot; /etc/my.cnf</span><br><span class="line"></span><br><span class="line">[ &quot;$&#123;MysqlVer&#125;&quot; == &quot;5.5.62&quot; ] &amp;&amp;  &#123; temp=&quot;#explicit_defaults_for_timestamp&quot; ; sed -i &quot;s@explicit_defaults_for_timestamp@$temp@&quot; /etc/my.cnf; &#125;</span><br><span class="line">[ &quot;$&#123;MysqlVer&#125;&quot; == &quot;5.7.25&quot; ] &amp;&amp; MysqlInstallsSripts=&quot;$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysqld --initialize-insecure&quot;  MysqlInstallsSripts=&quot;$&#123;MysqlDirs[MysqlInstallDir]&#125;/scripts/mysql_install_db&quot;</span><br><span class="line">#因mysql初始化命令不同，判断mysql版本是否5.7</span><br><span class="line">$MysqlInstallsSripts --user=$RunUser --basedir=$&#123;MysqlDirs[MysqlInstallDir]&#125; --datadir=$&#123;MysqlDirs[MysqlDataDir]&#125; #初始化mysql数据</span><br><span class="line">chown $RunUser.$RunUser -R $&#123;MysqlDirs[MysqlDataDir]&#125;</span><br><span class="line">service mysqld start</span><br><span class="line"></span><br><span class="line"># 判断加path</span><br><span class="line">[ -z &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; ] &amp;&amp; echo &quot;export PATH=$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin:\$PATH&quot; &gt;&gt; /etc/profile</span><br><span class="line">[ -n &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; -a -z &quot;`grep $&#123;MysqlDirs[MysqlInstallDir]&#125; /etc/profile`&quot; ] &amp;&amp; sed -i &quot;s@^export PATH=\(.*\)@export PATH=$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin:\1@&quot; /etc/profile</span><br><span class="line">sleep 1</span><br><span class="line">. /etc/profile</span><br><span class="line"></span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -e &quot;grant all privileges on *.* to root@&#x27;127.0.0.1&#x27; identified by \&quot;$&#123;RootPassword&#125;\&quot; with grant option;&quot; #修改root密码</span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -e &quot;grant all privileges on *.* to root@&#x27;localhost&#x27; identified by \&quot;$&#123;RootPassword&#125;\&quot; with grant option;&quot; #修改root密码</span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -uroot -p$&#123;RootPassword&#125; -e &quot;delete from mysql.user where Password=&#x27;&#x27;;&quot; #清理空密码</span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -uroot -p$&#123;RootPassword&#125; -e &quot;delete from mysql.db where User=&#x27;&#x27;;&quot; #清理空账号</span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -uroot -p$&#123;RootPassword&#125; -e &quot;delete from mysql.proxies_priv where Host!=&#x27;localhost&#x27;;&quot; #清理非本地用户权限</span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -uroot -p$&#123;RootPassword&#125; -e &quot;drop database test;&quot; #删除test数据库</span><br><span class="line">$&#123;MysqlDirs[MysqlInstallDir]&#125;/bin/mysql -uroot -p$&#123;RootPassword&#125; -e &quot;reset master;&quot; #清理所有二进制日志并重新生成</span><br><span class="line"></span><br><span class="line">rm -rf /etc/ld.so.conf.d/&#123;mysql,mariadb,percona,alisql&#125;*.conf</span><br><span class="line">[ -e &quot;$&#123;MysqlDirs[MysqlInstallDir]&#125;/my.cnf&quot; ] &amp;&amp; rm -rf $&#123;MysqlDirs[MysqlInstallDir]&#125;/my.cnf</span><br><span class="line">echo &quot;$&#123;MysqlDirs[MysqlInstallDir]&#125;/lib&quot; &gt; /etc/ld.so.conf.d/mysql.conf #初始化mysql动态函数库</span><br><span class="line">ldconfig #刷新动态函数库</span><br><span class="line">service mysqld restart</span><br><span class="line">Echo &quot;msg&quot; &quot;Mysql$&#123;MysqlFlag&#125;的root密码是: $&#123;RootPassword&#125;,保存到/root/mysql_root.txt文件中&quot;</span><br><span class="line">echo Mysql$&#123;MysqlFlag&#125;的root密码是: $&#123;RootPassword&#125; &gt; /root/mysql$&#123;MysqlFlag&#125;_root.txt</span><br><span class="line">popd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Mysql() &#123;</span><br><span class="line">if [ -z $MysqlVer ]; then</span><br><span class="line">Echo &quot;msg&quot; &quot;跳过安装Mysql&quot;</span><br><span class="line">else</span><br><span class="line">Echo &quot;msg&quot; &quot;正在安装Mysql&quot;</span><br><span class="line">yum install -y gcc-c++ perl ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install.noarch</span><br><span class="line">InstallMysql</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/01/25/mysql-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" data-id="clc4klg64005xojobg9iz8fcd" data-title="Mysql 一键安装shell脚本" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-php-一键安装shell脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/01/25/php-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2019-01-25T12:17:36.000Z" itemprop="datePublished">2019-01-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/01/25/php-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/">Php 一键安装shell脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># Author: Ropon</span><br><span class="line"># Blog: https://www.ropon.top</span><br><span class="line"></span><br><span class="line">InstallPhp() &#123;</span><br><span class="line">pushd $BaseDir</span><br><span class="line"># 批量检测并创建所需目录</span><br><span class="line">for key in $&#123;!PhpDirs[*]&#125;;do</span><br><span class="line">[ ! -d &quot;$&#123;PhpDirs[$key]&#125;&quot; ] &amp;&amp; mkdir -p $&#123;PhpDirs[$key]&#125;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">id -u $RunUser &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; useradd -M -s /sbin/nologin $RunUser</span><br><span class="line"></span><br><span class="line">which iconv &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">if [ $? -ne 0 ]; then</span><br><span class="line">[ ! -f $&#123;PhpFiles[libiconv]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;PhpFiles[libiconv]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;PhpFiles[libiconv]&#125; ] &amp;&amp; tar xzf $&#123;PhpFiles[libiconv]&#125;.tar.gz</span><br><span class="line">pushd $&#123;PhpFiles[libiconv]&#125;</span><br><span class="line">./configure --prefix=$&#123;PhpDirs[LibiconvInstallDir]&#125;</span><br><span class="line">make -j $&#123;THREAD&#125; &amp;&amp; make install</span><br><span class="line">popd</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ $PhpVer == &quot;7.3.1&quot; ]; then</span><br><span class="line">which cmake &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -eq 0 ] &amp;&amp; yum remove -y cmake </span><br><span class="line">[ ! -f $&#123;PhpFiles[cmake]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;PhpFiles[cmake]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;PhpFiles[cmake]&#125; ] &amp;&amp; tar xzf $&#123;PhpFiles[cmake]&#125;.tar.gz</span><br><span class="line">pushd $&#123;PhpFiles[cmake]&#125;</span><br><span class="line">./configure</span><br><span class="line">make -j$&#123;Thread&#125; &amp;&amp; make install</span><br><span class="line">popd</span><br><span class="line">yum remove -y libzip libzip-devel</span><br><span class="line">[ ! -f $&#123;PhpFiles[libzip]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;PhpFiles[libzip]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;PhpFiles[libzip]&#125; ] &amp;&amp; tar xzf $&#123;PhpFiles[libzip]&#125;.tar.gz</span><br><span class="line">pushd $&#123;PhpFiles[libzip]&#125;</span><br><span class="line">mkdir build &amp;&amp; pushd build &amp;&amp; cmake .. &amp;&amp; make -j$&#123;Thread&#125; &amp;&amp; make install &amp;&amp; popd</span><br><span class="line">popd</span><br><span class="line">echo &#x27;/usr/local/lib64</span><br><span class="line">/usr/local/lib</span><br><span class="line">/usr/lib</span><br><span class="line">/usr/lib64&#x27;&gt;&gt;/etc/ld.so.conf &amp;&amp; ldconfig -v</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">[ ! -f $&#123;PhpFiles[php]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;PhpFiles[php]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;PhpFiles[php]&#125; ] &amp;&amp; tar xzf $&#123;PhpFiles[php]&#125;.tar.gz</span><br><span class="line">pushd $&#123;PhpFiles[php]&#125;</span><br><span class="line">./configure --prefix=$&#123;PhpDirs[PhpInstallDir]&#125; --with-config-file-path=$&#123;PhpDirs[PhpInstallDir]&#125;/etc --with-config-file-scan-dir=$&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.d \</span><br><span class="line">--with-fpm-user=$RunUser --with-fpm-group=$RunUser --enable-fpm --disable-opcache --disable-fileinfo --with-mysql=mysqlnd --with-mysqli=mysqlnd \</span><br><span class="line">--with-pdo-mysql=mysqlnd --with-iconv-dir=$&#123;PhpDirs[LibiconvInstallDir]&#125; --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-xml \</span><br><span class="line">--disable-rpath --enable-bcmath --enable-shmop --enable-exif --enable-sysvsem --enable-inline-optimization --with-curl=/usr/local --enable-mbregex --enable-mbstring \</span><br><span class="line">--with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --enable-intl --with-xsl --with-gettext \</span><br><span class="line">--enable-zip --enable-soap --disable-debug $PhpModulesOptions</span><br><span class="line">make -j$&#123;Thread&#125; &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">if [ -f &quot;$&#123;PhpDirs[PhpInstallDir]&#125;/bin/phpize&quot; ]; then</span><br><span class="line">Echo &quot;success&quot; &quot;$&#123;PhpFiles[php]&#125;安装成功&quot;</span><br><span class="line">else</span><br><span class="line">rm -rf $&#123;PhpDirs[PhpInstallDir]&#125;</span><br><span class="line">Echo &quot;failure&quot; &quot;$&#123;PhpFiles[php]&#125;安装失败&quot; &amp;&amp; exit</span><br><span class="line">fi</span><br><span class="line"># 判断加path</span><br><span class="line">[ -z &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; ] &amp;&amp; echo &quot;export PATH=$&#123;PhpDirs[PhpInstallDir]&#125;/bin:\$PATH&quot; &gt;&gt; /etc/profile</span><br><span class="line">[ -n &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; -a -z &quot;`grep $&#123;PhpDirs[PhpInstallDir]&#125; /etc/profile`&quot; ] &amp;&amp; sed -i &quot;s@^export PATH=\(.*\)@export PATH=$&#123;PhpDirs[PhpInstallDir]&#125;/bin:\1@&quot; /etc/profile</span><br><span class="line">sleep 1</span><br><span class="line">. /etc/profile</span><br><span class="line"></span><br><span class="line">/bin/cp php.ini-production $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^;date.timezone.*@date.timezone = Asia/Shanghai@&#x27; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^short_open_tag = Off@short_open_tag = On@&#x27; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^post_max_size.*@post_max_size = 100M@&#x27; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^upload_max_PhpFilesize.*@upload_max_PhpFilesize = 50M@&#x27; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^max_execution_time.*@max_execution_time = 300@&#x27; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^disable_functions.*@disable_functions = passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen@&#x27; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php.ini</span><br><span class="line"></span><br><span class="line">/bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php$&#123;PhpFlag&#125;-fpm</span><br><span class="line">sed -i &quot;s@php-fpm.pid@php$&#123;PhpFlag&#125;-fpm.pid@&quot; /etc/init.d/php$&#123;PhpFlag&#125;-fpm</span><br><span class="line">chmod +x /etc/init.d/php$&#123;PhpFlag&#125;-fpm</span><br><span class="line">chkconfig --add php$&#123;PhpFlag&#125;-fpm &amp;&amp; chkconfig php$&#123;PhpFlag&#125;-fpm on</span><br><span class="line">wget -O $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php-fpm.conf http://panel.ropon.top/panel/lnmp/config/php-fpm.txt</span><br><span class="line">sed -i &quot;s@www@$RunUser@&quot; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php-fpm.conf</span><br><span class="line">sed -i &quot;s@php@php$&#123;PhpFlag&#125;@&quot; $&#123;PhpDirs[PhpInstallDir]&#125;/etc/php-fpm.conf</span><br><span class="line"></span><br><span class="line">service php$&#123;PhpFlag&#125;-fpm start</span><br><span class="line">sed -i &quot;s@php.*-cgi@php$&#123;PhpFlag&#125;-cgi@&quot; $&#123;NgDirs[NginxInstallDir]&#125;/conf/nginx.conf</span><br><span class="line">service nginxd reload</span><br><span class="line">popd</span><br><span class="line"># 批量清理下载文件及解压后文件夹</span><br><span class="line">for key in $&#123;!PhpFiles[*]&#125;;do</span><br><span class="line">rm -rf $&#123;PhpFiles[$key]&#125;.tar.gz $&#123;PhpFiles[$key]&#125;</span><br><span class="line">done</span><br><span class="line">popd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Php() &#123;</span><br><span class="line">if [ -z $PhpVer ]; then</span><br><span class="line">Echo &quot;msg&quot; &quot;跳过安装Php&quot;</span><br><span class="line">else</span><br><span class="line">Echo &quot;msg&quot; &quot;正在安装Php$&#123;PhpVer&#125;&quot;</span><br><span class="line">yum install -y gcc-c++ libxml2-devel openssl-devel libcurl-devel gd-devel libmcrypt-devel libxslt-devel mhash mcrypt icu libicu libicu-devel</span><br><span class="line">InstallPhp</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/01/25/php-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" data-id="clc4klg6e006tojob7m9i8h2x" data-title="Php 一键安装shell脚本" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

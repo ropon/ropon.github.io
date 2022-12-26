@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Lua基本用法 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua基本用法">
+<meta property="og:url" content="https://blog.ropon.top/2022/12/26/Lua%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-12-26T08:20:21.000Z">
+<meta property="article:modified_time" content="2022-12-26T08:20:29.656Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Lua基本用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/26/Lua%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2022-12-26T08:20:21.000Z" itemprop="datePublished">2022-12-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Lua基本用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/<span class="keyword">local</span>/bin/lua</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello world!&quot;</span>)</span><br><span class="line"><span class="comment">--单行注释</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">多行注释</span></span><br><span class="line"><span class="comment">多行注释</span></span><br><span class="line"><span class="comment">]]</span><span class="comment">--</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 默认变量被认为是全局的，全局变量不需要声明</span></span><br><span class="line"><span class="built_in">print</span>(A)</span><br><span class="line">A = <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(A)</span><br><span class="line"><span class="comment">-- 删除一个全局变量，只需将变量赋值为nil</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">数据类型</span></span><br><span class="line"><span class="comment">nil </span></span><br><span class="line"><span class="comment">boolean</span></span><br><span class="line"><span class="comment">number 双精度类型的实浮点数</span></span><br><span class="line"><span class="comment">string 单双引号的字符串</span></span><br><span class="line"><span class="comment">function c或lua编写的函数</span></span><br><span class="line"><span class="comment">userdata 任意存储在变量中c数据结构</span></span><br><span class="line"><span class="comment">thread 执行的独立线路，用于执行协同程序</span></span><br><span class="line"><span class="comment">table 关联数组，数组的索引可以是数字、字符串或表类型。table的创建是通过构造表达式来完成，最简单构造表达式&#123;&#125; 空表</span></span><br><span class="line"><span class="comment">]]</span><span class="comment">--</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="string">&quot;hello world!&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="number">3.14</span>*<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">print</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">type</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">true</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">nil</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">-- .. 字符串链接符</span></span><br><span class="line">Tab1 = &#123;key1 = <span class="string">&quot;val1&quot;</span>, key2 = <span class="string">&quot;val2&quot;</span>, <span class="string">&quot;val3&quot;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(Tab1) <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">print</span>(k .. <span class="string">&quot; - &quot;</span> .. v)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">Tab1.key1 = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(Tab1) <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">print</span>(k .. <span class="string">&quot; -- &quot;</span> .. v)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 字符串块</span></span><br><span class="line"><span class="keyword">local</span> gocode = <span class="string">[[</span></span><br><span class="line"><span class="string">package main</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import &quot;fmt&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">func main() &#123;</span></span><br><span class="line"><span class="string">  fmt.Println(&quot;hi ropon!&quot;)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">]]</span></span><br><span class="line"><span class="built_in">print</span>(gocode)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="number">3.14</span> .. <span class="number">15926</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- #来计算字符串的长度</span></span><br><span class="line">Str1 = <span class="string">&quot;www.ropon.top&quot;</span></span><br><span class="line"><span class="built_in">print</span>(#Str1)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建一个空的table</span></span><br><span class="line"><span class="keyword">local</span> tab1 = &#123;&#125;</span><br><span class="line"><span class="comment">-- 直接初始化表</span></span><br><span class="line"><span class="keyword">local</span> tab2 = &#123;<span class="string">&quot;go&quot;</span>, <span class="string">&quot;python&quot;</span>, <span class="string">&quot;php&quot;</span>, <span class="string">&quot;lua&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(...)</span><br><span class="line"><span class="keyword">local</span> a = &#123;&#125;</span><br><span class="line">a[<span class="string">&quot;key&quot;</span>] = <span class="string">&quot;val&quot;</span></span><br><span class="line"><span class="keyword">local</span> key = <span class="number">10</span></span><br><span class="line">a[key] = <span class="number">18</span></span><br><span class="line">a[key] = a[key]+<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(a) <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">print</span>(k .. <span class="string">&quot; : &quot;</span> .. v)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 注意表的索引默认是从1开始</span></span><br><span class="line"><span class="built_in">print</span>(...)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(tab2) <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;key&quot;</span>, k)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Func1</span><span class="params">(n)</span></span></span><br><span class="line">  <span class="keyword">if</span> n == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> n* Func1(n <span class="number">-1</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Func1(<span class="number">5</span>))</span><br><span class="line"><span class="keyword">local</span> func2 = Func1</span><br><span class="line"><span class="built_in">print</span>(func2(<span class="number">5</span>))</span><br><span class="line"><span class="comment">-- 匿名函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TestF1</span><span class="params">(tab, fun)</span></span></span><br><span class="line">  <span class="keyword">for</span> k ,v <span class="keyword">in</span> <span class="built_in">pairs</span>(tab) <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(fun(k,v))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">local</span> tab=&#123;key1=<span class="string">&quot;val1&quot;</span>, key2=<span class="string">&quot;val2&quot;</span>&#125;;</span><br><span class="line">TestF1(tab,</span><br><span class="line"><span class="comment">--匿名函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span><span class="params">(k,v)</span></span></span><br><span class="line">  <span class="keyword">return</span> k..<span class="string">&quot;=&quot;</span>..v;</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"><span class="comment">-- 循环</span></span><br><span class="line"><span class="comment">-- while true do</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">-- end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- for index, value in ipairs(t) do</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">-- end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- for key, value in pairs(t) do</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">-- end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 字符串操作方法</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">upper</span>(<span class="string">&quot;ropon&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">lower</span>(<span class="string">&quot;Ropon&quot;</span>))</span><br><span class="line"><span class="comment">-- 要操作的字符串/被替换的字符/要替换的字符/替换几次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;www.ropon.top&quot;</span>,<span class="string">&quot;ropon&quot;</span>,<span class="string">&quot;pengge&quot;</span>,<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">find</span>(<span class="string">&quot;www.ropon.top&quot;</span>,<span class="string">&quot;ropon&quot;</span>,<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">reverse</span>(<span class="string">&quot;ropon.top&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;my name is %s,age is %d&quot;</span>,<span class="string">&quot;ropon&quot;</span>,<span class="number">18</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">len</span>(<span class="string">&quot;ropon.top&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">sub</span>(<span class="string">&quot;www.ropon.top&quot;</span>,<span class="number">1</span>,<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 数组 索引默认从1开始，也可以从0开始</span></span><br><span class="line"><span class="keyword">local</span> arr1 = &#123;<span class="string">&quot;golang&quot;</span>,<span class="string">&quot;lua&quot;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i=<span class="number">0</span>,<span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">print</span>(arr1[i])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> arr2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">-2</span>, <span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">  arr2[i] = i*<span class="number">2</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">-2</span>, <span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">print</span>(arr2[i])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 多维数组</span></span><br><span class="line"><span class="keyword">local</span> arr3 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">3</span> <span class="keyword">do</span></span><br><span class="line">  arr3[i] = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> j = <span class="number">1</span>, <span class="number">3</span> <span class="keyword">do</span></span><br><span class="line">    arr3[i][j] = i*j</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">3</span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">for</span> j=<span class="number">1</span>,<span class="number">3</span> <span class="keyword">do</span></span><br><span class="line">     <span class="built_in">print</span>(arr3[i][j])</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;module&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">module</span>.constant)</span><br><span class="line"><span class="built_in">module</span>.func3()</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span>(<span class="string">&quot;module&quot;</span>)</span><br><span class="line">m.func1()</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> req = <span class="built_in">require</span>(<span class="string">&quot;socket.http&quot;</span>)</span><br><span class="line">body,ret = req.request(<span class="string">&quot;https://ip.ropon.top&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(body)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2022/12/26/Lua%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" data-id="clc4jp0kd00068eob92a84u9b" data-title="Lua基本用法" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/12/26/docker-registry/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          docker registry
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/26/%E5%88%86%E4%BA%AB%E4%B8%80%E5%A5%97%E8%BF%90%E7%BB%B4%E9%9D%A2%E8%AF%95%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">分享一套运维面试题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

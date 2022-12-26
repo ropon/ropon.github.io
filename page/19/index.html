@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ropon运维">
+<meta property="og:url" content="https://blog.ropon.top/page/19/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:locale">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-安装swoole扩展" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/28/%E5%AE%89%E8%A3%85swoole%E6%89%A9%E5%B1%95/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T05:47:45.000Z" itemprop="datePublished">2018-08-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/28/%E5%AE%89%E8%A3%85swoole%E6%89%A9%E5%B1%95/">安装swoole扩展</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://luopengtest.gotoip2.com/wdcp/php/swoole-src-swoole-1.7.6-stable.tar.gz</span><br><span class="line">tar xzf swoole-1.7.6-stable.tar.gz</span><br><span class="line">cd swoole-src-swoole-1.7.6-stable</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-php-config=/www/wdlinux/phps/56/bin/php-config --enable-openssl</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /www/wdlinux/phps/56/etc/php.ini</span><br><span class="line">添加extension=swoole.so</span><br><span class="line">/www/wdlinux/phps/56/bin/php-fpm restart</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/08/28/%E5%AE%89%E8%A3%85swoole%E6%89%A9%E5%B1%95/" data-id="clc4klg7s00awojob722f463h" data-title="安装swoole扩展" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-分享shell模板" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/23/%E5%88%86%E4%BA%ABshell%E6%A8%A1%E6%9D%BF/" class="article-date">
+  <time class="dt-published" datetime="2018-08-23T01:16:57.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/23/%E5%88%86%E4%BA%ABshell%E6%A8%A1%E6%9D%BF/">分享Shell模板</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">rsname=Template #shell名称</span><br><span class="line">rsver=1.0 #shell版本号</span><br><span class="line">base_dir=/usr/local #运行初始目录</span><br><span class="line">mirrorLink=https://www.idiyrom.com #下载地址</span><br><span class="line">flag=$1  #参数</span><br><span class="line"></span><br><span class="line">#格式化显示函数</span><br><span class="line">Echo()</span><br><span class="line">&#123;</span><br><span class="line">case $1 in</span><br><span class="line">    success)  flag=&quot;\033[1;32m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    failure)  flag=&quot;\033[1;31m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    warning)  flag=&quot;\033[1;33m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    msg)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    *)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">if [[ $LANG =~ [Uu][Tt][Ff] ]]</span><br><span class="line">then</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;</span><br><span class="line">else</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;  iconv -f utf-8 -t gbk</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line">#调用方法</span><br><span class="line">#绿色 Echo &quot;success&quot; &quot;成功信息&quot;</span><br><span class="line">#蓝色 Echo &quot;msg&quot; &quot;提示信息&quot;</span><br><span class="line">#红色 Echo &quot;failure&quot; &quot;错误信息&quot;</span><br><span class="line">#黄色 Echo &quot;warning&quot; &quot;警告信息&quot;</span><br><span class="line"></span><br><span class="line">Check_OS() &#123;</span><br><span class="line">if [ -n &quot;$(grep &#x27;Aliyun Linux release&#x27; /etc/issue)&quot; -o -e /etc/redhat-release ]; then</span><br><span class="line">OS=CentOS</span><br><span class="line">[ -n &quot;$(grep &#x27; 7\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; ] &amp;&amp; CentOS_RHEL_version=7</span><br><span class="line">[ -n &quot;$(grep &#x27; 6\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; -o -n &quot;$(grep &#x27;Aliyun Linux release6 15&#x27; /etc/issue)&quot; ] &amp;&amp; CentOS_RHEL_version=6</span><br><span class="line">[ -n &quot;$(grep &#x27; 5\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; -o -n &quot;$(grep &#x27;Aliyun Linux release5&#x27; /etc/issue)&quot; ] &amp;&amp; CentOS_RHEL_version=5</span><br><span class="line">elif [ -n &quot;$(grep &#x27;Amazon Linux AMI release&#x27; /etc/issue)&quot; -o -e /etc/system-release ]; then</span><br><span class="line">OS=CentOS</span><br><span class="line">CentOS_RHEL_version=6</span><br><span class="line">fi</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">#shell介绍信息</span><br><span class="line">header()</span><br><span class="line">&#123;</span><br><span class="line">printf &quot;</span><br><span class="line">###################################################################</span><br><span class="line">#  $rsname version $rsver Author: Ropon &lt;idiyrom.com&gt;          #</span><br><span class="line">#  For more information please visit https://idiyrom.com/83.html  #</span><br><span class="line">#-----------------------------------------------------------------#</span><br><span class="line">#  Copyright @2017-2018 idiyrom.com. All rights reserved.         #</span><br><span class="line">###################################################################</span><br><span class="line"></span><br><span class="line">&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#帮助提示</span><br><span class="line">showhelp()</span><br><span class="line">&#123;</span><br><span class="line">header</span><br><span class="line">Echo &quot;msg&quot; &quot;Usage: $rsname [OPTIONS]&quot;</span><br><span class="line">echo</span><br><span class="line">Echo &quot;msg&quot; &quot;OPTIONS:&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-h  --help : Show help of $rsname&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-u  --update : update Check for $rsname&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-i  --install : install $rsname version $rsver to This System&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-U  --uninstall : Uninstall $rsname from This System&quot;</span><br><span class="line">echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#下载子函数</span><br><span class="line">Download_src() &#123;</span><br><span class="line">[ -s &quot;$&#123;src_url##*/&#125;&quot; ] &amp;&amp; Echo &quot;msg&quot; &quot;[$&#123;src_url##*/&#125;] found&quot;  &#123; wget --tries=6 -c --no-check-certificate $src_url; sleep 1; &#125; #判断下载是否已存在</span><br><span class="line">if [ ! -e &quot;$&#123;src_url##*/&#125;&quot; ]; then</span><br><span class="line">Echo &quot;msg&quot; &quot;$&#123;src_url##*/&#125; download failed, Please check!&quot;</span><br><span class="line">kill -9 $$</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#调用方法</span><br><span class="line">#src_url=资源URL地址 &amp;&amp; Download_src</span><br><span class="line"></span><br><span class="line">Install()</span><br><span class="line">&#123;</span><br><span class="line">pushd $&#123;base_dir&#125;/src</span><br><span class="line">Echo &quot;success&quot; &quot;安装完成&quot;</span><br><span class="line">popd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Uninstall()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">Echo &quot;success&quot; &quot;卸载完成&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Update()</span><br><span class="line">&#123;</span><br><span class="line">Echo &quot;msg&quot; &quot;暂未开通&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#主函数，脚本入口</span><br><span class="line">Main()</span><br><span class="line">&#123;</span><br><span class="line">case $flag in</span><br><span class="line">&#x27;-h&#x27;  &#x27;--help&#x27;  &#x27;?&#x27; )</span><br><span class="line">showhelp</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">&#x27;--install&#x27;  &#x27;-i&#x27; )</span><br><span class="line">Install</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">&#x27;--uninstall&#x27;  &#x27;-U&#x27; )</span><br><span class="line">Uninstall</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">&#x27;--update&#x27;  &#x27;-u&#x27; )</span><br><span class="line">Update</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">* )</span><br><span class="line">showhelp</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Main</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/08/23/%E5%88%86%E4%BA%ABshell%E6%A8%A1%E6%9D%BF/" data-id="clc4klg7o00adojobfomi3ke0" data-title="分享Shell模板" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-python学习代码记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/23/python%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2018-08-23T01:13:53.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/23/python%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E8%AE%B0%E5%BD%95/">Python学习代码记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">num1 = input(&quot;Pls input a number: &quot;)</span><br><span class="line">num2 = input(&quot;Pls input a number: &quot;)</span><br><span class="line"></span><br><span class="line">print &quot;%s + %s = %s&quot; % (num1, num2, num1+num2)</span><br><span class="line">print &quot;%s - %s = %s&quot; % (num1, num2, num1-num2)</span><br><span class="line">print &quot;%s * %s = %s&quot; % (num1, num2, num1*num2)</span><br><span class="line">print &quot;%s / %s = %s&quot; % (num1, num2, num1/num2)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">import redis</span><br><span class="line"></span><br><span class="line">#r = redis.Redis(host=&#x27;127.0.0.1&#x27;, port=6379,db=0)</span><br><span class="line">#r.set(&#x27;name&#x27;, &#x27;zhangsan&#x27;)</span><br><span class="line">#print (r.get(&#x27;name&#x27;))</span><br><span class="line"></span><br><span class="line">pool = redis.ConnectionPool(host=&#x27;127.0.0.1&#x27;, port=6379)</span><br><span class="line">r = redis.Redis(connection_pool=pool)</span><br><span class="line">r.set(&#x27;name&#x27;, &#x27;lisi&#x27;)   #添加</span><br><span class="line">print (r.get(&#x27;name&#x27;))   #获取</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">#coding:utf-8</span><br><span class="line"></span><br><span class="line"># 字典创建  while开关 字典添加   字典寻找</span><br><span class="line">dictionary = &#123;&#125;</span><br><span class="line">flag = &#x27;a&#x27;</span><br><span class="line">pape = &#x27;a&#x27;</span><br><span class="line">off = &#x27;a&#x27;</span><br><span class="line">while flag == &#x27;a&#x27; or &#x27;c&#x27; :</span><br><span class="line">    flag = raw_input(&quot;添加或查找单词 ?(a/c)&quot;)</span><br><span class="line">    if flag == &quot;a&quot; :                             # 开启</span><br><span class="line">        word = raw_input(&quot;输入单词(key):&quot;)</span><br><span class="line">        defintion = raw_input(&quot;输入定义值(value):&quot;)</span><br><span class="line">        dictionary[str(word)] = str(defintion)  # 添加字典</span><br><span class="line">        print &quot;添加成功!&quot;</span><br><span class="line">        pape = raw_input(&quot;您是否要查找字典?(a/0)&quot;)   #read</span><br><span class="line">        if pape == &#x27;a&#x27;:</span><br><span class="line">            print dictionary</span><br><span class="line">        else :</span><br><span class="line">            continue</span><br><span class="line">    elif flag == &#x27;c&#x27;:</span><br><span class="line">        check_word = raw_input(&quot;要查找的单词:&quot;)  # 检索</span><br><span class="line">        for key in sorted(dictionary.keys()):            # yes</span><br><span class="line">            if str(check_word) == key:</span><br><span class="line">                print &quot;该单词存在! &quot; ,key, dictionary[key]</span><br><span class="line">                break</span><br><span class="line">            else:                                       # no</span><br><span class="line">                off = &#x27;b&#x27;</span><br><span class="line">        if off == &#x27;b&#x27;:</span><br><span class="line">            print &quot;抱歉，该值不存在！&quot;</span><br><span class="line">    else:                               # 停止</span><br><span class="line">        print &quot;error type&quot;</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">#num1 = input(&quot;Pls input a number: &quot;)</span><br><span class="line">#num2 = input(&quot;Pls input a number: &quot;)</span><br><span class="line"></span><br><span class="line">#print &quot;%s + %s = %s&quot; % (num1, num2, num1+num2)</span><br><span class="line">#print &quot;%s - %s = %s&quot; % (num1, num2, num1-num2)</span><br><span class="line">#print &quot;%s * %s = %s&quot; % (num1, num2, num1*num2)</span><br><span class="line">#print &quot;%s / %s = %s&quot; % (num1, num2, num1/num2)</span><br><span class="line"></span><br><span class="line">#var = 101 </span><br><span class="line"> </span><br><span class="line">#if ( var  == 100 ) : print &quot;变量 var 的值为100&quot; </span><br><span class="line"> </span><br><span class="line">#print &quot;Good bye!&quot;</span><br><span class="line"></span><br><span class="line">#x = int(raw_input(&quot;pls input a number: &quot;))</span><br><span class="line">#y = int(raw_input(&quot;pls input a number: &quot;))</span><br><span class="line">#z = int(raw_input(&quot;pls input a number: &quot;))</span><br><span class="line"></span><br><span class="line">#aa = [x,y,z]</span><br><span class="line">#list(aa)</span><br><span class="line"></span><br><span class="line">#aa.sort()</span><br><span class="line">#print aa</span><br><span class="line"></span><br><span class="line">#for i in xrange(10):</span><br><span class="line">#    if i == 5:     </span><br><span class="line">#print &quot;id:%s&quot; %i</span><br><span class="line">#continue    ##当i==3的时候就会跳出此次循环，也就是下面的程序不会再次执行。</span><br><span class="line">#    if i == 4:  ##当i ==5的时候就直接跳出整个循环。</span><br><span class="line">#        break</span><br><span class="line">#    print i</span><br><span class="line">#else:</span><br><span class="line">#    print &quot;main end&quot;</span><br><span class="line"></span><br><span class="line">#import time         #插入一个time对象（一切皆对象，）</span><br><span class="line">#import sys          #插入一个sys对象</span><br><span class="line"></span><br><span class="line">#for i in xrange(10):</span><br><span class="line">#    if i == 3:</span><br><span class="line">#        continue</span><br><span class="line">#    elif i == 5:</span><br><span class="line">#        continue</span><br><span class="line">#    elif i == 6:</span><br><span class="line">#        sys.exit()      ## 当i==6的时候主动退出整个脚本。</span><br><span class="line">#    print i</span><br><span class="line">#else:</span><br><span class="line">#    print &quot;main end&quot;</span><br><span class="line"></span><br><span class="line">#import random</span><br><span class="line">#import sys</span><br><span class="line"></span><br><span class="line">#bb = random.randint(1,20)</span><br><span class="line">#print bb</span><br><span class="line">#for i in xrange(1,7):</span><br><span class="line">#    aa = int(raw_input(&quot;pls input a number: &quot;))</span><br><span class="line">#    if aa == bb:</span><br><span class="line">#        print &quot;you&#x27;re so smart!!&quot;</span><br><span class="line">#        sys.exit()</span><br><span class="line">#    elif aa &gt; bb:</span><br><span class="line">#        print &quot;pls input a small number.&quot;</span><br><span class="line">#    else:</span><br><span class="line">#        print &quot;pls input a big number.&quot;</span><br><span class="line">#else:</span><br><span class="line">#    print &quot;time is end!&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#for i in xrange(1,10):</span><br><span class="line">#    for j in xrange(1,i+1):</span><br><span class="line">#        print &quot;%sx%s=%s&quot; % (j, i, j*i),     ## ,的原因是不让程序自动换行</span><br><span class="line">#    print</span><br><span class="line"></span><br><span class="line">#count=0</span><br><span class="line">#for i in &#x27;1234&#x27;:</span><br><span class="line">#    for j in &#x27;1234&#x27;:</span><br><span class="line">#        for m in &#x27;1234&#x27;:</span><br><span class="line">#            if (i != j) and (j != m) and (i != m):</span><br><span class="line">#                print &quot;%s %s %s&quot; % (i, j, m)</span><br><span class="line">#count+=1</span><br><span class="line">#print</span><br><span class="line">#print count</span><br><span class="line"></span><br><span class="line">#for i in xrange(100,1000):</span><br><span class="line">#    unit = i % 10</span><br><span class="line">#    ten = i // 10 % 10</span><br><span class="line">#    hundred = i // 100</span><br><span class="line">#    if unit ** 3 + ten ** 3 + hundred ** 3 == i:</span><br><span class="line">#        print(i)</span><br><span class="line"></span><br><span class="line">#for a in &#x27;xyz&#x27;:</span><br><span class="line">#    for b in &#x27;xyz&#x27;:</span><br><span class="line">#        for c in &#x27;xyz&#x27;:</span><br><span class="line">#            if a != b and b != c and c != a:</span><br><span class="line">#                if a != &#x27;x&#x27; and c != &#x27;x&#x27; and c != &#x27;z&#x27;:</span><br><span class="line">#                    print &quot;a vs %s b vs %s c vs %s&quot; % (a, b, c)</span><br><span class="line"></span><br><span class="line">#list1 = [&#x27;x&#x27;,&#x27;y&#x27;,&#x27;z&#x27;]</span><br><span class="line">#for a in list1:  # a 从 xyz中挑一个对手</span><br><span class="line">#    for b in list1:  # b 挑一个对手</span><br><span class="line">#        if a != b:  # a的对手和b的对手不相同</span><br><span class="line">#            for c in list1:  # c挑一个对手</span><br><span class="line">#                if a != c and b != c:  # a，b，c，对手互不相同</span><br><span class="line">#                    if a != &#x27;x&#x27; and c != &#x27;x&#x27; and c != &#x27;z&#x27;:  # a的对手不是x，c的对手不是x，c的对手不是z</span><br><span class="line">#                        print &quot;a-&#123;0&#125; b-&#123;1&#125; c-&#123;2&#125;&quot;.format(a, b, c)  # 打印出结果</span><br><span class="line"></span><br><span class="line">#aa = open(&#x27;/root/study/python/vm.ini&#x27;)</span><br><span class="line">#for line in aa:</span><br><span class="line">#    print line,</span><br><span class="line"></span><br><span class="line">#aa = open(&#x27;/root/study/python/vm.ini&#x27;)</span><br><span class="line">#while True:</span><br><span class="line">#line=aa.readline()</span><br><span class="line">#if not line:</span><br><span class="line">#break</span><br><span class="line">#print line,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#with open(&#x27;/proc/meminfo&#x27;) as aa:</span><br><span class="line">#   for line in aa:</span><br><span class="line">#       if line.startswith(&#x27;MemTotal&#x27;):</span><br><span class="line">#           MemTotal = line.split()[1]</span><br><span class="line">#           continue</span><br><span class="line">#       if line.startswith(&#x27;MemFree&#x27;):</span><br><span class="line">#           MemFree = line.split()[1]</span><br><span class="line">#           break</span><br><span class="line">#   print &quot;The Memory Total: &#123;:.2f&#125;&quot;.format(int(MemTotal)/1024.0) + &#x27;M&#x27;</span><br><span class="line">#   print &quot;The Memory left: &#123;:.2f&#125;&quot;.format(int(MemFree)/1024.0) + &#x27;M&#x27;</span><br><span class="line">#   print &quot;The Memory left percent: &#123;:.2f&#125;&quot;.format((int(MemFree)/1024.0)/(int(MemTotal)/1024.0)*100) + &#x27;%&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#mac = &#x27;00:0c:29:9c:dc:41&#x27;       ##本地电脑的Mac地址</span><br><span class="line">#mac_prefix = mac[:-3]           ##取出Mac地址的前缀</span><br><span class="line">#last_two = mac[-2:]             ##取出MAC地址的后三位</span><br><span class="line">#plus_one = int(last_two, 16) + 1        ##把16进制的mac转换成10进制并+1</span><br><span class="line">#new_last_two = hex(plus_one)[-2:]       ##再次把10进制的mac地址转换成原来的16进制，如果不加[-2:]，则会出现 0x的前缀</span><br><span class="line">#new_mac = mac_prefix + &#x27;:&#x27; + new_last_two   ##把刚刚整理好的前缀和新的后两位拼接起来。</span><br><span class="line">#print new_mac</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#import codecs</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">/etc/passwd   查找用户，对用户优先级进行排序</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">#3with codecs.open(&quot;passwd&quot;, &quot;r&quot;) as f:</span><br><span class="line">#    result = sorted(f.readlines(), key=lambda x: int(x.split(&#x27;:&#x27;)[2]))</span><br><span class="line">#    print result</span><br><span class="line">#with codecs.open(&quot;sortPasswd&quot;, &quot;w&quot;) as f:</span><br><span class="line">#    f.writelines(result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#def Jianjia(x):  </span><br><span class="line">#   y =0.5  </span><br><span class="line">#   x = x * y  </span><br><span class="line">#   return x  </span><br><span class="line">#print(Jianjia(100))  </span><br><span class="line">#print(Jianjia(50))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/08/23/python%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E8%AE%B0%E5%BD%95/" data-id="clc4klg6r0087ojob4ag35iod" data-title="Python学习代码记录" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-shell例子" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/16/shell%E4%BE%8B%E5%AD%90/" class="article-date">
+  <time class="dt-published" datetime="2018-08-16T08:35:30.000Z" itemprop="datePublished">2018-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/16/shell%E4%BE%8B%E5%AD%90/">shell例子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ABCD乘9&#x3D;DCBA，A&#x3D;? B&#x3D;? C&#x3D;? D&#x3D;?</p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">#A=1</span><br><span class="line">#D=9</span><br><span class="line">for A in `seq 1 1 9`</span><br><span class="line">do</span><br><span class="line">for B in `seq 0 1 9`</span><br><span class="line">do</span><br><span class="line">for C in `seq 0 1 9`</span><br><span class="line">do</span><br><span class="line">for D in `seq 0 1 9`</span><br><span class="line">do</span><br><span class="line">((TEMPA=($A*1000+$B*100+$C*10+$D)*9))</span><br><span class="line">((TEMPB=$D*1000+$C*100+$B*10+$A))</span><br><span class="line">if [ $TEMPA == $TEMPB ];then</span><br><span class="line">echo $A</span><br><span class="line">echo $B</span><br><span class="line">echo $C</span><br><span class="line">echo $D</span><br><span class="line">exit</span><br><span class="line">fi</span><br><span class="line">done</span><br><span class="line">done</span><br><span class="line">done</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>优化shell程序，因ABCD乘9&#x3D;DCBA ，相乘后还是4位数，A不能大于2，也不能等于0，那么A&#x3D;1，从而D&#x3D;9，9*9&#x3D;81</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">A=1</span><br><span class="line">D=9</span><br><span class="line">for B in `seq 0 1 9`</span><br><span class="line">do</span><br><span class="line">for C in `seq 0 1 9`</span><br><span class="line">do</span><br><span class="line">((TEMPA=($A*1000+$B*100+$C*10+$D)*9))</span><br><span class="line">((TEMPB=$D*1000+$C*100+$B*10+$A))</span><br><span class="line">if [ $TEMPA == $TEMPB ];then</span><br><span class="line">echo $A</span><br><span class="line">echo $B</span><br><span class="line">echo $C</span><br><span class="line">echo $D</span><br><span class="line">exit</span><br><span class="line">fi</span><br><span class="line">done</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/08/16/shell%E4%BE%8B%E5%AD%90/" data-id="clc4klg72008uojobbzyyhq7x" data-title="shell例子" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-openstack实战系列-搭建基本环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/07/28/openstack%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E6%90%AD%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time class="dt-published" datetime="2018-07-28T05:44:20.000Z" itemprop="datePublished">2018-07-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cloud/">cloud</a>►<a class="article-category-link" href="/categories/cloud/OpenStack/">OpenStack</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/07/28/openstack%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E6%90%AD%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/">OpenStack实战系列--搭建基本环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><h3 id="安装Centos7-4系统及优化"><a href="#安装Centos7-4系统及优化" class="headerlink" title="安装Centos7.4系统及优化"></a>安装Centos7.4系统及优化</h3></li>
+</ul>
+<p>安装系统步骤，这里就不赘述，以下优化流程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; /etc/sysconfig/grub &lt;&lt;EOF</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DEFAULT=saved</span><br><span class="line">GRUB_DISABLE_SUBMENU=true</span><br><span class="line">GRUB_TERMINAL_OUTPUT=&quot;console&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;crashkernel=auto rhgb net.ifnames=0 biosdevname=0 quiet&quot;</span><br><span class="line">GRUB_DISABLE_RECOVERY=&quot;true&quot;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>grub2-mkconfig -o &#x2F;boot&#x2F;grub2&#x2F;grub.cfg</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br><span class="line"></span><br><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">yum makecache</span><br><span class="line">yum install -y net-tools vim tcpdump</span><br><span class="line">systemctl disable firewalld</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable NetworkManager</span><br><span class="line">systemctl stop NetworkManager</span><br><span class="line">sed -i &#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27; /etc/selinux/config</span><br><span class="line">grep SELINUX=disabled /etc/selinux/config</span><br><span class="line">setenforce 0</span><br><span class="line">echo &#x27; * - nofile 100000 &#x27; &gt;&gt;/etc/security/limits.conf</span><br><span class="line">yum update -y</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/hosts &lt;&lt;EOF</span><br><span class="line">172.16.6.220 controller</span><br><span class="line">172.16.6.230 compute1</span><br><span class="line">172.16.6.240 block1</span><br><span class="line">172.16.6.250 object1</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>yum install <a target="_blank" rel="noopener" href="https://rdoproject.org/repos/rdo-release.rpm">https://rdoproject.org/repos/rdo-release.rpm</a> -y yum install centos-release-openstack-newton python-openstackclient -y   参看官方文档<a target="_blank" rel="noopener" href="https://docs.openstack.org/mitaka/zh/_CN/install-guide-rdo/">https://docs.openstack.org/mitaka/zh\_CN/install-guide-rdo/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/07/28/openstack%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E6%90%AD%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" data-id="clc4klg6b006jojob2n967uxp" data-title="OpenStack实战系列--搭建基本环境" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-centos6-7、ubuntu、debain-系统盘扩容方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/07/18/centos6-7%E3%80%81ubuntu%E3%80%81debain-%E7%B3%BB%E7%BB%9F%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2018-07-18T13:16:17.000Z" itemprop="datePublished">2018-07-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/07/18/centos6-7%E3%80%81ubuntu%E3%80%81debain-%E7%B3%BB%E7%BB%9F%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">Centos6/7、Ubuntu、Debain 系统盘扩容方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>CentOS6 需要使用gdisk工具，若无可使用yum -y install gdisk命令安装 开始扩容 gdisk &#x2F;dev&#x2F;vda p #查看分区 d #删除分区 n #新建分区 p #默认选择主要分区 1 #分区编号 2048 #开始扇区（默认直接回车） xxxxx #结束扇区（默认直接回车） w #保存分区表并退出   Centos7 与Centos6相同，只不过可以直接使用fdisk工具  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">rsnamedir=&quot;/root/auto_expansion.sh&quot;</span><br><span class="line">rclocal_cmd=&quot;/root/autodisksystem.sh&quot;</span><br><span class="line">rclocal_dir=&quot;/etc/rc.d/rc.local&quot;</span><br><span class="line">fstab_dir=&quot;/etc/fstab&quot;</span><br><span class="line">Swapdir=&quot;/www/swap&quot;</span><br><span class="line">rsname=auto_expansion #shell名称</span><br><span class="line">LOCKfile=/root/.$(basename $0).lock</span><br><span class="line">LOGfile=/root/.$(basename $0).log</span><br><span class="line">devname=&quot;/dev/vda&quot;</span><br><span class="line"></span><br><span class="line">Echo()</span><br><span class="line">&#123;</span><br><span class="line">case $1 in</span><br><span class="line">    success)  flag=&quot;\033[1;32m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    failure)  flag=&quot;\033[1;31m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    warning)  flag=&quot;\033[1;33m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    msg)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    *)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">if [[ $LANG =~ [Uu][Tt][Ff] ]]</span><br><span class="line">then</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;</span><br><span class="line">else</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;  iconv -f utf-8 -t gbk</span><br><span class="line">fi</span><br><span class="line">#写日志</span><br><span class="line">[ &quot;$&#123;3&#125;A&quot; == &quot;LogA&quot; ] &amp;&amp; Shell_log $2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Shell_log()&#123;</span><br><span class="line">    LOG_INFO=$1</span><br><span class="line">    Echo &quot;msg&quot; &quot;$(date &quot;+%Y-%m-%d&quot;) $(date &quot;+%H:%M:%S&quot;):$rsname:$LOG_INFO&quot; &gt;&gt; $LOGfile</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Shell_lock()&#123;</span><br><span class="line">    touch $LOCKfile</span><br><span class="line">&#125;</span><br><span class="line">Shell_unlock()&#123;</span><br><span class="line">    rm -f $LOCKfile</span><br><span class="line">&#125;</span><br><span class="line">Exit()&#123;</span><br><span class="line">Shell_unlock</span><br><span class="line">exit</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Check_OS()</span><br><span class="line">&#123;</span><br><span class="line">if [ -e /etc/redhat-release ]; then</span><br><span class="line">OS=CentOS</span><br><span class="line">[ -n &quot;$(grep &#x27; 7\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; ] &amp;&amp; OS_Ver=7</span><br><span class="line">[ -n &quot;$(grep &#x27; 6\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; ] &amp;&amp; OS_Ver=6</span><br><span class="line">elif [ -n &quot;$(grep -i &#x27;Debian&#x27; /etc/issue 2&gt; /dev/null)&quot; ]; then</span><br><span class="line">OS=Debian</span><br><span class="line">elif [ -n &quot;$(grep -i &#x27;Ubuntu&#x27; /etc/issue 2&gt; /dev/null)&quot; ]; then</span><br><span class="line">OS=Ubuntu</span><br><span class="line">else</span><br><span class="line">Echo &quot;failure&quot; &quot;不支持此系统&quot; &quot;Log&quot;</span><br><span class="line">Exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CentOS6()</span><br><span class="line">&#123;</span><br><span class="line">which gdisk &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; yum -y install gdisk</span><br><span class="line">gdisk $1 &lt;&lt; EOF</span><br><span class="line">p</span><br><span class="line">d</span><br><span class="line">n</span><br><span class="line">1</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">y</span><br><span class="line">y</span><br><span class="line">EOF</span><br><span class="line">sed -i &quot;/^nohup \/root\/.*/a$rclocal_cmd&quot; $rclocal_dir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CentOS7()</span><br><span class="line">&#123;</span><br><span class="line">fdisk $1 &lt;&lt; EOF</span><br><span class="line">p</span><br><span class="line">d</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line">1</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">EOF</span><br><span class="line">sed -i &quot;/^nohup \/root\/.*/a$rclocal_cmd&quot; $rclocal_dir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Debian()</span><br><span class="line">&#123;</span><br><span class="line">fdisk $1 &lt;&lt; EOF</span><br><span class="line">p</span><br><span class="line">d</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line">1</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">EOF</span><br><span class="line">rclocal_dir=&quot;/etc/rc.local&quot;</span><br><span class="line">sed -i &quot;/^nohup \/root\/.*/a$rclocal_cmd&quot; $rclocal_dir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ubuntu()</span><br><span class="line">&#123;</span><br><span class="line">fdisk $1 &lt;&lt; EOF</span><br><span class="line">p</span><br><span class="line">d</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line">1</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">EOF</span><br><span class="line">rclocal_dir=&quot;/etc/rc.local&quot;</span><br><span class="line">sed -i &quot;/^\/root\/.*/a$rclocal_cmd&quot; $rclocal_dir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SwapOff()</span><br><span class="line">&#123;</span><br><span class="line">Swapdir=$(cat /etc/fstab grep swapawk &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">swapoff $Swapdir</span><br><span class="line">cp $&#123;fstab_dir&#125;&#123;,_bak&#125;</span><br><span class="line">temp=&quot;#$&#123;Swapdir&#125;    swap    swap    defaults    0 0&quot;</span><br><span class="line">sed -i &quot;s@$&#123;Swapdir&#125;.*@$temp@&quot; $fstab_dir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Main()</span><br><span class="line">&#123;</span><br><span class="line">Check_OS</span><br><span class="line">Swap=`free -m  awk &#x27;/Swap:/&#123;print $2&#125;&#x27;`</span><br><span class="line">[ &quot;$Swap&quot; -ne &#x27;0&#x27; ] &amp;&amp; Echo &quot;msg&quot; &quot;根分区存在交换分区，正在关闭。&quot; &quot;Log&quot; &amp;&amp; SwapOff</span><br><span class="line">Echo &quot;msg&quot; &quot;当前系统是$OS$OS_Ver，开始扩容。&quot; &quot;Log&quot;</span><br><span class="line">$OS$OS_Ver $devname</span><br><span class="line">Echo &quot;msg&quot; &quot;扩容完成，将创建重启后处理脚本$rclocal_cmd。&quot; &quot;Log&quot;</span><br><span class="line">cat &gt; $rclocal_cmd &lt;&lt;EOF</span><br><span class="line">#!/bin/bash</span><br><span class="line">resize2fs -f /dev/vda1</span><br><span class="line">sed -i &#x27;/^\/root\/autodisksystem.sh/d&#x27; $rclocal_dir</span><br><span class="line">if [ &quot;$Swap&quot; -ne &quot;0&quot; ]; then</span><br><span class="line">sed -i &quot;s@#$&#123;Swapdir&#125;.*@$&#123;Swapdir&#125;    swap    swap    defaults    0 0@&quot; $fstab_dir</span><br><span class="line">swapon $Swapdir</span><br><span class="line">fi</span><br><span class="line">[ -e /root/autodisksystem.sh ] &amp;&amp; rm -f /root/autodisksystem.sh</span><br><span class="line">[ -e /root/auto_expansion.sh ] &amp;&amp; rm -f /root/auto_expansion.sh</span><br><span class="line">EOF</span><br><span class="line">chmod +x $rclocal_cmd</span><br><span class="line">Echo &quot;success&quot; &quot;所有准备工作完成，3秒后自动重启并完成扩容大小&quot;  &quot;Log&quot;</span><br><span class="line">Shell_unlock</span><br><span class="line">sleep 3</span><br><span class="line">reboot</span><br><span class="line">&#125;</span><br><span class="line">if [ -f &quot;$LOCKfile&quot; ];then</span><br><span class="line">Echo &quot;warning&quot; &quot;核实脚本正在运行中，请勿重复运行，若是之前强行中断引起的，请手工清理$LOCKfile&quot;  &quot;Log&quot; &amp;&amp; exit</span><br><span class="line">else</span><br><span class="line">Echo &quot;msg&quot; &quot;首次运行脚本，将自动创建锁文件然后继续，避免在执行中重复运行脚本。&quot;  &quot;Log&quot;</span><br><span class="line">Shell_lock</span><br><span class="line">fi</span><br><span class="line">Main</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/07/18/centos6-7%E3%80%81ubuntu%E3%80%81debain-%E7%B3%BB%E7%BB%9F%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" data-id="clc4klg4j0015ojob8x15avzj" data-title="Centos6/7、Ubuntu、Debain 系统盘扩容方法" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mysql5-5、5-6打包rpm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/07/06/mysql5-5%E3%80%815-6%E6%89%93%E5%8C%85rpm/" class="article-date">
+  <time class="dt-published" datetime="2018-07-06T04:25:05.000Z" itemprop="datePublished">2018-07-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/07/06/mysql5-5%E3%80%815-6%E6%89%93%E5%8C%85rpm/">mysql5.5、5.6打包rpm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1、安装rpm工具包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install rpmbuild rpmdevtools -y</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>2、初始化rpm基础目录，目录结构如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rpmdev-setuptree</span><br><span class="line">ll /root/rpmbuild/</span><br><span class="line">total 20</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 5 15:29 BUILD</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 5 15:29 RPMS</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 5 15:29 SOURCES</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 5 15:29 SPECS</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 5 15:29 SRPMS</span><br></pre></td></tr></table></figure>
+
+<p>BUILD RPM构建包的地方，编译、配置等操作都在这个目录下执行</p>
+<p>RPMS 打包完成RPM包存放路径</p>
+<p>SOURCES MySql源码存放路径</p>
+<p>SPECS spec文件存放路径（自动应答文件）</p>
+<hr>
+<p>3、本次分享打包mysql-5.6.40，将mysql-5.6.40.tar.gz源码文件上传到SOURCES目录下</p>
+<p><code>具体代码 文章末尾</code></p>
+<hr>
+<p>4、执行命令打包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpmbuild -bb rpmbuild/SPECS/mysql.spec</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>5、完成后在rpmbuild&#x2F;RPM目录下就会两个rpm包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- 1 root root 52939316 7月 6 10:10 MySQL-5.6.40-1.el6.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 root root 93863140 7月 6 10:11 MySQL-debuginfo-5.6.40-1.el6.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>6、直接安装，安装完成后会直接启动Mysql</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh MySQL-5.6.40-1.el6.x86_64.rpm</span><br><span class="line"></span><br><span class="line">不关闭服务直接卸载</span><br><span class="line">rpm -e --nodeps MySQL-5.6.40-1.el6.x86_64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line">#语法：</span><br><span class="line">#TagName: value</span><br><span class="line">#tag名大小写不敏感。</span><br><span class="line"></span><br><span class="line">#自定义宏语法：</span><br><span class="line">#%define ropon 2</span><br><span class="line">#使用%&#123;ropon&#125;或者%ropon调用</span><br><span class="line"></span><br><span class="line">#RPM包名称，文件中可使用%&#123;name&#125;调用。</span><br><span class="line">Name:mysql</span><br><span class="line">#RPM包版本号，文件中可使用%&#123;version&#125;调用  </span><br><span class="line">Version:5.7.25</span><br><span class="line">#打包特定版本号，常指第几次打包，其中dist centos6下是.el6，centos7下是.el7。</span><br><span class="line">Release:1%&#123;?dist&#125;</span><br><span class="line">#RPM包摘要，简单描述RPM包</span><br><span class="line">Summary: %&#123;name&#125;-%&#123;version&#125; RPM</span><br><span class="line">prefix: /usr/local/mysql%&#123;version&#125;</span><br><span class="line"></span><br><span class="line">Group:      applications/database</span><br><span class="line">License:    GPL    </span><br><span class="line">URL:        http://www.mysql.com  </span><br><span class="line"></span><br><span class="line">#指定构建需要的源代码，多个源码包，使用Source1,2...,n   </span><br><span class="line">Source0:    %&#123;name&#125;-%&#123;version&#125;.tar.gz</span><br><span class="line">#_tmppath是/var/tmp</span><br><span class="line">BuildRoot:      %(mktemp -ud %&#123;_tmppath&#125;/%&#123;name&#125;-%&#123;version&#125;-%&#123;release&#125;-XXXXXX) </span><br><span class="line">BuildRequires:  gcc-c++ cmake perl ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install</span><br><span class="line">Requires:  ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install</span><br><span class="line">Packager:   ropon@west.cn </span><br><span class="line"></span><br><span class="line">#autoreqprov用来指定自动产生RPM依赖关系</span><br><span class="line">AutoReqProv: no </span><br><span class="line"></span><br><span class="line">#RPM包详细描述 </span><br><span class="line">%description </span><br><span class="line">%&#123;name&#125; %&#123;version&#125;</span><br><span class="line"></span><br><span class="line">%define _mysqlflag 57</span><br><span class="line">%define _runuser mysql </span><br><span class="line">%define _rungroup mysql</span><br><span class="line">%define _dbrootpwd West.cn2020</span><br><span class="line">%define _prefix /local/mysql%&#123;version&#125;</span><br><span class="line">%define _datadir /home/panel/mysql%&#123;_mysqlflag&#125;_data</span><br><span class="line">%define mysqlpath /usr/local/mysql</span><br><span class="line">#对于mysql5.5特殊设置</span><br><span class="line">%define temp #explicit_defaults_for_timestamp</span><br><span class="line"></span><br><span class="line">#setup 不加任何选项，仅将软件包打开。 </span><br><span class="line">#setup -n newdir 将软件包解压在newdir目录。 </span><br><span class="line">#setup -c 解压缩之前先产生目录。 </span><br><span class="line">#setup -b num 将第num个source文件解压缩。 </span><br><span class="line">#setup -T 不使用default的解压缩操作。 </span><br><span class="line">#setup -T -b 0 将第0个源代码文件解压缩。 </span><br><span class="line">#setup -c -n newdir 指定目录名称newdir，并在此目录产生rpm套件。</span><br><span class="line"></span><br><span class="line">#构建前的准备</span><br><span class="line">%prep</span><br><span class="line">%setup -n mysql-%&#123;version&#125;</span><br><span class="line"></span><br><span class="line">#构建</span><br><span class="line">%build</span><br><span class="line">if [ &quot;%&#123;version&#125;&quot; == &quot;5.7.25&quot; ]; then</span><br><span class="line">cmake . -DCMAKE_INSTALL_PREFIX=%&#123;_prefix&#125; -DMYSQL_DATADIR=%&#123;_datadir&#125; -DSYSCONFDIR=/etc -DWITH_BOOST=boost</span><br><span class="line">else</span><br><span class="line">cmake . -DCMAKE_INSTALL_PREFIX=%&#123;_prefix&#125; -DMYSQL_DATADIR=%&#123;_datadir&#125; -DSYSCONFDIR=/etc</span><br><span class="line">fi</span><br><span class="line">make %&#123;?_smp_mflags&#125;</span><br><span class="line"></span><br><span class="line">#安装</span><br><span class="line">%install</span><br><span class="line">rm -rf %&#123;buildroot&#125;</span><br><span class="line">make install DESTDIR=%&#123;buildroot&#125;</span><br><span class="line"></span><br><span class="line">#rpm安装前执行的脚本</span><br><span class="line">%pre</span><br><span class="line">id -u %&#123;_runuser&#125; &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; useradd -M -s /sbin/nologin %&#123;_runuser&#125;</span><br><span class="line">[ ! -d %&#123;_datadir&#125; ] &amp;&amp; mkdir -p %&#123;_datadir&#125;</span><br><span class="line">chown -R %&#123;_runuser&#125;:%&#123;_rungroup&#125; %&#123;_datadir&#125;</span><br><span class="line">chmod -R 744 %&#123;_datadir&#125;</span><br><span class="line"></span><br><span class="line">#rpm安装后执行的脚本</span><br><span class="line">%post</span><br><span class="line">service mysqld stop</span><br><span class="line">mv %&#123;mysqlpath&#125; %&#123;mysqlpath&#125;_bak</span><br><span class="line">ln -sf %&#123;_prefix&#125; %&#123;mysqlpath&#125;</span><br><span class="line">if [ &quot;%&#123;version&#125;&quot; == &quot;5.7.25&quot; ]; then</span><br><span class="line">%&#123;_prefix&#125;/bin/mysqld --initialize-insecure --basedir=%&#123;_prefix&#125; --datadir=%&#123;_datadir&#125; --user=%&#123;_runuser&#125;</span><br><span class="line">else</span><br><span class="line">%&#123;_prefix&#125;/scripts/mysql_install_db --basedir=%&#123;_prefix&#125; --datadir=%&#123;_datadir&#125; --user=%&#123;_runuser&#125;</span><br><span class="line">fi</span><br><span class="line">/bin/cp %&#123;_prefix&#125;/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">sed -i &quot;s@^basedir=.*@basedir=%&#123;_prefix&#125;@&quot; /etc/init.d/mysqld</span><br><span class="line">sed -i &quot;s@^datadir=.*@datadir=%&#123;_datadir&#125;@&quot; /etc/init.d/mysqld</span><br><span class="line">chmod +x /etc/init.d/mysqld</span><br><span class="line">chkconfig --add mysqld</span><br><span class="line">chkconfig mysqld on</span><br><span class="line">wget -O /etc/my.cnf --no-check-certificate http://panel.ropon.top/panel/lnmp/config/my.txt</span><br><span class="line">[ &quot;%&#123;version&#125;&quot; == &quot;5.5.62&quot; ] &amp;&amp; sed -i &quot;s@explicit_defaults_for_timestamp@%&#123;temp&#125;@&quot; /etc/my.cnf</span><br><span class="line">sed -i &quot;s@/usr/local/mysql@%&#123;_prefix&#125;@&quot; /etc/my.cnf</span><br><span class="line">sed -i &quot;s@/home/mysql@%&#123;_datadir&#125;@&quot; /etc/my.cnf</span><br><span class="line">service mysqld start</span><br><span class="line"></span><br><span class="line">[ -z &quot;$(grep ^&#x27;export PATH=&#x27; /etc/profile)&quot; ] &amp;&amp; echo &quot;export PATH=%&#123;_prefix&#125;/bin:\$PATH&quot; &gt;&gt; /etc/profile</span><br><span class="line">[ -n &quot;$(grep ^&#x27;export PATH=&#x27; /etc/profile)&quot; -a -z &quot;$(grep %&#123;_prefix&#125; /etc/profile)&quot; ] &amp;&amp; sed -i &quot;s@^export PATH=\(.*\)@export PATH=%&#123;_prefix&#125;/bin:\1@&quot; /etc/profile</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">%&#123;_prefix&#125;/bin/mysql -e &quot;grant all privileges on *.* to root@&#x27;localhost&#x27; identified by \&quot;%&#123;_dbrootpwd&#125;\&quot; with grant option;&quot;</span><br><span class="line">%&#123;_prefix&#125;/bin/mysql -uroot -p%&#123;_dbrootpwd&#125; -e &quot;delete from mysql.user where Password=&#x27;&#x27;;&quot;</span><br><span class="line">%&#123;_prefix&#125;/bin/mysql -uroot -p%&#123;_dbrootpwd&#125; -e &quot;delete from mysql.db where User=&#x27;&#x27;;&quot;</span><br><span class="line">%&#123;_prefix&#125;/bin/mysql -uroot -p%&#123;_dbrootpwd&#125; -e &quot;delete from mysql.proxies_priv where Host!=&#x27;localhost&#x27;;&quot;</span><br><span class="line">%&#123;_prefix&#125;/bin/mysql -uroot -p%&#123;_dbrootpwd&#125; -e &quot;drop database test;&quot;</span><br><span class="line">%&#123;_prefix&#125;/bin/mysql -uroot -p%&#123;_dbrootpwd&#125; -e &quot;reset master;&quot;</span><br><span class="line"></span><br><span class="line">rm -rf /etc/ld.so.conf.d/&#123;mysql,mariadb,percona,alisql&#125;*.conf</span><br><span class="line">[ -e &quot;%&#123;_prefix&#125;/my.cnf&quot; ] &amp;&amp; rm -rf %&#123;_prefix&#125;/my.cnf</span><br><span class="line">echo &quot;%&#123;_prefix&#125;/lib&quot; &gt; /etc/ld.so.conf.d/mysql.conf</span><br><span class="line">ldconfig</span><br><span class="line">service mysqld restart</span><br><span class="line">echo &quot;mysql root:%&#123;_dbrootpwd&#125;&quot; &gt;&gt; /root/mysql%&#123;_mysqlflag&#125;_password.txt</span><br><span class="line"></span><br><span class="line">#rpm卸载前执行的脚本</span><br><span class="line">%preun</span><br><span class="line">service mysqld stop</span><br><span class="line">chkconfig --del mysqld</span><br><span class="line">id -u %&#123;_runuser&#125; &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -eq 0 ] &amp;&amp; userdel %&#123;_runuser&#125;</span><br><span class="line"></span><br><span class="line">#卸载后执行的脚本</span><br><span class="line">%postun</span><br><span class="line">Deldir() &#123;</span><br><span class="line">[ -d $1 ] &amp;&amp; rm -rf $1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Deldir %&#123;_prefix&#125;</span><br><span class="line">Deldir %&#123;_datadir&#125;</span><br><span class="line">rm -rf /usr/local/mysql</span><br><span class="line"></span><br><span class="line">%clean</span><br><span class="line">rm -rf %&#123;buildroot&#125;</span><br><span class="line"></span><br><span class="line">%files</span><br><span class="line">%defattr(-, %&#123;_runuser&#125;, %&#123;_rungroup&#125;)</span><br><span class="line">%attr(744, %&#123;_runuser&#125;, %&#123;_rungroup&#125;) %&#123;_prefix&#125;/*</span><br><span class="line"></span><br><span class="line">%changelog</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/07/06/mysql5-5%E3%80%815-6%E6%89%93%E5%8C%85rpm/" data-id="clc4klg650060ojobf2qh05uo" data-title="mysql5.5、5.6打包rpm" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux系统最小文件结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/06/15/linux%E7%B3%BB%E7%BB%9F%E6%9C%80%E5%B0%8F%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" class="article-date">
+  <time class="dt-published" datetime="2018-06-15T14:39:58.000Z" itemprop="datePublished">2018-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/06/15/linux%E7%B3%BB%E7%BB%9F%E6%9C%80%E5%B0%8F%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">Linux系统最小文件结构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>&#x2F;boot grub &#x2F;bin &#x2F;sbin &#x2F;etc rc.d init.d sysconfig networking-scripts &#x2F;lib modules &#x2F;lib64 &#x2F;usr local bin sbin lib lib64 bin sbin lib lib64 &#x2F;proc &#x2F;sys &#x2F;dev &#x2F;var log run lock &#x2F;tmp 好用的几个命令 stat 显示文件或文件系统详细信息 理解atime ctime mtime atime 指文件被访问的时间 ctime 指文件状态被修改的时间 mtime 指文件被修改的时间 wc，sort，uniq，cut</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/06/15/linux%E7%B3%BB%E7%BB%9F%E6%9C%80%E5%B0%8F%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" data-id="clc4klg60005lojob0la0asf1" data-title="Linux系统最小文件结构" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-巧用历史命令-linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/06/14/%E5%B7%A7%E7%94%A8%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4-linux/" class="article-date">
+  <time class="dt-published" datetime="2018-06-14T14:06:43.000Z" itemprop="datePublished">2018-06-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/06/14/%E5%B7%A7%E7%94%A8%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4-linux/">巧用历史命令--Linux</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>bash调用命令历史列表中的命令：</p>
+<p>!#: 执行命令历史中的第#条命令</p>
+<p>!!: 执行上一条命令</p>
+<p>!string: 执行命令历史中最近一次以string开头的命令；</p>
+<p>!$: 调用上一条命令的最后一个参数</p>
+<p>cd &#x2F;root</p>
+<p>netstat -tunpl</p>
+<p>ping <a target="_blank" rel="noopener" href="http://www.idiyrom.com/">www.idiyrom.com</a></p>
+<p>ps auxmore</p>
+<p>1 2018-06-14 14:42:18 root cd &#x2F;root&#x2F;</p>
+<p>2 2018-06-14 14:42:22 root netstat -tunpl</p>
+<p>3 2018-06-14 14:42:34 root ping <a target="_blank" rel="noopener" href="http://www.idiyrom.com/">www.idiyrom.com</a></p>
+<p>4 2018-06-14 14:42:50 root ps auxmore</p>
+<p>5 2018-06-14 14:42:59 root history</p>
+<p>!3</p>
+<p>ping <a target="_blank" rel="noopener" href="http://www.idiyrom.com/">www.idiyrom.com</a></p>
+<p>w</p>
+<p>!!</p>
+<p>执行w命令</p>
+<p>!net</p>
+<p>执行netstat -tunpl</p>
+<p>!$</p>
+<p>就会把tunpl作为命令执行</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/06/14/%E5%B7%A7%E7%94%A8%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4-linux/" data-id="clc4klg7v00b1ojobbtd79y6s" data-title="巧用历史命令--Linux" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-117" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/06/12/117/" class="article-date">
+  <time class="dt-published" datetime="2018-06-12T15:01:37.000Z" itemprop="datePublished">2018-06-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/uncategorized/">uncategorized</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/06/12/117/">Untitled Post - 6</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/06/12/117/" data-id="clc4klg3d0003ojob78o0aqlc" data-title="Untitled Post - 6" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/18/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/20/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ropon运维">
+<meta property="og:url" content="https://blog.ropon.top/page/18/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:locale">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-python-学习之登录注册-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/07/python-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C-2/" class="article-date">
+  <time class="dt-published" datetime="2018-10-07T05:58:26.000Z" itemprop="datePublished">2018-10-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/10/07/python-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C-2/">Python 学习之登录注册</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">def register(userinfo, name, passwd):</span><br><span class="line">    with open(userinfo, mode=&quot;r+&quot;, encoding=&quot;utf-8&quot;) as f1:</span><br><span class="line">        for line in f1:</span><br><span class="line">            # print(line.split(&quot;&quot;)[0])</span><br><span class="line">            if line.split(&quot;&quot;)[0] == name:</span><br><span class="line">                return 0,&quot;&#123;0&#125;用户已注册，请更换其他用户名&quot;.format(name)</span><br><span class="line">        f1.write(name+&quot;&quot;+passwd+&quot;\n&quot;)</span><br><span class="line">        return 1,&quot;注册成功,用户名是:&#123;0&#125;,密码是:&#123;1&#125;&quot;.format(name,passwd)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def login(userinfo, name, passwd):</span><br><span class="line">    with open(userinfo, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;) as f1:</span><br><span class="line">        for line in f1:</span><br><span class="line">            # print(line.split(&quot;&quot;)[0])</span><br><span class="line">            # print(line.split(&quot;&quot;)[1].strip())</span><br><span class="line">            if  name == line.split(&quot;&quot;)[0]:</span><br><span class="line">                if passwd == line.split(&quot;&quot;)[1].strip():</span><br><span class="line">                    return 1,&quot;用户名和密码正确，登录成功&quot;,0</span><br><span class="line">                else:</span><br><span class="line">                    return 0,&quot;&#123;0&#125;用户名密码错误，请检查&quot;.format(name),&quot;loginerror&quot;</span><br><span class="line">        return 0, &quot;&#123;0&#125;用户名还没注册，请先注册&quot;.format(name),0</span><br><span class="line"></span><br><span class="line"># flag = 1</span><br><span class="line"># while flag:</span><br><span class="line">#     name = input(&quot;请输入用户名：&quot;)</span><br><span class="line">#     passwd = input(&quot;请输入密码：&quot;)</span><br><span class="line">#     msg = register(&quot;userinfo&quot;, name, passwd)</span><br><span class="line">#     flag = msg[0]</span><br><span class="line">#     print(msg[1])</span><br><span class="line"></span><br><span class="line">name = input(&quot;请输入用户名：&quot;)</span><br><span class="line">count = 1</span><br><span class="line">while count &lt;=3:</span><br><span class="line">    passwd = input(&quot;请输入密码：&quot;)</span><br><span class="line">    msg = login(&quot;userinfo&quot;, name, passwd)</span><br><span class="line">    if msg[0] == &quot;1&quot;:</span><br><span class="line">        print(msg[1])</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        if msg[2] == &quot;loginerror&quot;:</span><br><span class="line">            print(msg[1])</span><br><span class="line">            print(&quot;已尝试&#123;0&#125;次,还剩余&#123;1&#125;次&quot;.format(count, 3 - count))</span><br><span class="line">            count += 1</span><br><span class="line">        else:</span><br><span class="line">            print(msg[1])</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/10/07/python-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C-2/" data-id="clc4klg6i007aojob9n2vh5ae" data-title="Python 学习之登录注册" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-shell-简单判断系统类型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/05/shell-%E7%AE%80%E5%8D%95%E5%88%A4%E6%96%AD%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2018-10-05T01:38:15.000Z" itemprop="datePublished">2018-10-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/10/05/shell-%E7%AE%80%E5%8D%95%E5%88%A4%E6%96%AD%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B/">Shell 简单判断系统类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">if [ -e /etc/redhat-release ]; then</span><br><span class="line">OS=CentOS</span><br><span class="line">[ -n &quot;$(grep &#x27; 7\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; ] &amp;&amp; OS_Ver=7</span><br><span class="line">[ -n &quot;$(grep &#x27; 6\.&#x27; /etc/redhat-release 2&gt; /dev/null)&quot; ] &amp;&amp; OS_Ver=6</span><br><span class="line">elif [ -n &quot;$(grep -i &#x27;Debian&#x27; /etc/issue 2&gt; /dev/null)&quot; ]; then</span><br><span class="line">OS=Debian</span><br><span class="line">elif [ -n &quot;$(grep -i &#x27;Ubuntu&#x27; /etc/issue 2&gt; /dev/null)&quot; ]; then</span><br><span class="line">OS=Ubuntu</span><br><span class="line">else</span><br><span class="line">echo &quot;UnknownOS&quot;</span><br><span class="line">fi</span><br><span class="line">echo $OS</span><br><span class="line">echo $OS_Ver</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/10/05/shell-%E7%AE%80%E5%8D%95%E5%88%A4%E6%96%AD%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B/" data-id="clc4klg6y008oojob1n38ao56" data-title="Shell 简单判断系统类型" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-python-冒泡排序分析总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/04/python-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93/" class="article-date">
+  <time class="dt-published" datetime="2018-10-04T03:29:02.000Z" itemprop="datePublished">2018-10-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/10/04/python-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93/">Python 冒泡排序分析总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">lst = [5,1,4,6]</span><br><span class="line"># print(lst)</span><br><span class="line">count = 0</span><br><span class="line">while count &lt; len(lst):</span><br><span class="line">    i = 0</span><br><span class="line">    while i &lt; len(lst) - 1:</span><br><span class="line">        print(&quot;第&#123;0&#125;次外层循环的内层循环第&#123;1&#125;次：&quot;.format(count+1, i+1))</span><br><span class="line">        if lst[i] &gt; lst[i + 1]:</span><br><span class="line">            print(&quot;lst[&#123;0&#125;]=&#123;2&#125;,lst[&#123;1&#125;]=&#123;3&#125;,&#123;2&#125;大于&#123;3&#125;交换&quot;.format(i, i + 1, lst[i],lst[i + 1]))</span><br><span class="line">            lst[i] , lst[i + 1] = lst[i + 1] , lst[i]</span><br><span class="line">            print(&quot;lst=&#123;0&#125;&quot;.format(lst))</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;lst[&#123;0&#125;]=&#123;2&#125;,lst[&#123;1&#125;]=&#123;3&#125;,&#123;2&#125;不大于&#123;3&#125;,不交换lst=&#123;4&#125;&quot;.format(i, i + 1, lst[i],lst[i + 1],lst))</span><br><span class="line">        i = i + 1</span><br><span class="line">    print(&quot;第&#123;0&#125;次外层循环结束lst=&#123;1&#125;&quot;.format(count+1,lst))</span><br><span class="line">    count = count + 1</span><br><span class="line">print(lst)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">第1次外层循环的内层循环第1次：</span><br><span class="line">lst[0]=5,lst[1]=1,5大于1交换</span><br><span class="line">lst=[1, 5, 4, 6]</span><br><span class="line">第1次外层循环的内层循环第2次：</span><br><span class="line">lst[1]=5,lst[2]=4,5大于4交换</span><br><span class="line">lst=[1, 4, 5, 6]</span><br><span class="line">第1次外层循环的内层循环第3次：</span><br><span class="line">lst[2]=5,lst[3]=6,5不大于6,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第1次外层循环结束lst=[1, 4, 5, 6]</span><br><span class="line">第2次外层循环的内层循环第1次：</span><br><span class="line">lst[0]=1,lst[1]=4,1不大于4,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第2次外层循环的内层循环第2次：</span><br><span class="line">lst[1]=4,lst[2]=5,4不大于5,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第2次外层循环的内层循环第3次：</span><br><span class="line">lst[2]=5,lst[3]=6,5不大于6,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第2次外层循环结束lst=[1, 4, 5, 6]</span><br><span class="line">第3次外层循环的内层循环第1次：</span><br><span class="line">lst[0]=1,lst[1]=4,1不大于4,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第3次外层循环的内层循环第2次：</span><br><span class="line">lst[1]=4,lst[2]=5,4不大于5,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第3次外层循环的内层循环第3次：</span><br><span class="line">lst[2]=5,lst[3]=6,5不大于6,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第3次外层循环结束lst=[1, 4, 5, 6]</span><br><span class="line">第4次外层循环的内层循环第1次：</span><br><span class="line">lst[0]=1,lst[1]=4,1不大于4,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第4次外层循环的内层循环第2次：</span><br><span class="line">lst[1]=4,lst[2]=5,4不大于5,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第4次外层循环的内层循环第3次：</span><br><span class="line">lst[2]=5,lst[3]=6,5不大于6,不交换lst=[1, 4, 5, 6]</span><br><span class="line">第4次外层循环结束lst=[1, 4, 5, 6]</span><br><span class="line">[1, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<p>主要说明冒泡排序流程，对于列表其实有更简单方法排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lst = [5,1,4,6]</span><br><span class="line">lst.sort()</span><br><span class="line">print(lst)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/10/04/python-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93/" data-id="clc4klg6h0076ojob3yzo7f92" data-title="Python 冒泡排序分析总结" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-web-config-规则实例不完全整理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/26/web-config-%E8%A7%84%E5%88%99%E5%AE%9E%E4%BE%8B%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%95%B4%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2018-09-26T06:13:02.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/26/web-config-%E8%A7%84%E5%88%99%E5%AE%9E%E4%BE%8B%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%95%B4%E7%90%86/">Web.config 规则实例不完全整理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="例子1：配置https-301跳转https"><a href="#例子1：配置https-301跳转https" class="headerlink" title="例子1：配置https 301跳转https"></a>例子1：配置https 301跳转https</h4><ul>
+<li>stopProcessing 匹配成功不继续匹配</li>
+<li>ignoreCase 忽略大小写</li>
+<li>MatchAny 或 MathAll 且</li>
+<li>negate 取反</li>
+</ul>
+<h4 id="具体规则"><a href="#具体规则" class="headerlink" title="具体规则"></a>具体规则</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;system.webServer&gt;</span><br><span class="line">&lt;rewrite&gt;</span><br><span class="line">    &lt;rules&gt;</span><br><span class="line">    &lt;rule name=&quot;301&quot; stopProcessing=&quot;true&quot;&gt;</span><br><span class="line">        &lt;match url=&quot;^(.*)$&quot; ignoreCase=&quot;false&quot; /&gt;</span><br><span class="line">            &lt;conditions logicalGrouping=&quot;MatchAny&quot;&gt;</span><br><span class="line">                &lt;add input=&quot;&#123;HTTP_FROM_HTTPS&#125;&quot; pattern=&quot;^on$&quot; negate=&quot;true&quot; /&gt;</span><br><span class="line">                &lt;add input=&quot;&#123;HTTP_HOST&#125;&quot; pattern=&quot;^www.idiyrom.com$&quot; negate=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;/conditions&gt;</span><br><span class="line">        &lt;action type=&quot;Redirect&quot; url=&quot;https://www.idiyrom.com/&#123;R:1&#125;&quot; redirectType=&quot;Permanent&quot; /&gt;</span><br><span class="line">    &lt;/rule&gt;</span><br><span class="line">    &lt;/rules&gt;</span><br><span class="line">&lt;/rewrite&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="例子2：手机站m-idiyrom-com-不跳转到https"><a href="#例子2：手机站m-idiyrom-com-不跳转到https" class="headerlink" title="例子2：手机站m.idiyrom.com 不跳转到https"></a>例子2：手机站m.idiyrom.com 不跳转到https</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;system.webServer&gt;</span><br><span class="line">&lt;rewrite&gt;</span><br><span class="line">    &lt;rules&gt;</span><br><span class="line">    &lt;rule name=&quot;301&quot; stopProcessing=&quot;true&quot;&gt;</span><br><span class="line">        &lt;match url=&quot;^(.*)$&quot; ignoreCase=&quot;false&quot; /&gt;</span><br><span class="line">        &lt;conditions logicalGrouping=&quot;MatchAll&quot;&gt;</span><br><span class="line">            &lt;add input=&quot;&#123;HTTP_FROM_HTTPS&#125;&quot; pattern=&quot;^on$&quot; negate=&quot;true&quot; /&gt;  </span><br><span class="line">            &lt;add input=&quot;&#123;HTTP_HOST&#125;&quot; pattern=&quot;^m.idiyrom.com$&quot; negate=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/conditions&gt;</span><br><span class="line">        &lt;action type=&quot;Redirect&quot; url=&quot;https://www.idiyrom.com/&#123;R:1&#125;&quot; redirectType=&quot;Permanent&quot; /&gt;</span><br><span class="line">    &lt;/rule&gt;</span><br><span class="line">    &lt;/rules&gt;</span><br><span class="line">&lt;/rewrite&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="例子3：设置仅允许某个目录下某个后缀文件访问-如仅允许上传目录下jpg等图片访问"><a href="#例子3：设置仅允许某个目录下某个后缀文件访问-如仅允许上传目录下jpg等图片访问" class="headerlink" title="例子3：设置仅允许某个目录下某个后缀文件访问 如仅允许上传目录下jpg等图片访问"></a>例子3：设置仅允许某个目录下某个后缀文件访问 如仅允许上传目录下jpg等图片访问</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; ?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;system.webServer&gt;</span><br><span class="line">  &lt;rewrite&gt;</span><br><span class="line">   &lt;rules&gt;</span><br><span class="line">    &lt;rule name=&quot;forbiddenhtml&quot;&gt;</span><br><span class="line">    &lt;match url=&quot;^(.*)$&quot; ignoreCase=&quot;false&quot; /&gt;</span><br><span class="line">        &lt;conditions logicalGrouping=&quot;MatchAll&quot;&gt;</span><br><span class="line">            &lt;add input=&quot;&#123;REQUEST_URI&#125;&quot; pattern=&quot;upload&quot; ignoreCase=&quot;false&quot; /&gt;</span><br><span class="line">            &lt;add input=&quot;&#123;URL&#125;&quot; pattern=&quot;^.*(.jpg)&quot; ignoreCase=&quot;false&quot; negate=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/conditions&gt;</span><br><span class="line">            &lt;action type=&quot;Redirect&quot; url=&quot;https://www.ropon.top/&quot; redirectType=&quot;Permanent&quot; /&gt;</span><br><span class="line">    &lt;/rule&gt;</span><br><span class="line">   &lt;/rules&gt;</span><br><span class="line">  &lt;/rewrite&gt;</span><br><span class="line"> &lt;/system.webServer&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/09/26/web-config-%E8%A7%84%E5%88%99%E5%AE%9E%E4%BE%8B%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%95%B4%E7%90%86/" data-id="clc4klg7f009nojob8kb63ny3" data-title="Web.config 规则实例不完全整理" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-pycharm-安装及设置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/25/pycharm-%E5%AE%89%E8%A3%85%E5%8F%8A%E8%AE%BE%E7%BD%AE/" class="article-date">
+  <time class="dt-published" datetime="2018-09-25T08:24:34.000Z" itemprop="datePublished">2018-09-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/25/pycharm-%E5%AE%89%E8%A3%85%E5%8F%8A%E8%AE%BE%E7%BD%AE/">PyCharm 安装设置及优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1、访问<a target="_blank" rel="noopener" href="http://www.jetbrains.com/pycharm/download/">http://www.jetbrains.com/pycharm/download/</a> 按如附图选择下载安装包 <img src="https://www.idiyrom.com/wp-content/uploads/2018/09/1-300x202.jpg"></p>
+<hr>
+<p>2、安装 以下演示的是pycharm-professional-2018.2.4.exe 安装没有什么特别，直接点击Next即可，其中主要有2个需要调整，一个是根据当前操作系统选择对应位数，勾选py后缀文件使用 PyCharm打开 <img src="https://www.idiyrom.com/wp-content/uploads/2018/09/1-1.jpg"></p>
+<hr>
+<p>3、设置 激活及开始设置引导根据提示操作，以下是其他优化设置 点击 Create New Project 然后根据以下截图配置 <img src="https://www.idiyrom.com/wp-content/uploads/2018/09/1-2-300x187.jpg"> <img src="https://www.idiyrom.com/wp-content/uploads/2018/09/1-3-234x300.jpg"></p>
+<hr>
+<p>4、优化 设置编辑器字体颜色 Files-Setting-Editor-Font <img src="https://www.idiyrom.com/wp-content/uploads/2018/09/1-4-300x132.jpg"> 定义Python模板文件 <img src="https://www.idiyrom.com/wp-content/uploads/2018/09/1-5-300x184.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : $&#123;DATE&#125; $&#123;TIME&#125;</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : $&#123;NAME&#125;.py</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>5、常用快捷键总结 a、Ctrl + &#x2F;     快速注释选中的内容 b、Ctrl + d    快速复制粘贴选中的内容 c、Ctrl + Shift +F10    运行 d、选中块按Tab 批量缩进，选中块按Shift+Tab取消批量缩进</p>
+<hr>
+<p>PS 小彩蛋 以下表达式值是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print (3 &gt; 1 and 2 or 2 &lt; 3) #2</span><br><span class="line">print (3 &lt; 1 and 2 or 2 &lt; 3) #True</span><br><span class="line">print (2 and 3) #3</span><br><span class="line">print (4 or 1) #4</span><br><span class="line">print (1 or 2 &lt; 1 ) #1</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">x or y </span><br><span class="line">说明：</span><br><span class="line">如果x为零，返回y的值</span><br><span class="line">如果x为非零，返回x的值</span><br><span class="line">比如：</span><br><span class="line">1 or 2 返回的是1</span><br><span class="line">0 or 3 返回的是3</span><br><span class="line"></span><br><span class="line">x and y</span><br><span class="line">说明：</span><br><span class="line">and 与or相反</span><br><span class="line">也就是说如果x为零，返回x的值</span><br><span class="line">如果x为非零，返回y的值</span><br><span class="line">比如：</span><br><span class="line">1 and 2返回的是2</span><br><span class="line">0 and 2返回的是0</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/09/25/pycharm-%E5%AE%89%E8%A3%85%E5%8F%8A%E8%AE%BE%E7%BD%AE/" data-id="clc4klg6f006yojobatn74hf1" data-title="PyCharm 安装设置及优化" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-查看已安装apache、nginx、php、mysql-的编译参数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/21/%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85apache%E3%80%81nginx%E3%80%81php%E3%80%81mysql-%E7%9A%84%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2018-09-21T08:48:28.000Z" itemprop="datePublished">2018-09-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/21/%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85apache%E3%80%81nginx%E3%80%81php%E3%80%81mysql-%E7%9A%84%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/">查看已安装apache、nginx、php、mysql 的编译参数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>查看nginx编译参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -V</span><br></pre></td></tr></table></figure>
+
+<p>查看apache编译参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/local/apache2/build/config.nice</span><br></pre></td></tr></table></figure>
+
+<p>查看mysql编译参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/local/mysql/bin/mysqlbug  grep CONFIGURE_LINE</span><br></pre></td></tr></table></figure>
+
+<p>查看php编译参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/php/bin/php -i  grep configure</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/09/21/%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85apache%E3%80%81nginx%E3%80%81php%E3%80%81mysql-%E7%9A%84%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/" data-id="clc4klg7y00bbojob1hn8e9u8" data-title="查看已安装apache、nginx、php、mysql 的编译参数" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ssh免密码双向登录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/12/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E5%8F%8C%E5%90%91%E7%99%BB%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2018-09-12T06:12:31.000Z" itemprop="datePublished">2018-09-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/12/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E5%8F%8C%E5%90%91%E7%99%BB%E5%BD%95/">SSH免密码双向登录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>实现原理</p>
+<p>使用一种被称为”公私钥”认证的方式来进行ssh登录。”公私钥”认证方式简单的解释是：</p>
+<p>首先在客户端上创建一对公私钥（公钥文件：&#x2F;.ssh&#x2F;id_rsa.pub；私钥文件：&#x2F;.ssh&#x2F;id_rsa），然后把公钥放到服务器上（~&#x2F;.ssh&#x2F;authorized_keys），自己保留好私钥。当ssh登录时，ssh程序会发送私钥去和服务器上的公钥做匹配。如果匹配成功就可以登录。</p>
+<hr>
+<p>在A服务器生成证书</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/root/.ssh/id_rsa): /root/.ssh/ropon_rsa</span><br><span class="line">Enter passphrase (empty for no passphrase): </span><br><span class="line">Enter same passphrase again: </span><br><span class="line">Your identification has been saved in /root/.ssh/ropon_rsa.</span><br><span class="line">Your public key has been saved in /root/.ssh/ropon_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line"></span><br><span class="line">ll ~/.ssh/</span><br><span class="line">total 12</span><br><span class="line">-rw-r--r-- 1 root root  404 Sep 11 23:35 known_hosts</span><br><span class="line">-rw------- 1 root root 1766 Sep 12 01:49 ropon_rsa</span><br><span class="line">-rw-r--r-- 1 root root  396 Sep 12 01:49 ropon_rsa.pub</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ropon_rsa 私钥文件，ropon_rsa.pub公钥文件</p>
+<hr>
+<p>将公钥证书ropon_rsa.pub复制到B服务器&#x2F;root&#x2F;.ssh子目录下，同时将文件名更换为authorized_keys，此时需要输 入B服务器的root用户密码（还未建立信任关系）。建立了客户端到服务器端的信任关系后，A服务器就可以不用再输入密码，就可以从B服务器端拷贝数据。</p>
+<p>scp -r -PSSH端口 ~&#x2F;.ssh&#x2F;ropon_rsa.pub x.x.x.x:&#x2F;root&#x2F;.ssh&#x2F;authorized_keys</p>
+<p>提示：scp: &#x2F;root&#x2F;.ssh&#x2F;authorized_keys: No such file or directory 请先到目标服务器使用mkdir &#x2F;root&#x2F;.ssh命令创建目录</p>
+<p>然后使用ssh -i ropon_rsa -pSSH端口 x.x.x.x 免密码登录</p>
+<p>同理要实现SSH免密码双向链接，在B服务器创建证书，然后将公钥文件拷贝到A服务器&#x2F;root&#x2F;.ssh&#x2F;authorized_keys目录</p>
+<p>另外本地客户端比如putty、xshell 使用密钥文件登录，拷贝私钥文件ropon_rsa到本地，SSH连接时选择对应秘钥文件即可 创建时设置密码，输入对应密码然后连接。</p>
+<p>PS： 如果链接慢，关闭DNS反查 cat &#x2F;etc&#x2F;ssh&#x2F;sshd_config <strong>UseDNS no</strong></p>
+<p>设置仅使用秘钥登录 cat &#x2F;etc&#x2F;ssh&#x2F;sshd_config <strong>PasswordAuthentication no</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/09/12/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E5%8F%8C%E5%90%91%E7%99%BB%E5%BD%95/" data-id="clc4klg73008yojobhk9s2m4f" data-title="SSH免密码双向登录" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-windows下排查php-cgi无法使用思路" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/02/windows%E4%B8%8B%E6%8E%92%E6%9F%A5php-cgi%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E6%80%9D%E8%B7%AF/" class="article-date">
+  <time class="dt-published" datetime="2018-09-02T02:08:10.000Z" itemprop="datePublished">2018-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/02/windows%E4%B8%8B%E6%8E%92%E6%9F%A5php-cgi%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E6%80%9D%E8%B7%AF/">Windows下排查php-cgi无法使用思路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1、先检查是否iis有异常 是否加载异常dll，比如安全狗、云锁、360网站卫士等 2、检查php环境是否有异常</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">进入cmd  </span><br><span class="line">d:</span><br><span class="line">cd D:\SOFT_PHP_PACKAGE\php5.3</span><br><span class="line">php-cgi.exe . -c d:\wwwroot\xxxx\index.php #使用当前目录下php.ini 执行对应php文件</span><br></pre></td></tr></table></figure>
+
+<p>3、检查权限</p>
+<p>对应php目录需要给everyone 读权限</p>
+<hr>
+<p>fcgiext.ini 文件解读</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[PHP53]</span><br><span class="line">ExePath=D:\SOFT_PHP_PACKAGE\php5.3\php-cgi.exe</span><br><span class="line">InstanceMaxRequests = 10000</span><br><span class="line">ActivityTimeout = 300</span><br><span class="line">RequestTimeout = 600</span><br><span class="line">EnvironmentVars=PHP_FCGI_MAX_REQUESTS:200,PHPRC:D:\SOFT_PHP_PACKAGE\php5.3\,MonitorChangesTo=D:\SOFT_PHP_PACKAGE\php5.3\php.ini</span><br><span class="line">[PHP54]</span><br><span class="line">ExePath=D:\SOFT_PHP_PACKAGE\php5.4\php-cgi.exe</span><br><span class="line">InstanceMaxRequests = 10000</span><br><span class="line">ActivityTimeout = 300</span><br><span class="line">RequestTimeout = 600</span><br><span class="line">EnvironmentVars=PHP_FCGI_MAX_REQUESTS:200,PHPRC:D:\SOFT_PHP_PACKAGE\php5.4\,MonitorChangesTo=D:\SOFT_PHP_PACKAGE\php5.4\php.ini</span><br><span class="line"></span><br><span class="line">[Types]</span><br><span class="line">PHP = PHP53  #使用CGI默认使用php5.3</span><br><span class="line">PHP:10236=PHP54  #指定具体站点使用php5.4，10236 站点ID</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/09/02/windows%E4%B8%8B%E6%8E%92%E6%9F%A5php-cgi%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E6%80%9D%E8%B7%AF/" data-id="clc4klg7h009tojob6m872x10" data-title="Windows下排查php-cgi无法使用思路" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-centos-ubuntu-debian系统数据盘一键分区一键扩容脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/01/centos-ubuntu-debian%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E7%9B%98%E4%B8%80%E9%94%AE%E5%88%86%E5%8C%BA%E4%B8%80%E9%94%AE%E6%89%A9%E5%AE%B9%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2018-09-01T05:57:11.000Z" itemprop="datePublished">2018-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/01/centos-ubuntu-debian%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E7%9B%98%E4%B8%80%E9%94%AE%E5%88%86%E5%8C%BA%E4%B8%80%E9%94%AE%E6%89%A9%E5%AE%B9%E8%84%9A%E6%9C%AC/">Centos/Ubuntu/Debian系统数据盘一键分区一键扩容脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#一键分区</span><br><span class="line">#一键扩容</span><br><span class="line">#用法：bash homeV2.sh</span><br><span class="line"></span><br><span class="line">#v1.1.20180914</span><br><span class="line">#新增避免重复同时运行</span><br><span class="line">#新增日志记录</span><br><span class="line"></span><br><span class="line">rsname=homeV2 #shell名称</span><br><span class="line">LOCKfile=/root/.$(basename $0).lock</span><br><span class="line">LOGfile=/root/.$(basename $0).log</span><br><span class="line"></span><br><span class="line">Echo()</span><br><span class="line">&#123;</span><br><span class="line">case $1 in</span><br><span class="line">    success)  flag=&quot;\033[1;32m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    failure)  flag=&quot;\033[1;31m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    warning)  flag=&quot;\033[1;33m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    msg)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    *)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">if [[ $LANG =~ [Uu][Tt][Ff] ]]</span><br><span class="line">then</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;</span><br><span class="line">else</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;  iconv -f utf-8 -t gbk</span><br><span class="line">fi</span><br><span class="line">#写日志</span><br><span class="line">[ &quot;$&#123;3&#125;A&quot; == &quot;LogA&quot; ] &amp;&amp; Shell_log $2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Shell_log()&#123;</span><br><span class="line">    LOG_INFO=$1</span><br><span class="line">    Echo &quot;msg&quot; &quot;$(date &quot;+%Y-%m-%d&quot;) $(date &quot;+%H:%M:%S&quot;):$rsname:$LOG_INFO&quot; &gt;&gt; $LOGfile</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Shell_lock()&#123;</span><br><span class="line">    touch $LOCKfile</span><br><span class="line">&#125;</span><br><span class="line">Shell_unlock()&#123;</span><br><span class="line">    rm -f $LOCKfile</span><br><span class="line">&#125;</span><br><span class="line">Exit()&#123;</span><br><span class="line">Shell_unlock</span><br><span class="line">exit</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CheckWDCP()</span><br><span class="line">&#123;</span><br><span class="line">service httpd $1</span><br><span class="line">service nginxd $1</span><br><span class="line">service mysqld $1</span><br><span class="line">service pureftpd $1</span><br><span class="line">[ -e /etc/init.d/wdcp ] &amp;&amp; service wdcp $1</span><br><span class="line">[ -e /etc/init.d/wdapache ] &amp;&amp; service wdapache $1</span><br><span class="line">[ -e /etc/init.d/redis_6379 ] &amp;&amp; service redis_6379 $1</span><br><span class="line">[ -e /etc/init.d/memcached ] &amp;&amp; service memcached $1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">YunPanMBR()</span><br><span class="line">&#123;</span><br><span class="line">Echo &quot;msg&quot; &quot;有挂载云盘$1且没有分区,是否需要一键分区。&quot; &quot;Log&quot;</span><br><span class="line">fstab_file=&quot;/etc/fstab&quot;</span><br><span class="line">read -p &quot;[y/n]: &quot; autoyunpan</span><br><span class="line">while [[ ! $autoyunpan =~ ^[y,n]$ ]] </span><br><span class="line">do</span><br><span class="line">Echo &quot;warning&quot; &quot;输入错误,只能输入y或n&quot; &quot;Log&quot;</span><br><span class="line">read -p &quot;[y/n]: &quot; autoyunpan</span><br><span class="line">done</span><br><span class="line">if [ &quot;$autoyunpan&quot; == &#x27;y&#x27; ];then</span><br><span class="line">yunpandev=$1</span><br><span class="line">fdisk $yunpandev &lt;&lt; EOF</span><br><span class="line">n</span><br><span class="line">p</span><br><span class="line">1</span><br><span class="line">2048</span><br><span class="line"></span><br><span class="line">w</span><br><span class="line">EOF</span><br><span class="line">sleep 5</span><br><span class="line">mkfs.ext4 $&#123;yunpandev&#125;1</span><br><span class="line">Echo &quot;msg&quot; &quot;请输入挂载点,比如:/yunpan&quot; &quot;Log&quot;</span><br><span class="line">read -p &quot;: &quot; mountdir</span><br><span class="line">[ ! -d &quot;$mountdir&quot; ] &amp;&amp; mkdir -p $mountdir</span><br><span class="line">echo &quot;$&#123;yunpandev&#125;1$mountdirext4    defaults0 0&quot; &gt;&gt;$fstab_file</span><br><span class="line">mount -a</span><br><span class="line">df -vh</span><br><span class="line">Echo &quot;success&quot; &quot;$yunpandev一键分区成功,挂载点是$mountdir&quot; &quot;Log&quot;</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Auto()</span><br><span class="line">&#123;</span><br><span class="line">tempdev=`ls /dev/vd[b-z]`</span><br><span class="line">Echo &quot;msg&quot; &quot;请输入设备名,比如以下设备名,扩容数据盘[home分区]/dev/vdb请直接回车&quot; &quot;Log&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;$tempdev&quot; &quot;Log&quot;</span><br><span class="line">read -p &quot;:&quot; devpart</span><br><span class="line">[ -z &quot;$devpart&quot; ] &amp;&amp; devpart=&quot;/dev/vdb&quot;</span><br><span class="line">while [[ ! -e &quot;$devpart&quot; ]] </span><br><span class="line">do</span><br><span class="line">Echo &quot;warning&quot; &quot;输入设备名错误,请重新输入&quot; &quot;Log&quot;</span><br><span class="line">read -p &quot;:&quot; devpart</span><br><span class="line">done</span><br><span class="line">data_part=`df -vh grep $&#123;devpart&#125;1awk &#x27;&#123;print $6&#125;&#x27;`</span><br><span class="line">Swap=`free -m  awk &#x27;/Swap:/&#123;print $2&#125;&#x27;`</span><br><span class="line">Swapdir=$(cat /etc/fstab grep swapawk &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">[ &quot;$Swap&quot; -ne &#x27;0&#x27; ] &amp;&amp; swapoff $Swapdir</span><br><span class="line">[ -d /www/wdlinux/wdcp ] &amp;&amp; Echo &quot;msg&quot; &quot;预装WDCP面板系统,正在停止WDCP相关服务。&quot; &amp;&amp; CheckWDCP stop</span><br><span class="line">which fuser &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; yum -y install psmisc fuser</span><br><span class="line">fuser -m $data_part -k</span><br><span class="line">umount $data_part</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; Echo &quot;warning&quot; &quot;取消$data_part挂载失败,程序自动退出,请手动操作扩展&quot; &quot;Log&quot; &amp;&amp; [ -d /www/wdlinux/wdcp ] &amp;&amp; CheckWDCP start &amp;&amp; Exit</span><br><span class="line">Startflag=`parted $devpart printsed -n &#x27;/primary/p&#x27;awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">parted $devpart printgrep primary &gt; /parted.txt</span><br><span class="line">[ ! -e /parted.txt ] &amp;&amp; Echo &quot;warning&quot; &quot;备份分区表文件不成功,程序自动退出,请手动操作扩展&quot; &quot;Log&quot;</span><br><span class="line">parted $devpart  rm 1</span><br><span class="line">yesparted $devpart  mkpart primary $Startflag 100%</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; Echo &quot;warning&quot; &quot;分区扩容失败，请手动操作扩展&quot; &quot;Log&quot; &amp;&amp; Exit</span><br><span class="line">Echo &quot;msg&quot; &quot;如果硬盘较大,时间可能会很长,请耐心等待！&quot; &quot;Log&quot;</span><br><span class="line">resize2fs -f $&#123;devpart&#125;1</span><br><span class="line">mount -a</span><br><span class="line">[ &quot;$Swap&quot; -ne &#x27;0&#x27; ] &amp;&amp; swapon $Swapdir</span><br><span class="line">[ -d /www/wdlinux/wdcp ] &amp;&amp; Echo &quot;msg&quot; &quot;预装WDCP面板系统,正在启动WDCP相关服务&quot; &quot;Log&quot; &amp;&amp; CheckWDCP start</span><br><span class="line">df -vh</span><br><span class="line">Echo &quot;success&quot; &quot;$devpart扩容成功&quot; &quot;Log&quot;</span><br><span class="line">Exit</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Main()</span><br><span class="line">&#123;</span><br><span class="line">if [ -e &quot;/dev/vdc&quot; ] ;then </span><br><span class="line">for devname in `ls /dev/vd[c-z]`</span><br><span class="line">do</span><br><span class="line">if [ -e &quot;$devname&quot; ] &amp;&amp; [ ! -e &quot;$&#123;devname&#125;1&quot; ] ;then</span><br><span class="line">YunPanMBR $devname</span><br><span class="line">fi</span><br><span class="line">done</span><br><span class="line">fi</span><br><span class="line">Echo &quot;msg&quot; &quot;是否需要扩容磁盘&quot; &quot;Log&quot;</span><br><span class="line">read -p &quot;[y/n]: &quot; autodisk</span><br><span class="line">while [[ ! $autodisk =~ ^[y,n]$ ]] </span><br><span class="line">do</span><br><span class="line">Echo &quot;warning&quot; &quot;输入错误,只能输入y或n&quot; &quot;Log&quot;</span><br><span class="line">read -p &quot;[y/n]: &quot; autodisk</span><br><span class="line">done</span><br><span class="line">if [ &quot;$autodisk&quot; == &#x27;y&#x27; ];then</span><br><span class="line">Auto</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line">if [ -f &quot;$LOCKfile&quot; ];then</span><br><span class="line">Echo &quot;warning&quot; &quot;核实脚本正在运行中，请勿重复运行，若是之前强行中断引起的，请手工清理$LOCKfile&quot; &quot;Log&quot; &amp;&amp; exit</span><br><span class="line">else</span><br><span class="line">Echo &quot;msg&quot; &quot;首次运行脚本，将自动创建锁文件然后继续，避免在执行中重复运行脚本。&quot; &quot;Log&quot;</span><br><span class="line">Shell_lock</span><br><span class="line">fi</span><br><span class="line">Main</span><br><span class="line">Exit</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/09/01/centos-ubuntu-debian%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E7%9B%98%E4%B8%80%E9%94%AE%E5%88%86%E5%8C%BA%E4%B8%80%E9%94%AE%E6%89%A9%E5%AE%B9%E8%84%9A%E6%9C%AC/" data-id="clc4klg4i0011ojob9df8ccvd" data-title="Centos/Ubuntu/Debian系统数据盘一键分区一键扩容脚本" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-windows环境下安装mysql5-7" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/31/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7/" class="article-date">
+  <time class="dt-published" datetime="2018-08-31T06:55:45.000Z" itemprop="datePublished">2018-08-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/31/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7/">Windows环境下安装mysql5.7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1、注意：安装mysql5.7 需要VC13，请访问以下链接<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/download/details.aspx?id=40784%E4%B8%8B%E8%BD%BD%EF%BC%8C%E6%B3%A8%E6%84%8F%E4%B8%8B%E8%BD%BD%E4%B8%8Emysql%E8%A7%A3%E5%8E%8B%E5%8C%85%E7%9B%B8%E5%90%8C%E4%BD%8D%E6%95%B0%E7%89%88%E6%9C%AC%EF%BC%8C">https://www.microsoft.com/zh-cn/download/details.aspx?id=40784下载，注意下载与mysql解压包相同位数版本，</a> 这里用的32位安装包； 2、访问以下链接<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/file/?id=478883">https://dev.mysql.com/downloads/file/?id=478883</a> 下载mysql-5.7.23-win32.zip 解压到D:\mysql目录</p>
+<hr>
+<p>my.ini 简单范例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[mysql]  </span><br><span class="line"># 设置mysql客户端默认字符集  </span><br><span class="line">default-character-set=utf8  </span><br><span class="line">[mysqld]  </span><br><span class="line">#设置3306端口  </span><br><span class="line">port = 3306  </span><br><span class="line"># 设置mysql的安装目录  </span><br><span class="line">basedir=D:\mysql\mysql5.7</span><br><span class="line"># 设置mysql数据库的数据的存放目录  </span><br><span class="line">datadir=D:\mysql\mysql5.7\data  </span><br><span class="line"># 允许最大连接数  </span><br><span class="line">max_connections=200  </span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集  </span><br><span class="line">character-set-server=utf8  </span><br><span class="line"># 创建新表时将使用的默认存储引擎  </span><br><span class="line">default-storage-engine=INNODB  </span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>mysql5.7 压缩包没有初始化数据库，默认没有data目录，请使用以下命令初始化并会生成随机root密码，请先记录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize --console</span><br></pre></td></tr></table></figure>
+
+<p>配置系统环境变量“d:\mysql\mysql5.7\bin”，开始安装服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysqld --install MySQL57</span><br><span class="line"></span><br><span class="line">net start MySQL57</span><br><span class="line"></span><br><span class="line">#使用前需要重置root密码，使用之前初始化生成随机密码登录mysql执行以下命令修改root密码</span><br><span class="line"></span><br><span class="line">set Password=Password(&#x27;idiyrom.com&#x27;); </span><br><span class="line"></span><br><span class="line">#其中idiyrom.com 就是修改后的密码</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>注意如果使用普通用户允许mysql5.7，上级根目录需要给everyone或者普通用户读的权限，演示安装的的目录是d:\mysql\mysql5.7\bin，需要给d盘everyone或者普通用户读的权限。另外通过bat命令一键安装时，注意my.ini 需要配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmpdir=D:\mysql\mysql5.7\tmp</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/08/31/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7/" data-id="clc4klg7i009wojob50a90elx" data-title="Windows环境下安装mysql5.7" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/17/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/19/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>详解MYSQL | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="安装基本组件库 yum -y install gcc-c++ perl ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install.noarch net-tools vim wget mysql 1、创建mysql普通用户 id -u mysql &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解MYSQL">
+<meta property="og:url" content="https://blog.ropon.top/2017/11/28/%E8%AF%A6%E8%A7%A3mysql/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="安装基本组件库 yum -y install gcc-c++ perl ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install.noarch net-tools vim wget mysql 1、创建mysql普通用户 id -u mysql &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-11-28T07:29:26.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.044Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-详解mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/11/28/%E8%AF%A6%E8%A7%A3mysql/" class="article-date">
+  <time class="dt-published" datetime="2017-11-28T07:29:26.000Z" itemprop="datePublished">2017-11-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      详解MYSQL
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>安装基本组件库</p>
+<p>yum -y install gcc-c++ perl ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install.noarch net-tools vim wget</p>
+<p>mysql</p>
+<p>1、创建mysql普通用户</p>
+<p>id -u mysql &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</p>
+<p>[ $? -ne 0 ] &amp;&amp; useradd mysql -s &#x2F;sbin&#x2F;nologin -M -g mysql</p>
+<p>[ ! -d &#x2F;home&#x2F;ropon&#x2F;tools ] &amp;&amp; mkdir -p &#x2F;home&#x2F;ropon&#x2F;tools</p>
+<p>cd &#x2F;home&#x2F;ropon&#x2F;tools</p>
+<p>wget -c <a target="_blank" rel="noopener" href="https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz">https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz</a> （mysql编译工具）</p>
+<p>tar zxvf cmake-3.6.2.tar.gz</p>
+<p>cd cmake-3.6.2</p>
+<p>.&#x2F;configure</p>
+<p>make &amp;&amp; make install</p>
+<p>wget -c <a target="_blank" rel="noopener" href="http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.38.tar.gz">http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.38.tar.gz</a></p>
+<p>[ ! -d &#x2F;usr&#x2F;local&#x2F;mysql-5.6.38 ] &amp;&amp; mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql-5.6.38 #创建安装目录</p>
+<p>[ ! -d &#x2F;home&#x2F;mysql ] &amp;&amp; mkdir -p &#x2F;home&#x2F;mysql #创建数据库存放目录</p>
+<p>chown mysql.mysql -R &#x2F;home&#x2F;mysql</p>
+<p>ln -s &#x2F;usr&#x2F;local&#x2F;mysql-5.6.38 &#x2F;usr&#x2F;local&#x2F;mysql</p>
+<p>cd &#x2F;home&#x2F;ropon&#x2F;tools</p>
+<p>tar zxvf mysql-5.6.38.tar.gz</p>
+<p>cd mysql-5.6.38</p>
+<p>cmake . -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql \ #安装目录</p>
+<p>-DMYSQL_DATADIR&#x3D;&#x2F;home&#x2F;mysql \ #数据库存放目录</p>
+<p>-DSYSCONFDIR&#x3D;&#x2F;etc #配置文件目录</p>
+<p>-DWITH_INNOBASE_STORAGE_ENGINE&#x3D;1 \ #安装INNOBASE存储引擎</p>
+<p>-DWITH_PARTITION_STORAGE_ENGINE&#x3D;1 \ #安装数据库分区</p>
+<p>-DWITH_FEDERATED_STORAGE_ENGINE&#x3D;1 \</p>
+<p>-DWITH_BLACKHOLE_STORAGE_ENGINE&#x3D;1 \ #安装BLACKHOLE存储引擎</p>
+<p>-DWITH_MYISAM_STORAGE_ENGINE&#x3D;1 \ #安装MYISAM存储引擎</p>
+<p>-DWITH_EMBEDDED_SERVER&#x3D;1 \</p>
+<p>-DENABLE_DTRACE&#x3D;0 \</p>
+<p>-DENABLED_LOCAL_INFILE&#x3D;1 \</p>
+<p>-DDEFAULT_CHARSET&#x3D;utf8mb4 \</p>
+<p>-DDEFAULT_COLLATION&#x3D;utf8mb4_general_ci \</p>
+<p>-DEXTRA_CHARSETS&#x3D;all \</p>
+<p>-DCMAKE_EXE_LINKER_FLAGS&#x3D;’-ljemalloc’</p>
+<p>以上可选</p>
+<p>make -j 4 #多进程编译，4这个数值请修改cpu核心数</p>
+<p>make install</p>
+<p>&#x2F;bin&#x2F;cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld #拷贝启动项</p>
+<p>sed -i “s@^basedir&#x3D;.*@basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql@” &#x2F;etc&#x2F;init.d&#x2F;mysqld #修改启动项mysql安装目录</p>
+<p>sed -i “s@^datadir&#x3D;.*@datadir&#x3D;&#x2F;home&#x2F;mysql@” &#x2F;etc&#x2F;init.d&#x2F;mysqld #修改启动项mysql存放目录</p>
+<p>chmod +x &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>chkconfig –add mysqld &amp;&amp; chkconfig mysqld on #给执行权限添加开机自启</p>
+<p>优化my.cnf</p>
+<p>[client]</p>
+<p>port &#x3D; 3306</p>
+<p>socket &#x3D; &#x2F;tmp&#x2F;mysql.sock</p>
+<p>default-character-set &#x3D; utf8mb4</p>
+<p>[mysql]</p>
+<p>prompt&#x3D;”MySQL [\\d]&gt; “ #prompt命令可以在mysql提示符中显示当前用户、数据库、时间等信息</p>
+<p>#prompt&#x3D;”MySQL [\\u@\\h:\\d]&gt; “</p>
+<p>#\\u 当前用户 \\h 当前链接地址 \\d 当前数据库</p>
+<p>no-auto-rehash #命令自动补全的意思</p>
+<p>[mysqld]</p>
+<p>port &#x3D; 3306</p>
+<p>socket &#x3D; &#x2F;tmp&#x2F;mysql.sock</p>
+<p>basedir &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql</p>
+<p>datadir &#x3D; &#x2F;home&#x2F;mysql</p>
+<p>pid-file &#x3D; &#x2F;home&#x2F;mysq&#x2F;mysql.pid</p>
+<p>user &#x3D; mysql</p>
+<p>bind-address &#x3D; 0.0.0.0</p>
+<p>server-id &#x3D; 1</p>
+<p>init-connect &#x3D; ‘SET NAMES utf8mb4’</p>
+<p>character-set-server &#x3D; utf8mb4</p>
+<p>skip-name-resolve #禁止掉DNS的查询</p>
+<p>#mysql会在用户登录过程中对客户端IP进行DNS反查，不管你是使用IP登录还是域名登录，这个反查#的过程都是在的。所以如果你的mysql所在的服务器的DNS有问题或者质量不好，那么就有可能造成#我遇到的这个问题，DNS解析出现问题。</p>
+<p>#skip-networking #开启该选项后就不能远程访问MySQL</p>
+<p>back_log &#x3D; 300</p>
+<p>#指出在MySQL暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。也就#是说，如果MySql的连接数达到max_connections时，新来的请求将会被存</p>
+<p>#在堆栈中，以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量#超过back_log，将不被授予连接资源。</p>
+<p>max_connections &#x3D; 1000</p>
+<p>max_connect_errors &#x3D; 6000</p>
+<p>#当此值设置为10时，意味着如果某一客户端尝试连接此MySQL服务器，但是失败（如密码错误等 #）10次，则MySQL会无条件强制阻止此客户端连接。如果希望重置此计数器的值，则必须重启#MySQL服务器或者执行Mysql&gt; FLUSH HOSTS;</p>
+<p>open_files_limit &#x3D; 65535 #打开多少文件描述符</p>
+<p>table_open_cache &#x3D; 128</p>
+<p>max_allowed_packet &#x3D; 500M</p>
+<p>binlog_cache_size &#x3D; 1M</p>
+<p>max_heap_table_size &#x3D; 8M</p>
+<p>tmp_table_size &#x3D; 16M</p>
+<p>read_buffer_size &#x3D; 2M</p>
+<p>read_rnd_buffer_size &#x3D; 8M #MySQL的随机读缓冲区大小</p>
+<p>sort_buffer_size &#x3D; 8M</p>
+<p>join_buffer_size &#x3D; 8M</p>
+<p>key_buffer_size &#x3D; 4M</p>
+<p>thread_cache_size &#x3D; 8</p>
+<p>query_cache_type &#x3D; 1 #查询总是先到查询缓存中查找，即使使用了sql_no_cache仍然查询缓存，</p>
+<p>#因为sql_no_cache只是不缓存查询结果，而不是不使用查询结果。</p>
+<p>query_cache_size &#x3D; 8M</p>
+<p>query_cache_limit &#x3D; 2M</p>
+<p>#ft_min_word_len &#x3D; 4 #配置最小搜索长度</p>
+<p>#从 Mysql 4.0 开始就支持全文索引功能，但是 Mysql 默认的最小索引长度是 4。如果是#英文默认值是比较合理的，但是中文绝大部分词都是2个字符，这就导致小于4个字的词#都不能被索引，全文索引功能就形同虚设了。国内的空间商大部分可能并没有注意到这#个问题，没有修改 Mysql 的默认设置。</p>
+<p>log_bin &#x3D; mysql-bin</p>
+<p>binlog_format &#x3D; mixed</p>
+<p>expire_logs_days &#x3D; 7</p>
+<p>log_error &#x3D; &#x2F;home&#x2F;mysql&#x2F;mysql-error.log</p>
+<p>slow_query_log &#x3D; 1</p>
+<p>long_query_time &#x3D; 1</p>
+<p>slow_query_log_file &#x3D; &#x2F;home&#x2F;mysql&#x2F;mysql-slow.log</p>
+<p>performance_schema &#x3D; 0</p>
+<p>explicit_defaults_for_timestamp</p>
+<p>#lower_case_table_names &#x3D; 1</p>
+<p>skip-external-locking #跳过外部锁定</p>
+<p>#当外部锁定（external-locking）起作用时，每个进程若要访问数据表，则必须等待之前的进程完成</p>
+<p>#操作并解除锁定。由于服务器访问数据表时经常需要等待解锁，因此在单服务器环境下external #locking会让MySQL性能下降。所以在很多Linux发行版的源中，MySQL配置文件中默认使用了skip-#external-locking来避免external locking。</p>
+<p>default_storage_engine &#x3D; InnoDB</p>
+<p>innodb_file_per_table &#x3D; 1</p>
+<p>innodb_open_files &#x3D; 500</p>
+<p>innodb_buffer_pool_size &#x3D; 64M</p>
+<p>innodb_write_io_threads &#x3D; 4</p>
+<p>innodb_read_io_threads &#x3D; 4</p>
+<p>innodb_thread_concurrency &#x3D; 0</p>
+<p>innodb_purge_threads &#x3D; 1</p>
+<p>innodb_flush_log_at_trx_commit &#x3D; 2</p>
+<p>innodb_log_buffer_size &#x3D; 2M</p>
+<p>innodb_log_file_size &#x3D; 32M</p>
+<p>innodb_log_files_in_group &#x3D; 3</p>
+<p>innodb_max_dirty_pages_pct &#x3D; 90</p>
+<p>innodb_lock_wait_timeout &#x3D; 120</p>
+<p>bulk_insert_buffer_size &#x3D; 8M</p>
+<p>myisam_sort_buffer_size &#x3D; 8M</p>
+<p>myisam_max_sort_file_size &#x3D; 10G</p>
+<p>myisam_repair_threads &#x3D; 1</p>
+<p>interactive_timeout &#x3D; 28800</p>
+<p>wait_timeout &#x3D; 28800</p>
+<p>[mysqldump]</p>
+<p>quick</p>
+<p>max_allowed_packet &#x3D; 500M</p>
+<p>[myisamchk]</p>
+<p>key_buffer_size &#x3D; 8M</p>
+<p>sort_buffer_size &#x3D; 8M</p>
+<p>read_buffer &#x3D; 4M</p>
+<p>mysql_install_dir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql</p>
+<p>mysql_data_dir&#x3D;&#x2F;home&#x2F;mysql</p>
+<p>dbrootpwd&#x3D;west263.com</p>
+<p>${mysql_install_dir}&#x2F;scripts&#x2F;mysql_install_db –user&#x3D;mysql –basedir&#x3D;${mysql_install_dir} –datadir&#x3D;${mysql_data_dir}</p>
+<p>&#x2F;bin&#x2F;cp ${mysql_install_dir}&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>sed -i “s@^basedir&#x3D;.*@basedir&#x3D;${mysql_install_dir}@” &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>sed -i “s@^datadir&#x3D;.*@datadir&#x3D;${mysql_data_dir}@” &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>chmod +x &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>chkconfig –add mysqld</p>
+<p>chkconfig mysqld on</p>
+<p>service mysqld start</p>
+<p>[ -z “$(grep ^’export PATH&#x3D;’ &#x2F;etc&#x2F;profile)” ] &amp;&amp; echo “export PATH&#x3D;${mysql_install_dir}&#x2F;bin:\$PATH” &gt;&gt; &#x2F;etc&#x2F;profile</p>
+<p>[ -n “$(grep ^’export PATH&#x3D;’ &#x2F;etc&#x2F;profile)” -a -z “$(grep ${mysql_install_dir} &#x2F;etc&#x2F;profile)” ] &amp;&amp; sed -i “s@^export PATH&#x3D;\(.*\)@export PATH&#x3D;${mysql_install_dir}&#x2F;bin:\1@” &#x2F;etc&#x2F;profile</p>
+<p>. &#x2F;etc&#x2F;profile</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -e “grant all privileges on *.* to root@’127.0.0.1’ identified by \“${dbrootpwd}\“ with grant option;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -e “grant all privileges on *.* to root@’localhost’ identified by \“${dbrootpwd}\“ with grant option;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “delete from mysql.user where Password&#x3D;’’;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “delete from mysql.db where User&#x3D;’’;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “delete from mysql.proxies_priv where Host!&#x3D;’localhost’;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “drop database test;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “reset master;”</p>
+<p><a target="_blank" rel="noopener" href="http://luopengtest.gotoip2.com/shell/lnmp/mysql.sh">http://luopengtest.gotoip2.com/shell/lnmp/mysql.sh</a> mysql自动安装shell脚本</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/11/28/%E8%AF%A6%E8%A7%A3mysql/" data-id="clc4klg8100boojob53c5b8nf" data-title="详解MYSQL" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/29/%E8%AF%A6%E8%A7%A3php/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          详解PHP
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/22/%E8%AF%A6%E8%A7%A3nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">详解nginx</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

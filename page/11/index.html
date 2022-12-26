@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ropon运维">
+<meta property="og:url" content="https://blog.ropon.top/page/11/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:locale">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-go语言中函数-0" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0-0/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T01:56:49.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0-0/">Go语言中函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 声明map</span></span><br><span class="line">    <span class="comment">// map 是无序 基于key-value 的数据结构 map 是引用类型 必须先初始化才能使用</span></span><br><span class="line">    <span class="comment">// 定义语法 map[KeyType]ValueType</span></span><br><span class="line">    <span class="comment">//  a := map[string]int</span></span><br><span class="line">    <span class="comment">// make 申请内存 初始化</span></span><br><span class="line">    <span class="comment">// a := make(map[string]int, 8)</span></span><br><span class="line">    <span class="comment">// a[&quot;test&quot;] = 1</span></span><br><span class="line">    <span class="comment">// fmt.Println(a)</span></span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%#v&quot;, a)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// scoreMap := make(map[string]int)</span></span><br><span class="line">    <span class="comment">// scoreMap[&quot;张三&quot;] = 60</span></span><br><span class="line">    <span class="comment">// scoreMap[&quot;李四&quot;] = 90</span></span><br><span class="line">    <span class="comment">// fmt.Println(scoreMap)</span></span><br><span class="line">    <span class="comment">// 判断某个键是否存在</span></span><br><span class="line">    <span class="comment">// 语法 value, ok := map[key]</span></span><br><span class="line">    <span class="comment">// v, ok := scoreMap[&quot;李四&quot;]</span></span><br><span class="line">    <span class="comment">// if ok &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(v)</span></span><br><span class="line">    <span class="comment">// &#125; else &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(&quot;此人记录不存在&quot;)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="comment">// 语法 for range</span></span><br><span class="line">    <span class="comment">// 只遍历key</span></span><br><span class="line">    <span class="comment">// for k := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(k)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// 只遍历value</span></span><br><span class="line">    <span class="comment">// for _, v := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(v)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="comment">// for k, v := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(k, v)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除某个键值对</span></span><br><span class="line">    <span class="comment">// 语法 delete(map, key)</span></span><br><span class="line">    <span class="comment">// delete(scoreMap, &quot;李四&quot;)</span></span><br><span class="line">    <span class="comment">// fmt.Println(scoreMap)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// scoreMap := make(map[string]int, 50)</span></span><br><span class="line">    <span class="comment">// for i := 1; i &lt;= 50; i++ &#123;</span></span><br><span class="line">    <span class="comment">//     key := fmt.Sprintf(&quot;stu%02d&quot;, i)</span></span><br><span class="line">    <span class="comment">//     value := rand.Intn(100)</span></span><br><span class="line">    <span class="comment">//     scoreMap[key] = value</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// fmt.Println(scoreMap)</span></span><br><span class="line">    <span class="comment">// map 是无序</span></span><br><span class="line">    <span class="comment">// for k, v := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(k, v)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取出所有key存放切片中 对切片进行排序 然后通过key取出value</span></span><br><span class="line">    <span class="comment">// keys := make([]string, 0, 50)</span></span><br><span class="line">    <span class="comment">// for key := range scoreMap &#123;</span></span><br><span class="line">    <span class="comment">//     keys = append(keys, key)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// sort.Strings(keys)</span></span><br><span class="line">    <span class="comment">// for _, key := range keys &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(key, scoreMap[key])</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义map类型的切片</span></span><br><span class="line">    <span class="comment">// mapSlice := make([]map[string]string, 3)</span></span><br><span class="line">    <span class="comment">// for index, value := range mapSlice &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Printf(&quot;index: %d, value: %v\n&quot;, index, value)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// mapSlice[0] = make(map[string]string, 10)</span></span><br><span class="line">    <span class="comment">// mapSlice[0][&quot;name&quot;] = &quot;zhangsan&quot;</span></span><br><span class="line">    <span class="comment">// mapSlice[0][&quot;passwd&quot;] = &quot;niubimima&quot;</span></span><br><span class="line">    <span class="comment">// mapSlice[0][&quot;address&quot;] = &quot;nibuzhidaodedifang&quot;</span></span><br><span class="line">    <span class="comment">// for index, value := range mapSlice &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Printf(&quot;index: %d, value: %v\n&quot;, index, value)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 值为切片类型的map</span></span><br><span class="line">    <span class="comment">// sliceMap := make(map[string][]string, 3)</span></span><br><span class="line">    <span class="comment">// fmt.Println(sliceMap)</span></span><br><span class="line">    <span class="comment">// key := &quot;李四&quot;</span></span><br><span class="line">    <span class="comment">// value, ok := sliceMap[key]</span></span><br><span class="line">    <span class="comment">// if !ok &#123;</span></span><br><span class="line">    <span class="comment">//     value = make([]string, 0, 2)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// value = append(value, &quot;张三&quot;, &quot;王二&quot;)</span></span><br><span class="line">    <span class="comment">// sliceMap[key] = value</span></span><br><span class="line">    <span class="comment">// fmt.Println(sliceMap)</span></span><br><span class="line"></span><br><span class="line">    s1 := <span class="string">&quot;how do you do&quot;</span></span><br><span class="line">    slice1 := strings.Split(s1, <span class="string">&quot; &quot;</span>)</span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%T&quot;, slice1)</span></span><br><span class="line">    map1 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">    <span class="keyword">for</span> _, value := <span class="keyword">range</span>(slice1) &#123;</span><br><span class="line">        _, ok := map1[value]</span><br><span class="line">        <span class="keyword">if</span> ok &#123;</span><br><span class="line">            map1[value] ++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map1[value] = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(map1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0-0/" data-id="clc4klg5e003rojob93oue6wy" data-title="Go语言中函数" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言之map" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B9%8Bmap/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T01:55:44.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B9%8Bmap/">Go语言中map</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 声明map</span></span><br><span class="line">    <span class="comment">// map 是无序 基于key-value 的数据结构 map 是引用类型 必须先初始化才能使用</span></span><br><span class="line">    <span class="comment">// 定义语法 map[KeyType]ValueType</span></span><br><span class="line">    <span class="comment">//  a := map[string]int</span></span><br><span class="line">    <span class="comment">// make 申请内存 初始化</span></span><br><span class="line">    <span class="comment">// a := make(map[string]int, 8)</span></span><br><span class="line">    <span class="comment">// a[&quot;test&quot;] = 1</span></span><br><span class="line">    <span class="comment">// fmt.Println(a)</span></span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%#v&quot;, a)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// scoreMap := make(map[string]int)</span></span><br><span class="line">    <span class="comment">// scoreMap[&quot;张三&quot;] = 60</span></span><br><span class="line">    <span class="comment">// scoreMap[&quot;李四&quot;] = 90</span></span><br><span class="line">    <span class="comment">// fmt.Println(scoreMap)</span></span><br><span class="line">    <span class="comment">// 判断某个键是否存在</span></span><br><span class="line">    <span class="comment">// 语法 value, ok := map[key]</span></span><br><span class="line">    <span class="comment">// v, ok := scoreMap[&quot;李四&quot;]</span></span><br><span class="line">    <span class="comment">// if ok &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(v)</span></span><br><span class="line">    <span class="comment">// &#125; else &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(&quot;此人记录不存在&quot;)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="comment">// 语法 for range</span></span><br><span class="line">    <span class="comment">// 只遍历key</span></span><br><span class="line">    <span class="comment">// for k := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(k)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// 只遍历value</span></span><br><span class="line">    <span class="comment">// for _, v := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(v)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="comment">// for k, v := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(k, v)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除某个键值对</span></span><br><span class="line">    <span class="comment">// 语法 delete(map, key)</span></span><br><span class="line">    <span class="comment">// delete(scoreMap, &quot;李四&quot;)</span></span><br><span class="line">    <span class="comment">// fmt.Println(scoreMap)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// scoreMap := make(map[string]int, 50)</span></span><br><span class="line">    <span class="comment">// for i := 1; i &lt;= 50; i++ &#123;</span></span><br><span class="line">    <span class="comment">//     key := fmt.Sprintf(&quot;stu%02d&quot;, i)</span></span><br><span class="line">    <span class="comment">//     value := rand.Intn(100)</span></span><br><span class="line">    <span class="comment">//     scoreMap[key] = value</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// fmt.Println(scoreMap)</span></span><br><span class="line">    <span class="comment">// map 是无序</span></span><br><span class="line">    <span class="comment">// for k, v := range(scoreMap) &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(k, v)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取出所有key存放切片中 对切片进行排序 然后通过key取出value</span></span><br><span class="line">    <span class="comment">// keys := make([]string, 0, 50)</span></span><br><span class="line">    <span class="comment">// for key := range scoreMap &#123;</span></span><br><span class="line">    <span class="comment">//     keys = append(keys, key)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// sort.Strings(keys)</span></span><br><span class="line">    <span class="comment">// for _, key := range keys &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Println(key, scoreMap[key])</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义map类型的切片</span></span><br><span class="line">    <span class="comment">// mapSlice := make([]map[string]string, 3)</span></span><br><span class="line">    <span class="comment">// for index, value := range mapSlice &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Printf(&quot;index: %d, value: %v\n&quot;, index, value)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// mapSlice[0] = make(map[string]string, 10)</span></span><br><span class="line">    <span class="comment">// mapSlice[0][&quot;name&quot;] = &quot;zhangsan&quot;</span></span><br><span class="line">    <span class="comment">// mapSlice[0][&quot;passwd&quot;] = &quot;niubimima&quot;</span></span><br><span class="line">    <span class="comment">// mapSlice[0][&quot;address&quot;] = &quot;nibuzhidaodedifang&quot;</span></span><br><span class="line">    <span class="comment">// for index, value := range mapSlice &#123;</span></span><br><span class="line">    <span class="comment">//     fmt.Printf(&quot;index: %d, value: %v\n&quot;, index, value)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 值为切片类型的map</span></span><br><span class="line">    <span class="comment">// sliceMap := make(map[string][]string, 3)</span></span><br><span class="line">    <span class="comment">// fmt.Println(sliceMap)</span></span><br><span class="line">    <span class="comment">// key := &quot;李四&quot;</span></span><br><span class="line">    <span class="comment">// value, ok := sliceMap[key]</span></span><br><span class="line">    <span class="comment">// if !ok &#123;</span></span><br><span class="line">    <span class="comment">//     value = make([]string, 0, 2)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// value = append(value, &quot;张三&quot;, &quot;王二&quot;)</span></span><br><span class="line">    <span class="comment">// sliceMap[key] = value</span></span><br><span class="line">    <span class="comment">// fmt.Println(sliceMap)</span></span><br><span class="line"></span><br><span class="line">    s1 := <span class="string">&quot;how do you do&quot;</span></span><br><span class="line">    slice1 := strings.Split(s1, <span class="string">&quot; &quot;</span>)</span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%T&quot;, slice1)</span></span><br><span class="line">    map1 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>)</span><br><span class="line">    <span class="keyword">for</span> _, value := <span class="keyword">range</span>(slice1) &#123;</span><br><span class="line">        _, ok := map1[value]</span><br><span class="line">        <span class="keyword">if</span> ok &#123;</span><br><span class="line">            map1[value] ++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map1[value] = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(map1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B9%8Bmap/" data-id="clc4klg5q004oojobcmfp3o6p" data-title="Go语言中map" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言中切片-0" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87-0/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T01:54:42.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87-0/">Go语言中切片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rplus</span><span class="params">(b <span class="type">int</span>)</span></span> (<span class="type">int</span>)  &#123;</span><br><span class="line">    <span class="keyword">return</span> b + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 切片 相同类型可变长度的序列 基于数组再次封装</span></span><br><span class="line">    <span class="comment">// 切片 是一个引用类型 它的内部结构包含 内存地址(第一个元素的) 长度 容量</span></span><br><span class="line">    <span class="comment">// 定义 var name []T name 变量名 T 切片中元素类型</span></span><br><span class="line">    a := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;</span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%T, %d, %d\n&quot;, a, len(a), cap(a))</span></span><br><span class="line">    <span class="comment">// 追加元素</span></span><br><span class="line">    a = <span class="built_in">append</span>(a, <span class="number">9</span>)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;%T, %d, %d\n&quot;</span>, a, <span class="built_in">len</span>(a), <span class="built_in">cap</span>(a))</span><br><span class="line">    b := <span class="number">1</span></span><br><span class="line">    fmt.Println(rplus(b) + rplus(b))</span><br><span class="line">    <span class="comment">// 删除元素</span></span><br><span class="line">    a = <span class="built_in">append</span>(a[:<span class="number">2</span>], a[<span class="number">3</span>:]...)</span><br><span class="line">    fmt.Println(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87-0/" data-id="clc4klg5e003uojob909lfg24" data-title="Go语言中切片" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言中数组" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%95%B0%E7%BB%84/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T01:54:06.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%95%B0%E7%BB%84/">Go语言中数组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 定义一个长度为3存放int类型的数组</span></span><br><span class="line">    <span class="comment">// var a [3]int</span></span><br><span class="line">    <span class="comment">// 定义一个长度为5存放int类型的数组</span></span><br><span class="line">    <span class="comment">// var b [5]int</span></span><br><span class="line">    <span class="comment">// 初始化 赋值</span></span><br><span class="line">    <span class="comment">// a = [3]int&#123;1, 2, 3&#125;</span></span><br><span class="line">    <span class="comment">// b = [5]int&#123;22, 33, 44, 55, 66&#125;</span></span><br><span class="line">    <span class="comment">// fmt.Println(a)</span></span><br><span class="line">    <span class="comment">// fmt.Println(b)</span></span><br><span class="line">    <span class="comment">// 定义并赋值</span></span><br><span class="line">    <span class="comment">// c := [3]string&#123;&quot;Ropon&quot;, &quot;Luopeng&quot;, &quot;Pengge&quot;&#125;</span></span><br><span class="line">    <span class="comment">// fmt.Println(c)</span></span><br><span class="line">    <span class="comment">// d := [...]int&#123;1, 2, 3, 4, 5, 6, 7, 8, 9&#125;</span></span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%T\n&quot;, d)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 多维数组 除了一维可以是... 其他必须指定</span></span><br><span class="line">    aa := [<span class="number">3</span>][<span class="number">2</span>]<span class="type">int</span>&#123;</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">2</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>, <span class="number">4</span>&#125;,</span><br><span class="line">        &#123;<span class="number">5</span>, <span class="number">6</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// fmt.Printf(&quot;%T\n&quot;, aa)</span></span><br><span class="line">    <span class="comment">// fmt.Println(aa)</span></span><br><span class="line">    <span class="comment">// fmt.Println(aa[1][1])</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(aa); i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="built_in">len</span>(aa[i]); j++ &#123;</span><br><span class="line">            fmt.Println(aa[i][j])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println()</span><br><span class="line">    <span class="keyword">for</span> _,v1 := <span class="keyword">range</span> aa &#123;</span><br><span class="line">        <span class="comment">// fmt.Println(v1)</span></span><br><span class="line">        <span class="keyword">for</span> _,v2 := <span class="keyword">range</span> v1 &#123;</span><br><span class="line">            fmt.Println(v2)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%95%B0%E7%BB%84/" data-id="clc4klg5k004gojobcogc5z9z" data-title="Go语言中数组" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言中运算符" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E8%BF%90%E7%AE%97%E7%AC%A6/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T01:50:36.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E8%BF%90%E7%AE%97%E7%AC%A6/">Go语言中运算符</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 算数运算符 + - * / %(求余) 注意 ++ -- 不是运算符，是单独语句</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关系运算符 == != &gt; &gt;= &lt; &lt;=</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 逻辑运算符 &amp;&amp;  !</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 位运算符 &amp;(与 2位均为1才是1) (或 2位有1个为1就是1) ^(异或 2位不一样为1) &lt;&lt;(左移乘以2) &gt;&gt;(右移除以2)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 赋值运算符 = += -= *= /= *= /= %=(求余后再赋值) &lt;&lt;= &gt;&gt;= &amp;= = ^=</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E8%BF%90%E7%AE%97%E7%AC%A6/" data-id="clc4klg5o004mojobfoeadiqg" data-title="Go语言中运算符" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言中流程控制" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T01:49:47.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">Go语言中流程控制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">// if</span><br><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line">func main() &#123;</span><br><span class="line">// age := 18</span><br><span class="line">// if  表达式1 &#123;</span><br><span class="line">// 分支1</span><br><span class="line">// &#125; else if 表达式2 &#123;</span><br><span class="line">// 分支2</span><br><span class="line">// &#125; else &#123;</span><br><span class="line">// 分支3</span><br><span class="line">// &#125;</span><br><span class="line">// if  age &gt; 18 &#123;</span><br><span class="line">// fmt.Println(&quot;年龄大于18&quot;)</span><br><span class="line">// &#125; else if age == 18 &#123;</span><br><span class="line">// fmt.Println(&quot;年龄等于18&quot;)</span><br><span class="line">// &#125; else if age &lt; 18 &#123;</span><br><span class="line">// fmt.Println(&quot;年龄小于18&quot;)</span><br><span class="line">// &#125; else &#123;</span><br><span class="line">// fmt.Println(&quot;未知&quot;)</span><br><span class="line">// &#125;</span><br><span class="line">if age2 :=20; age2 &gt;18 &#123;</span><br><span class="line">fmt.Println(age2)</span><br><span class="line">fmt.Println(&quot;成年&quot;)</span><br><span class="line">// age2 只在if代码块有效</span><br><span class="line">&#125;</span><br><span class="line">// fmt.Println(age2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//for</span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">// for 初始语句; 条件表达式; 结束语句 &#123;</span><br><span class="line">// 循环体语句</span><br><span class="line">// &#125;</span><br><span class="line">// for i := 0; i &lt; 10; i ++ &#123;</span><br><span class="line">// fmt.Println(i)</span><br><span class="line">// &#125;</span><br><span class="line">// 初始语句可以省略，但初始语句后分号; 必须写</span><br><span class="line">// j := 0</span><br><span class="line">// for ; j &lt; 5; j++ &#123;</span><br><span class="line">// fmt.Println(j)</span><br><span class="line">// &#125;</span><br><span class="line">// 初始语句和结束语句都可以省略 类似于其他语言中while</span><br><span class="line">h := 1</span><br><span class="line">for h &lt; 6 &#123;</span><br><span class="line">fmt.Println(h)</span><br><span class="line">h++</span><br><span class="line">&#125;</span><br><span class="line">// 条件表达式省略相当于无限循环 可通过break、goto、retur、panic(抛错) 语句强制退出循环</span><br><span class="line">// for &#123;</span><br><span class="line">// 循环体语句</span><br><span class="line">// &#125;</span><br><span class="line">// for range 键值循环 遍历数组、切片、字符串、map、通道(channel)</span><br><span class="line">// 数组、切片、字符串返回索引和值</span><br><span class="line">// map返回键和值</span><br><span class="line">// 通道只返回通道内的值</span><br><span class="line">aa := &quot;sss&quot;</span><br><span class="line">fmt.Println(aa)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//switch</span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">// switch 表达式 &#123;</span><br><span class="line">// case 值1:</span><br><span class="line">// 分支1</span><br><span class="line">// case 值2:</span><br><span class="line">// 分支2</span><br><span class="line">// case 值3:</span><br><span class="line">// 分支3</span><br><span class="line">// default:</span><br><span class="line">// 默认分支</span><br><span class="line">// &#125;</span><br><span class="line">// 每个switch只能有一个default分支</span><br><span class="line">// 一个分支可以有多个值，用逗号分隔</span><br><span class="line">// case 值1, 值2, 值3:</span><br><span class="line">// case 后可以跟表达式</span><br><span class="line">// case a &gt; 2:</span><br><span class="line">// fallthrough 再执行满足条件的下一个case</span><br><span class="line">a := 2</span><br><span class="line">switch a &#123;</span><br><span class="line">case 1:</span><br><span class="line">fmt.Println(&quot;值是1&quot;)</span><br><span class="line">case 2:</span><br><span class="line">fmt.Println(&quot;值是2&quot;)</span><br><span class="line">fallthrough</span><br><span class="line">case 3:</span><br><span class="line">fmt.Println(&quot;值是3&quot;)</span><br><span class="line">default:</span><br><span class="line">fmt.Println(&quot;默认值&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//goto break continue</span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">// goto 通过标签进行代码间无条件跳转</span><br><span class="line">for i := 0; i &lt; 5; i++ &#123;</span><br><span class="line">for j := 0; j &lt; 5; j++ &#123;</span><br><span class="line">if i == 2 &amp;&amp; j == 2 &#123;</span><br><span class="line">goto breakTag</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(&quot;%d - %d\n&quot;, i, j)</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br><span class="line">// 定义标签</span><br><span class="line">breakTag:</span><br><span class="line">fmt.Println(&quot;2层for循环结束&quot;)</span><br><span class="line">fmt.Println(&quot;niubi&quot;)</span><br><span class="line"></span><br><span class="line">// break 调出循环 break可以结束for、switch、select的代码块</span><br><span class="line">// continue 继续下一次循环 只能在for循环使用</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/11/07/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" data-id="clc4klg5m004iojobdrdqebxf" data-title="Go语言中流程控制" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言中数据类型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/10/18/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2019-10-18T07:17:07.000Z" itemprop="datePublished">2019-10-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/10/18/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Go语言中数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">// &quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">// int8 16 32 64 uint</span><br><span class="line">// a := 10</span><br><span class="line">// b := 0b1010  // 表示二进制1010</span><br><span class="line">// c := 037     // 表示八进制37</span><br><span class="line">// d := 0x55    // 表示十六进制55</span><br><span class="line">// e := 0x28p-3 // 表示十六进制22数除以2的3次方(p-3)</span><br><span class="line">// f := 123_56  // 表示12356 _ 分隔数字 为了方便阅读</span><br><span class="line">// fmt.Println(a, b, c, d, e, f)</span><br><span class="line"></span><br><span class="line">// a := 20</span><br><span class="line">// fmt.Printf(&quot;%d \n&quot;, a)</span><br><span class="line">// fmt.Printf(&quot;%b \n&quot;, a)</span><br><span class="line">// fmt.Printf(&quot;%o \n&quot;, a)</span><br><span class="line">// fmt.Printf(&quot;%x \n&quot;, a)</span><br><span class="line"></span><br><span class="line">// float32 64</span><br><span class="line">// fmt.Printf(&quot;%f \n&quot;, math.Pi)</span><br><span class="line">// fmt.Printf(&quot;%.2f \n&quot;, math.Pi)</span><br><span class="line"></span><br><span class="line">// complex64 虚部 实部都是32位</span><br><span class="line">// complex128 虚部 实部都是64位</span><br><span class="line">// c1 := 1 + 2i</span><br><span class="line">// var c1 complex64</span><br><span class="line">// c1 = 1 + 2i</span><br><span class="line">// c2 := 2 + 3i</span><br><span class="line">// var c2 complex128</span><br><span class="line">// c2 = 2 + 3i</span><br><span class="line">// fmt.Println(c1)</span><br><span class="line">// fmt.Println(c2)</span><br><span class="line"></span><br><span class="line">// 布尔值默认为false 不允许将整型强转布尔型 不能参与运算 也不能与其他类型进行转换</span><br><span class="line">// var yflag bool</span><br><span class="line">// fmt.Println(yflag)</span><br><span class="line"></span><br><span class="line">// 字符串 &quot; &quot; 默认使用UTF-8编码 Print Println Printf</span><br><span class="line">// s1 := &quot;嗨&quot;</span><br><span class="line">// s2 := &quot;Hello World&quot;</span><br><span class="line">// fmt.Printf(s1 + &quot;\n&quot;)</span><br><span class="line">// fmt.Printf(s2)</span><br><span class="line">// fmt.Print(&quot;test&quot;)</span><br><span class="line">// fmt.Println(s1, s2)</span><br><span class="line">// a := 1</span><br><span class="line">// var b bool</span><br><span class="line">// c := true</span><br><span class="line">// if d := 2 &gt; 1;d &#123;</span><br><span class="line">// fmt.Println(&quot;test&quot;)</span><br><span class="line">// &#125; else &#123;</span><br><span class="line">// fmt.Println(&quot;ok&quot;)</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">// 转移符 \r \n \t \&#x27; \&quot; \\</span><br><span class="line">// fmt.Println(&quot;str := \&quot;d:\\go\\src\&quot;&quot;)</span><br><span class="line"></span><br><span class="line">// 多行字符串 ` ` 转义符无效 原样输出</span><br><span class="line">// s4 := `</span><br><span class="line">// 今天</span><br><span class="line">// 是个</span><br><span class="line">// 好天气</span><br><span class="line">// `</span><br><span class="line">// fmt.Println(s4)</span><br><span class="line"></span><br><span class="line">// 字符串常见操作</span><br><span class="line">// len(str) 求字符串长度</span><br><span class="line">// + 或者 fmt.Sprintf 字符串拼接</span><br><span class="line"></span><br><span class="line">// 需要导入strings 包</span><br><span class="line">// strings.Split 分割</span><br><span class="line">// strings.Contains  判断是否包含某字符串 返回布尔值</span><br><span class="line">// HasPrefix 判断是否以字符串开头</span><br><span class="line">// HasSuffix 判断是否以字符串结尾</span><br><span class="line">// Index 字符串出现的位置</span><br><span class="line">// LastIndex 字符串最后出现的位置</span><br><span class="line">// Join 连接数组或切片中元素</span><br><span class="line"></span><br><span class="line">// s5 := &quot;Ropon&quot;</span><br><span class="line">// fmt.Println(len(s5))</span><br><span class="line">// fmt.Println(&quot;I am &quot; + s5)</span><br><span class="line">// fmt.Println(fmt.Sprintf(&quot;I am %s&quot;, s5))</span><br><span class="line">// fmt.Println(strings.Split(s5, &quot;o&quot;))</span><br><span class="line">// fmt.Println(strings.Contains(s5, &quot;o&quot;))</span><br><span class="line">// fmt.Println(strings.HasPrefix(s5, &quot;Ro&quot;))</span><br><span class="line">// fmt.Println(strings.HasSuffix(s5, &quot;n&quot;))</span><br><span class="line">// fmt.Println(strings.Index(s5, &quot;o&quot;))</span><br><span class="line">// fmt.Println(strings.LastIndex(s5, &quot;o&quot;))</span><br><span class="line">// s6 := &quot;is Good!&quot;</span><br><span class="line">// fmt.Println(strings.Join([]string&#123;s5, s6&#125;, &quot; &quot;))</span><br><span class="line"></span><br><span class="line">// byte rune实际是int32</span><br><span class="line">// 英文字母 1个字节 中文汉字 3个字节</span><br><span class="line">// s1 := &quot;Hello&quot;</span><br><span class="line">// c1 := &#x27;H&#x27;</span><br><span class="line">// s2 := &quot;我爱你中国&quot;</span><br><span class="line">// c2 := &#x27;我&#x27;</span><br><span class="line">// fmt.Println(s1, c1, len(s1))</span><br><span class="line">// fmt.Println(s2, c2, len(s2))</span><br><span class="line"></span><br><span class="line">// 遍历字符串</span><br><span class="line">// s1 := &quot;Hello哥哥&quot;</span><br><span class="line">// for i := 0; i &lt; len(s1); i ++ &#123;</span><br><span class="line">// fmt.Printf(&quot;%c\n&quot;, s1[i])</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">// for _, r := range s1 &#123;</span><br><span class="line">// fmt.Printf(&quot;%c\n&quot;, r)</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">// 修改字符串</span><br><span class="line">// s1 := &quot;niubi&quot;</span><br><span class="line">// 类型转换 T(表达式)  T表示需要转换的类型 表达式包括变量 复杂算子 函数返回值</span><br><span class="line">// %T 打印变量类型</span><br><span class="line">// byteA := []byte(s1)</span><br><span class="line">// byteA[0] = &#x27;x&#x27;</span><br><span class="line">// fmt.Println(string(byteA))</span><br><span class="line"></span><br><span class="line">// s2 := &quot;我爱你&quot;</span><br><span class="line">// runeA := []rune(s2)</span><br><span class="line">// runeA[0] = &#x27;你&#x27;</span><br><span class="line">// fmt.Println(string(runeA))</span><br><span class="line"></span><br><span class="line">// a := 1</span><br><span class="line">// b := 1.25</span><br><span class="line">// s1 := &quot;我们不一样&quot;</span><br><span class="line">// var f bool</span><br><span class="line">// fmt.Printf(&quot;%T\n&quot;,a)</span><br><span class="line">// fmt.Printf(&quot;%T\n&quot;,b)</span><br><span class="line">// fmt.Printf(&quot;%T\n&quot;,s1)</span><br><span class="line">// fmt.Printf(&quot;%T\n&quot;,f)</span><br><span class="line"></span><br><span class="line">// 统计字符串 &quot;Hello我们不一样，每个人都不一样Nb。&quot; 中汉字的数量</span><br><span class="line">s1 := &quot;Hello我们不一样，每个人都不一样Nb。&quot;</span><br><span class="line">byteA := []byte(s1)</span><br><span class="line">runeA := []rune(s1)</span><br><span class="line">fmt.Println(byteA)</span><br><span class="line">fmt.Println(runeA)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/10/18/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="clc4klg5j004bojobfa9y3zmx" data-title="Go语言中数据类型" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go语言中变量及常量" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/10/16/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E9%87%8F/" class="article-date">
+  <time class="dt-published" datetime="2019-10-16T02:56:13.000Z" itemprop="datePublished">2019-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Go/">Go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/10/16/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E9%87%8F/">Go语言中变量及常量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">// 变量</span><br><span class="line"></span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func fn1() (string, int) &#123;</span><br><span class="line">return &quot;pengge&quot;, 22</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">// 标准声明变量</span><br><span class="line">// var a string</span><br><span class="line">// var b int</span><br><span class="line">// var c bool</span><br><span class="line">// a = &quot;ropon&quot;</span><br><span class="line">// b = 18</span><br><span class="line">// c = true</span><br><span class="line">// fmt.Println(a, b, c)</span><br><span class="line"></span><br><span class="line">// // 批量声明</span><br><span class="line">// var (</span><br><span class="line">// aa string</span><br><span class="line">// bb int</span><br><span class="line">// )</span><br><span class="line">// aa = &quot;west&quot;</span><br><span class="line">// bb = 20</span><br><span class="line">// fmt.Println(aa, bb)</span><br><span class="line"></span><br><span class="line">// 声明并初始化</span><br><span class="line">// var cc string = &quot;ropon.top&quot;</span><br><span class="line">// var dd int = 22</span><br><span class="line"></span><br><span class="line">// 类型推导</span><br><span class="line">// var cc = &quot;ropon.top&quot;</span><br><span class="line">// var dd = 18</span><br><span class="line">// var cc, dd = &quot;ropon.top&quot;, 22</span><br><span class="line">// fmt.Println(cc, dd)</span><br><span class="line"></span><br><span class="line">// 短变量声明 只有在函数内部使用</span><br><span class="line">// ee := &quot;lisi&quot;</span><br><span class="line">// ff := 25</span><br><span class="line">// fmt.Println(ee, ff)</span><br><span class="line"></span><br><span class="line">// 匿名变量 _ 可以重复声明</span><br><span class="line">name, _ := fn1()</span><br><span class="line">fmt.Println(name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 常量</span><br><span class="line"></span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">// 常量声明</span><br><span class="line">// const pi = 3.14</span><br><span class="line"></span><br><span class="line">// 批量声明</span><br><span class="line">// const (</span><br><span class="line">// pi = 3.1415</span><br><span class="line">// e = 2.7</span><br><span class="line">// )</span><br><span class="line">// fmt.Println(pi, e)</span><br><span class="line"></span><br><span class="line">//const 同时声明多个常量时，省略表示和上一行值相同</span><br><span class="line">// const (</span><br><span class="line">// n1 = 33</span><br><span class="line">// n2</span><br><span class="line">// n3</span><br><span class="line">// )</span><br><span class="line">// fmt.Println(n1, n2, n3)</span><br><span class="line"></span><br><span class="line">// 常量计数器 iota 只能在常量表达式中使用</span><br><span class="line">// iota 遇到const 关键字出现时就会被重置为0 const中每新增一行常量声明 iota自加1</span><br><span class="line">// const (</span><br><span class="line">// n1 = iota</span><br><span class="line">// n2 = 100</span><br><span class="line">// _</span><br><span class="line">// n3 = iota</span><br><span class="line">// n4</span><br><span class="line">// )</span><br><span class="line">// const n5 = iota</span><br><span class="line">// fmt.Println(n1, n2, n3, n4, n5)</span><br><span class="line"></span><br><span class="line">// 定义数量级 &lt;&lt; 位左移 1 &lt;&lt; 2 = 100 = 4</span><br><span class="line">// const (</span><br><span class="line">// _ = iota</span><br><span class="line">// KB = 1 &lt;&lt; (10 * iota)</span><br><span class="line">// MB</span><br><span class="line">// GB</span><br><span class="line">// TB</span><br><span class="line">// PB</span><br><span class="line">// )</span><br><span class="line">// fmt.Println(KB, MB, GB, TB, PB)</span><br><span class="line"></span><br><span class="line">// 练习 </span><br><span class="line">const (</span><br><span class="line">a, b = iota + 1, iota + 2</span><br><span class="line">c, d</span><br><span class="line">e, f</span><br><span class="line">)</span><br><span class="line">fmt.Println(a, b, c, d, e, f)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/10/16/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E9%87%8F/" data-id="clc4klg5g0041ojob3988djj0" data-title="Go语言中变量及常量" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-python-类高级用法梳理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/20/python-%E7%B1%BB%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E6%A2%B3%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2019-08-20T01:10:40.000Z" itemprop="datePublished">2019-08-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/08/20/python-%E7%B1%BB%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E6%A2%B3%E7%90%86/">Python 类高级用法梳理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/8/20 8:44</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : test6.py</span><br><span class="line"></span><br><span class="line"># class Foo(object):</span><br><span class="line">#     # def __iter__(self):</span><br><span class="line">#     #     return iter([12, 34, 56])</span><br><span class="line">#</span><br><span class="line">#     def __iter__(self):</span><br><span class="line">#         yield 11</span><br><span class="line">#         yield 22</span><br><span class="line">#         yield 33</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># obj = Foo()</span><br><span class="line">#</span><br><span class="line"># for item in obj:</span><br><span class="line">#     print(item)</span><br><span class="line"></span><br><span class="line"># 对象可循环，要变成可迭代对象，有__iter__(self) 方法</span><br><span class="line"></span><br><span class="line"># class Foo(object):</span><br><span class="line">#     def __new__(cls, *args, **kwargs):</span><br><span class="line">#         return super(Foo, cls).__new__(cls)</span><br><span class="line">#         # return object.__new__(cls)</span><br><span class="line">#         # return 12345</span><br><span class="line">#</span><br><span class="line"># obj = Foo()</span><br><span class="line"># print(obj)</span><br><span class="line"></span><br><span class="line"># __new__ 返回值决定对象是什么</span><br><span class="line"></span><br><span class="line"># 对象由类创建,类有type创建,可通过metaclass 指定由谁创建类</span><br><span class="line"></span><br><span class="line"># 方式一</span><br><span class="line"># class Foo(object):</span><br><span class="line">#     aa = 12</span><br><span class="line">#</span><br><span class="line">#     def func1(self):</span><br><span class="line">#         return 88</span><br><span class="line"></span><br><span class="line"># 方式二</span><br><span class="line"># Foo = type(&#x27;Foo&#x27;, (object, ), &#123;&#x27;aa&#x27;: 12, &#x27;func1&#x27;: lambda self: 88&#125;)</span><br><span class="line">#</span><br><span class="line"># obj = Foo()</span><br><span class="line"># print(obj.func1())</span><br><span class="line"># print(Foo.aa)</span><br><span class="line"></span><br><span class="line"># class MyType(type):</span><br><span class="line">#     def __init__(self, *args, **kwargs):</span><br><span class="line">#         print(&#x27;创建类&#x27;)</span><br><span class="line">#         super(MyType, self).__init__(*args, **kwargs)</span><br><span class="line">#</span><br><span class="line">#     def __call__(cls, *args, **kwargs):</span><br><span class="line">#         print(&#x27;类实例化，通过__call__触发类的__new__ 和 __init__ 方法&#x27;)</span><br><span class="line">#         obj = cls.__new__(cls, *args, **kwargs)</span><br><span class="line">#         cls.__init__(obj, *args, **kwargs)</span><br><span class="line">#         return obj</span><br><span class="line">#</span><br><span class="line"># class Foo(object, metaclass=MyType):</span><br><span class="line">#     ab = 333</span><br><span class="line">#</span><br><span class="line">#     def __init__(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#     def __new__(cls, *args, **kwargs):</span><br><span class="line">#         return super(Foo, cls).__new__(cls)</span><br><span class="line">#</span><br><span class="line">#     def func1(self):</span><br><span class="line">#         return 888</span><br><span class="line">#</span><br><span class="line"># obj = Foo()</span><br><span class="line"># print(obj.func1())</span><br><span class="line"></span><br><span class="line"># 创建类时，先执行metaclass 指定的__init__ 方法</span><br><span class="line"># 类实例化时，先执行metaclass 指定的__call__ 方法 触发类的__new__ 和 __init__ 方法</span><br><span class="line"></span><br><span class="line">class Foo(object):</span><br><span class="line">    cc = 66</span><br><span class="line"></span><br><span class="line">    def __init__(self, errcode=0, errmsg=&#x27;ok&#x27;):</span><br><span class="line">        self.errcode = errcode</span><br><span class="line">        self.errmsg = errmsg</span><br><span class="line"></span><br><span class="line">    def func1(self):</span><br><span class="line">        return 888</span><br><span class="line"></span><br><span class="line"># print(dir(Foo))</span><br><span class="line">lst = dir(Foo)</span><br><span class="line">nlst = []</span><br><span class="line">for item in lst:</span><br><span class="line">    if not item.startswith(&#x27;_&#x27;):</span><br><span class="line">        nlst.append(item)</span><br><span class="line">print(nlst)</span><br><span class="line">obj = Foo()</span><br><span class="line">print(obj.__dict__)</span><br><span class="line"></span><br><span class="line"># dir 查看类的成员</span><br><span class="line"># __dict__ 查看对象内部存储的所有属性名和属性值组成的字典</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/08/20/python-%E7%B1%BB%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E6%A2%B3%E7%90%86/" data-id="clc4klg6j007dojobdc9e9yep" data-title="Python 类高级用法梳理" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-newpanel-linux管理面板" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/14/newpanel-linux%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF/" class="article-date">
+  <time class="dt-published" datetime="2019-08-14T08:32:45.000Z" itemprop="datePublished">2019-08-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/08/14/newpanel-linux%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF/">NewPanel Linux管理面板</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h4><ul>
+<li>前端：Vue Vue-router Vue-cookies Vuex Axios Element-ui</li>
+<li>后端: Flask Flask-restful</li>
+<li>Shell脚本</li>
+</ul>
+<h4 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h4><ul>
+<li>网站创建管理、FTP创建管理、数据库创建管理</li>
+<li>系统信息在线查看（CPU、内存、负载、带宽使用情况、磁盘使用率）</li>
+<li>在线安装软件、修改密码、文件管理</li>
+</ul>
+<h4 id="网站管理"><a href="#网站管理" class="headerlink" title="网站管理"></a>网站管理</h4><ul>
+<li>输入站点名一键创建网站、FTP、数据库</li>
+<li>支持部署https</li>
+<li>支持配置301，伪静态</li>
+<li>支持调整额外参数 404错误页、安全加固、防盗链等</li>
+</ul>
+<h4 id="FTP管理"><a href="#FTP管理" class="headerlink" title="FTP管理"></a>FTP管理</h4><ul>
+<li>增删改查FTP站点</li>
+<li>开关FTP站点</li>
+</ul>
+<h4 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h4><ul>
+<li>一键创建数据库</li>
+<li>一键开关远程连接</li>
+</ul>
+<h4 id="软件管理"><a href="#软件管理" class="headerlink" title="软件管理"></a>软件管理</h4><ul>
+<li>一键安装或卸载Nginx、Php、Mysql、Ftp</li>
+</ul>
+<h4 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h4><ul>
+<li>在线查看文件</li>
+<li>编辑文件</li>
+<li>删除文件</li>
+<li>新建文件</li>
+</ul>
+<h4 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h4><p><code>wget http://panel.ropon.top/panel/lnmp.tar.gz &amp;&amp; tar xf lnmp.tar.gz &amp;&amp; cd lnmp &amp;&amp; ./install.sh</code></p>
+<h4 id="源码获取"><a href="#源码获取" class="headerlink" title="源码获取"></a>源码获取</h4><p><code>wget http://panel.ropon.top/panel/lnmp/panel-1.1.tar.gz</code></p>
+<h4 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h4><ul>
+<li>启动关闭重启面板服务 <code>systemctl startstoprestart newpanel</code></li>
+<li>重置管理用户名及密码： <code>source /home/panel/newpanel/.py3env/bin/activate &amp;&amp; cd /home/panel/newpanel &amp;&amp; python3 manager.py repasswd</code></li>
+</ul>
+<h4 id="Panel界面"><a href="#Panel界面" class="headerlink" title="Panel界面"></a>Panel界面</h4><p><img src="https://www.ropon.top/wp-content/uploads/2019/08/1.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/2-1024x572.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/4-1024x386.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/5-1024x280.jpg"></p>
+<p><img src="https://www.ropon.top/wp-content/uploads/2019/08/6-1024x317.jpg"></p>
+<h4 id="API接口文档"><a href="#API接口文档" class="headerlink" title="API接口文档"></a>API接口文档</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ropon.top/593.html">https://www.ropon.top/593.html</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/08/14/newpanel-linux%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF/" data-id="clc4klg680067ojob5b8e7wgf" data-title="NewPanel Linux管理面板" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

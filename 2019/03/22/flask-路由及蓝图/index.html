@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Flask 路由及蓝图 | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask 路由及蓝图">
+<meta property="og:url" content="https://blog.ropon.top/2019/03/22/flask-%E8%B7%AF%E7%94%B1%E5%8F%8A%E8%93%9D%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-03-22T01:38:19.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.327Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-flask-路由及蓝图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/22/flask-%E8%B7%AF%E7%94%B1%E5%8F%8A%E8%93%9D%E5%9B%BE/" class="article-date">
+  <time class="dt-published" datetime="2019-03-22T01:38:19.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Flask 路由及蓝图
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"># 路由</span><br><span class="line"># methods 配置请求允许方式 是复数也就是一个可迭代对象 [&quot;GET&quot;, &quot;POST&quot;]</span><br><span class="line"># endpoint 反向解析url地址的标志 默认是视图函数名 url_for()解析</span><br><span class="line"># defaults 配置视图函数的默认参数值 defaults=&#123;&quot;page&quot;: &quot;22&quot;&#125;</span><br><span class="line"># strict_slashes 是否严格遵循路由地址 默认是True 访问/index/1 会自动跳转到/index/1/</span><br><span class="line"># redirect_to 永久重定向 301</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/index/&lt;int:page&gt;/&#x27;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;], endpoint=&#x27;index&#x27;)</span><br><span class="line">def index(page):</span><br><span class="line">    # print(page, type(page))  # 接收的默认是字符串类型</span><br><span class="line">    # print(url_for(&#x27;index&#x27;, page=page))</span><br><span class="line">    # print(get_flashed_messages(category_filter=&quot;tag&quot;))</span><br><span class="line">    # print(get_flashed_messages(category_filter=&quot;tag1&quot;))</span><br><span class="line">    return &#x27;This is %s page&#x27; % page</span><br><span class="line"></span><br><span class="line"># flask实例化配置</span><br><span class="line"># template_folder=&quot;templates&quot; 配置模板路径</span><br><span class="line"># static_folder=&quot;static&quot; 配置静态文件路径</span><br><span class="line"># static_url_path=&quot;/static&quot; 配置静态文件路由地址 默认是&quot;/&quot;+static_folder</span><br><span class="line"># static_host=None 配置静态文件服务器地址</span><br><span class="line"># host_matching=False 需要先配置server_name</span><br><span class="line"># subdomain_matching=False 需要先配置server_name</span><br><span class="line"># instance_path=None 配置另外一个flask实例的路径</span><br><span class="line"># instance_relative_config=False 是否加载另外一个flask实例配置</span><br><span class="line"># root_path=None 配置主模块的绝对路径 默认是项目目录</span><br><span class="line"># subdomain=None 配置通过子域名访问</span><br><span class="line"></span><br><span class="line">from flask import Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[&quot;SERVER_NAME&quot;] = &quot;pg.top:5000&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/index&quot;, subdomain=&quot;index&quot;)</span><br><span class="line"># 通过 index.pg.top:5000/index 访问</span><br><span class="line"># subdomain 配置子域名</span><br><span class="line">def index():</span><br><span class="line">    print(&quot;index&quot;)</span><br><span class="line">    return &quot;index&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/space&quot;, subdomain=&quot;&lt;username&gt;&quot;)</span><br><span class="line"># 通过 lp.pg.top:5000/space 访问</span><br><span class="line"># 通过 xs.pg.top:5000/space 访问</span><br><span class="line">def userspace(username):</span><br><span class="line">    return username + &quot;.pg.top&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br><span class="line"></span><br><span class="line">app = Flask(__name__, template_folder=&quot;templates&quot;, static_folder=&quot;static&quot;, static_url_path=&quot;/static&quot;)</span><br><span class="line"></span><br><span class="line"># flask对象app配置</span><br><span class="line"># app.debug=False 是否开启调试模式</span><br><span class="line"># app.testing=False 是否开启测试模式</span><br><span class="line"># app.secret_key 配置使用内置session/flash 时加密字符串</span><br><span class="line"># app.permanent_session_lifetime=31 配置session生命周期 天为单位 默认31天</span><br><span class="line"># app.session_cookie_name 配置在cookie中存放session加密字符串的名字</span><br><span class="line"></span><br><span class="line">class FlaskDebug(object):</span><br><span class="line">    DEBUG = True</span><br><span class="line">    SECRET_KEY = &quot;debugjiamizifuchuan&quot;</span><br><span class="line">    PERMANENT_SESSION_LIFETIME = 7</span><br><span class="line">    SESSION_COOKIE_NAME = &quot;Debug_Session&quot;</span><br><span class="line"></span><br><span class="line"># 通过类方式导入配置</span><br><span class="line">app.config.from_object(FlaskDebug)</span><br><span class="line"></span><br><span class="line"># 蓝图</span><br><span class="line"># Blueprint 实际是一个不能被启动app flask实例</span><br><span class="line"># url_prefix=&quot;/stu&quot; 配置url前缀</span><br><span class="line"></span><br><span class="line">from flask import Blueprint</span><br><span class="line">stu = Blueprint(&quot;stu&quot;, __name__)</span><br><span class="line"></span><br><span class="line">@stu.route(&quot;/home&quot;)</span><br><span class="line">def index():</span><br><span class="line">    return &quot;这是stu首页&quot;</span><br><span class="line"></span><br><span class="line"># app中需要注册蓝图</span><br><span class="line">app.register_blueprint(student.stu)</span><br><span class="line"></span><br><span class="line"># 闪现 在session中存储一个暑假，读取是通过pop将数据移除</span><br><span class="line">from flask import flash</span><br><span class="line"># 存闪现并打个标签</span><br><span class="line">flash(&quot;闪现&quot;, &quot;tag&quot;)</span><br><span class="line">flash(&quot;闪现12&quot;, &quot;tag1&quot;)</span><br><span class="line"></span><br><span class="line"># 通过标签取闪现</span><br><span class="line">get_flashed_messages(category_filter=&quot;tag&quot;)</span><br><span class="line">get_flashed_messages(category_filter=[&quot;tag&quot;, &quot;tag1&quot;])</span><br><span class="line"></span><br><span class="line"># 中间件 用户发送请求时 执行__call__方法</span><br><span class="line"># class MiddleWare(object):</span><br><span class="line">#     def __init__(self, old_app):</span><br><span class="line">#         self.old_app = old_app</span><br><span class="line">#     def __call__(self, environ, start_response):</span><br><span class="line">#         print(&quot;执行前&quot;)</span><br><span class="line">#         ret = self.old_app(environ, start_response)</span><br><span class="line">#         print(&quot;执行后&quot;)</span><br><span class="line">#         return ret</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">#     app.wsgi_app = MiddleWare(app.wsgi_app)</span><br><span class="line">#     app.run(host=&quot;192.168.3.20&quot;)</span><br><span class="line"></span><br><span class="line"># 特殊装饰器函数</span><br><span class="line"># 请求进入视图之前</span><br><span class="line">@app.before_first_request</span><br><span class="line">def bfr1():</span><br><span class="line">    print(&quot;首次请求前执行&quot;)</span><br><span class="line"></span><br><span class="line">@app.before_request</span><br><span class="line">def br1():</span><br><span class="line">    print(&quot;每次请求前执行&quot;)</span><br><span class="line">    # return &quot;请求不合法!&quot;</span><br><span class="line">    err = &quot;请求不合法!&quot;</span><br><span class="line">    # return render_template(&quot;error.html&quot;, err_msg=err)</span><br><span class="line"></span><br><span class="line"># 在响应之前</span><br><span class="line">@app.after_request</span><br><span class="line">def ar1(args):</span><br><span class="line">    print(&quot;每次响应之前执行&quot;)</span><br><span class="line">    print(args)</span><br><span class="line">    return args</span><br><span class="line"></span><br><span class="line"># 正常情况下 before_request 自上而下执行 after_request 自下而上执行</span><br><span class="line"># 异常情况下 before_request1 after_request 自下而上执行</span><br><span class="line"></span><br><span class="line"># 自定义404错误页</span><br><span class="line">@app.errorhandler(404)</span><br><span class="line">def error404(err_info):</span><br><span class="line">    print(err_info)</span><br><span class="line">    return render_template(&quot;404.html&quot;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/03/22/flask-%E8%B7%AF%E7%94%B1%E5%8F%8A%E8%93%9D%E5%9B%BE/" data-id="clc4klg55002zojobgpwebp76" data-title="Flask 路由及蓝图" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/28/flask-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B0%8F%E4%BE%8B%E5%AD%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Flask 上传文件小例子
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/21/flask-%E6%A8%A1%E6%9D%BF%E5%8F%8Asession/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Flask 模板及session</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

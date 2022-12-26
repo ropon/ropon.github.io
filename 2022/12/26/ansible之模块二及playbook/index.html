@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ansible之模块二及playbook | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="yum模块1234567891011121314151617181920212223yum源配置yum查看安装包组yum grouplist #查看yum groupinstall 包名 #安装#参数disablerepo #禁用源enablerepo #启动源name #包名state	install 或(present installd latest) #安装	remove 或(absent">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible之模块二及playbook">
+<meta property="og:url" content="https://blog.ropon.top/2022/12/26/ansible%E4%B9%8B%E6%A8%A1%E5%9D%97%E4%BA%8C%E5%8F%8Aplaybook/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="yum模块1234567891011121314151617181920212223yum源配置yum查看安装包组yum grouplist #查看yum groupinstall 包名 #安装#参数disablerepo #禁用源enablerepo #启动源name #包名state	install 或(present installd latest) #安装	remove 或(absent">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-12-26T08:41:33.000Z">
+<meta property="article:modified_time" content="2022-12-26T08:41:42.554Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ansible之模块二及playbook" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/26/ansible%E4%B9%8B%E6%A8%A1%E5%9D%97%E4%BA%8C%E5%8F%8Aplaybook/" class="article-date">
+  <time class="dt-published" datetime="2022-12-26T08:41:33.000Z" itemprop="datePublished">2022-12-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ansible之模块二及playbook
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="yum模块"><a href="#yum模块" class="headerlink" title="yum模块"></a>yum模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">yum源配置</span><br><span class="line"></span><br><span class="line">yum查看安装包组</span><br><span class="line">yum grouplist #查看</span><br><span class="line">yum groupinstall 包名 #安装</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">disablerepo #禁用源</span><br><span class="line">enablerepo #启动源</span><br><span class="line">name #包名</span><br><span class="line">state</span><br><span class="line">	install 或(present installd latest) #安装</span><br><span class="line">	remove 或(absent removed) #卸载</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">yum安装nginx</span></span><br><span class="line">ansible 192.168.8.32 -m yum -a &#x27;name=nginx&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装python2 pip</span></span><br><span class="line">ansible 192.168.8.32 -m yum -a &#x27;name=python2-pip&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">yum安装包组 用@</span></span><br><span class="line">ansible 192.168.8.32 -m yum -a &#x27;name=@Cinnamon&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="pip模块"><a href="#pip模块" class="headerlink" title="pip模块"></a>pip模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip install 包</span><br><span class="line">pip freeze &gt; ropon.txt #导出当前python环境依赖</span><br><span class="line">pip install -r ropon.txt #安装文件中的包</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">requirements</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装flask</span></span><br><span class="line">ansible 192.168.8.32 -m pip -a &#x27;name=flask&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="service模块"><a href="#service模块" class="headerlink" title="service模块"></a>service模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">enabled #加入开机自启 no|yes</span><br><span class="line">name #服务名</span><br><span class="line">state</span><br><span class="line">	started #启动服务</span><br><span class="line">	stopped #停止服务</span><br><span class="line">	restarted #重启服务</span><br><span class="line">	reloaded #重载服务</span><br><span class="line">	enabled #开机自启</span><br><span class="line"><span class="meta prompt_">	</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动服务</span></span><br><span class="line">ansible 192.168.8.32 -m service -a &#x27;name=nginx state=started&#x27;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看</span></span><br><span class="line">ansible 192.168.8.32 -m shell -a &#x27;netstat -tunpl&#x27;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">停止服务</span></span><br><span class="line">ansible 192.168.8.32 -m service -a &#x27;name=nginx state=stopped&#x27;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">将nginx服务加入开机自启</span></span><br><span class="line">ansible 192.168.8.32 -m service -a &#x27;name=nginx enabled=yes&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="cron模块"><a href="#cron模块" class="headerlink" title="cron模块"></a>cron模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">day #天</span><br><span class="line">disabled #禁用</span><br><span class="line">hour #小时</span><br><span class="line">minute #分组</span><br><span class="line">month #月份</span><br><span class="line">job #任务</span><br><span class="line">name #任务名</span><br><span class="line">weekday #周</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建计划任务</span></span><br><span class="line">ansible 192.168.8.32 -m cron -a &#x27;minute=49 job=&quot;touch /root/cron_test.txt&quot; name=crontest&#x27;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除计划任务</span></span><br><span class="line">ansible 192.168.8.32 -m cron -a &#x27;name=crontest state=absent&#x27;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">禁用计划任务 <span class="comment"># 表示禁用</span></span></span><br><span class="line">ansible 192.168.8.32 -m cron -a &#x27;minute=49 job=&quot;touch /root/cron_test.txt&quot; name=crontest2 disabled=yes&#x27; </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动禁用任务</span></span><br><span class="line">ansible 192.168.8.32 -m cron -a &#x27;minute=49 job=&quot;touch /root/cron_test.txt&quot; name=crontest2 disabled=no&#x27; </span><br></pre></td></tr></table></figure>
+
+<h4 id="user模块"><a href="#user模块" class="headerlink" title="user模块"></a>user模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">管理员</span><br><span class="line">普通用户</span><br><span class="line">系统用户</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">group #组</span><br><span class="line">groups #附加组</span><br><span class="line">home #家目录</span><br><span class="line">name #用户名</span><br><span class="line">password #密码</span><br><span class="line">remove</span><br><span class="line">shell</span><br><span class="line">system </span><br><span class="line">state #状态</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建用户mysql 指定家目录/root/mysql 指定附加组root 指定uid 指定shell不能登录</span></span><br><span class="line">ansible db -m user -a &#x27;name=mysql uid=4000 home=/root/mysql groups=root shell=/sbin/nologin&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除mysql用户但不删除此用户家目录</span></span><br><span class="line">ansible db -m user -a &#x27;name=mysql state=absent&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除mysql用户并删除此用户家目录</span></span><br><span class="line">ansible db -m user -a &#x27;name=mysql state=absent remove=yes&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="group模块"><a href="#group模块" class="headerlink" title="group模块"></a>group模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">gid #组id</span><br><span class="line">name #组名</span><br><span class="line">system #系统组</span><br><span class="line">state</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建mysql系统组</span></span><br><span class="line">ansible db -m group -a &#x27;name=mysql system=yes&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除mysql系统组</span></span><br><span class="line">ansible db -m group -a &#x27;name=mysql state=absent&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ansible脚本"><a href="#ansible脚本" class="headerlink" title="ansible脚本"></a>ansible脚本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">yaml</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">格式 严格缩进 严格对齐</span></span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">字典 key:value</span></span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">列表 -</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后缀名</span></span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash">yaml、yml</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="ansible-playbook"><a href="#ansible-playbook" class="headerlink" title="ansible-playbook"></a>ansible-playbook</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行顺序 从上往下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">特性 不管执行多少次结果都一样</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数</span></span><br><span class="line">-C #检查 会执行一次脚本但不生效</span><br><span class="line">-f #并发</span><br><span class="line">--list-hosts #列出主机列表</span><br><span class="line">--syntax-check #语法检查</span><br></pre></td></tr></table></figure>
+
+<h4 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建用户例子</span></span><br><span class="line">- hosts: 192.168.8.32</span><br><span class="line">  tasks:</span><br><span class="line">  - name: createuser</span><br><span class="line">    user: name=ropon01</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行脚本</span></span><br><span class="line">ansible-playbook p1.yml</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查是否创建成功</span></span><br><span class="line">ansible 192.168.8.32 -m shell -a &#x27;id ropon01&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="传参-动态执行脚本"><a href="#传参-动态执行脚本" class="headerlink" title="传参 动态执行脚本"></a>传参 动态执行脚本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">- hosts: 192.168.8.32</span><br><span class="line">  tasks:</span><br><span class="line">  - name: create&#123;&#123; user &#125;&#125;</span><br><span class="line">    user: name=&#123;&#123; user &#125;&#125;</span><br><span class="line">    </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">方式一 -e</span></span><br><span class="line">ansible-playbook -e &#x27;user=ropon02&#x27; p2.yml</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查是否创建成功</span></span><br><span class="line">ansible 192.168.8.32 -m shell -a &#x27;id ropon02&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">方式二 主机后面 指定参数 192.168.8.32 user=ropon03</span></span><br><span class="line">ansible-playbook p2.yml</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查是否创建成功</span></span><br><span class="line">ansible 192.168.8.32 -m shell -a &#x27;id ropon03&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">方式三 主机组[:vars] 组后面指定参数(新起一行写与之前的主机名)</span></span><br><span class="line">[web:vars]</span><br><span class="line">user=ropon04</span><br><span class="line"></span><br><span class="line">cat p3.pml</span><br><span class="line">- hosts: web</span><br><span class="line">  tasks:</span><br><span class="line">  - name: create&#123;&#123; user &#125;&#125;</span><br><span class="line">    user: name=&#123;&#123; user &#125;&#125;</span><br><span class="line"></span><br><span class="line">ansible-playbook p3.yml</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查是否创建成功</span></span><br><span class="line">ansible web -m shell -a &#x27;id ropon04&#x27;</span><br><span class="line">    </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">方式四 yml文件vars指定参数</span></span><br><span class="line">cat p3.pml</span><br><span class="line">- hosts: web</span><br><span class="line">  vars:</span><br><span class="line">  - user: ropon05</span><br><span class="line">  tasks:</span><br><span class="line">  - name: create&#123;&#123; user &#125;&#125;</span><br><span class="line">    user: name=&#123;&#123; user &#125;&#125;</span><br><span class="line"></span><br><span class="line">ansible-playbook p4.yml</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">检查是否创建成功</span></span><br><span class="line">ansible web -m shell -a &#x27;id ropon05&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">方式五 register</span></span><br><span class="line">cat p5.yml</span><br><span class="line">- hosts: web</span><br><span class="line">  tasks:</span><br><span class="line">  - name: sum</span><br><span class="line">    shell: echo 3+3|bc</span><br><span class="line">    register: user</span><br><span class="line">  - name: createropon06</span><br><span class="line">    user: name=ropon0&#123;&#123;user.stdout&#125;&#125;</span><br><span class="line"></span><br><span class="line">ansible-playbook p5.yml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数优先级</span></span><br><span class="line">-e &gt; playbook vars &gt; 主机hosts文件</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2022/12/26/ansible%E4%B9%8B%E6%A8%A1%E5%9D%97%E4%BA%8C%E5%8F%8Aplaybook/" data-id="clc4jvs4n000399obb33699rl" data-title="ansible之模块二及playbook" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/12/26/ansible%E4%B9%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E6%A8%A1%E5%9D%97%E4%B8%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ansible之安装及模块一
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/26/ansible%E4%B9%8Bsetup%E5%8F%8Aroles/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ansible之setup及roles</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

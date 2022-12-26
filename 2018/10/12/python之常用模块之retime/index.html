@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Python之常用模块之retime | Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python之常用模块之retime">
+<meta property="og:url" content="https://blog.ropon.top/2018/10/12/python%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E4%B9%8Bretime/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-10-12T13:33:36.000Z">
+<meta property="article:modified_time" content="2022-12-26T09:01:18.186Z">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-python之常用模块之retime" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/12/python%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E4%B9%8Bretime/" class="article-date">
+  <time class="dt-published" datetime="2018-10-12T13:33:36.000Z" itemprop="datePublished">2018-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Python之常用模块之retime
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2018/10/11 16:36</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : 17_01.py</span><br><span class="line"></span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">#findall 匹配所有，返回一个列表，其中是所有匹配的元素</span><br><span class="line"># ret = re.findall(&#x27;\d+&#x27;, &#x27;测试正159则中数字258&#x27;)</span><br><span class="line"># ret = re.findall(&#x27;\d&#x27;, &#x27;测试正159则中数字258&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># search 只匹配从左到右的第一个，得到不是直接结果，需要通过变量的group方法获取</span><br><span class="line"># ret = re.search(&#x27;[a-z]+&#x27;, &#x27;测试正159则中数字aw258&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"># print(ret.group())</span><br><span class="line"></span><br><span class="line"># # match 以什么开头开始匹配，相当于search中正则表达式加^，得到不是直接结果，需要通过变量的group方法获取</span><br><span class="line"># ret = re.match(&#x27;\d+&#x27;, &#x27;1258测试&#x27;)</span><br><span class="line"># # ret = re.search(&#x27;\d+$&#x27;, &#x27;测试1258&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"># print(ret.group())</span><br><span class="line"></span><br><span class="line"># 字符串处理扩展：替换、切割</span><br><span class="line"># split</span><br><span class="line"># s = &#x27;roponluopeng&#x27;</span><br><span class="line"># print(s.split(&#x27;&#x27;))</span><br><span class="line"># s = &#x27;ropon88peng68luo28&#x27;</span><br><span class="line"># ret = re.split(&#x27;\d+&#x27;, s)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># sub 将匹配到的元素替换成新字符</span><br><span class="line"># ret = re.sub(&#x27;\d+&#x27;, &#x27;R&#x27;, &#x27;AbcR123测试1258&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># subn 将匹配到的元素替换成新字符，返回的是一个元组，第二个参数是替换次数</span><br><span class="line"># ret = re.subn(&#x27;\d+&#x27;, &#x27;R&#x27;, &#x27;AbcR123测试1258&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># compile</span><br><span class="line"># 使用正则时，先将正则表达式编译成字节码，使用compile，先编译，多次使用不会多次编译</span><br><span class="line"># ret = re.compile(&#x27;\d+&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"># res = ret.findall(&#x27;AbcR123测试1258&#x27;)</span><br><span class="line"># print(res)</span><br><span class="line"># res = ret.search(&#x27;AbcR123测试1258&#x27;)</span><br><span class="line"># print(res.group())</span><br><span class="line"></span><br><span class="line"># finditer</span><br><span class="line"># 返回的是迭代器，所有结果在迭代器中，通过循环及便利的group方法取值，可节省内存</span><br><span class="line"># ret = re.finditer(&#x27;\d+&#x27;, &#x27;AbcR123测试1258&#x27;)</span><br><span class="line"># for i in ret:</span><br><span class="line">#     print(i.group())</span><br><span class="line"></span><br><span class="line"># 总结</span><br><span class="line"># findall 查找所有匹配项，返回的是列表</span><br><span class="line"># search 从左到有匹配，匹配到就返回变量，通过group取匹配的第一个值，不匹配就返回None，group会报错</span><br><span class="line"># match 相当于在search中正则表达式前加^,意思以什么开头</span><br><span class="line"># spilt 按正则切割，匹配到的内容会被删除，返回的是列表</span><br><span class="line"># sub/subn 替换，按正在查找替换，返回替换后的内容，subn返回的是元组，第二个值是替换次数</span><br><span class="line"># compile 先编译正在表达式，用编译后的结果去执行findall、search、match、finditer，可提高效率，节省时间</span><br><span class="line"># finditer 返回的是迭代器，所有结果在迭代器中，通过循环及便利的group方法取值，可节省内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># s = &#x27;&lt;html&gt;&lt;head&gt;&lt;title&gt;正则标题测试&lt;/title&gt;&lt;/head&gt;&lt;body&gt;正文测试&lt;b&gt;加粗&lt;/b&gt;&lt;/body&gt;&lt;/html&gt;&#x27;</span><br><span class="line"># ret = re.search(&#x27;&lt;title&gt;(\w+)&lt;/title&gt;&#x27;, s)</span><br><span class="line"># ret = re.search(&#x27;&lt;(\w)&gt;(\w+)&lt;/(\w)&gt;&#x27;, s)</span><br><span class="line"># ret = re.search(&#x27;&lt;(\w+)&gt;(\w+)&lt;/(\w+)&gt;&#x27;, s)</span><br><span class="line"># print(ret.group())</span><br><span class="line"></span><br><span class="line"># 使用findall能顺利取到分组中的内容，有一个特殊的语法 &gt;(正则表达式)&lt;</span><br><span class="line"># s = &#x27;&lt;html&gt;&lt;head&gt;&lt;title&gt;正则标题测试&lt;/title&gt;&lt;/head&gt;&lt;body&gt;正文测试&lt;b&gt;加粗&lt;/b&gt;&lt;/body&gt;&lt;/html&gt;&#x27;</span><br><span class="line"># ret = re.findall(&#x27;(\w+)&#x27; ,s)</span><br><span class="line"># ret = re.findall(&#x27;&gt;(\w+)&lt;&#x27; ,s)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># ret = re.findall(&#x27;\d+(\.\d+)?&#x27;, &#x27;8.0812*6&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># 取消分组优先 (?:正则表达式)</span><br><span class="line"># ret =re.findall(&#x27;\d+(\.\d+)&#x27;, &#x27;8.288.a8&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line">#返回分组匹配的内容</span><br><span class="line"># ret =re.findall(&#x27;\d+(?:\.\d+)&#x27;, &#x27;8.288.a8&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line">#返回匹配的内容</span><br><span class="line"></span><br><span class="line"># 分组，对于正则表达式，表示整体出现的次数 ()</span><br><span class="line"># (\.[\w]+)? (\.(/w+))?</span><br><span class="line"># s = &#x27;123.ab456&#x27;</span><br><span class="line"># ret = re.findall(&#x27;\.[\w]+&#x27;, s)</span><br><span class="line"># print(ret)</span><br><span class="line"># ret = re.findall(&#x27;\.(?:\w+)&#x27;, s)</span><br><span class="line"># ret = re.findall(&#x27;\d+(?:\.[\w]+)?&#x27;, s)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># Python中分组可帮您精确找到您真正所需内容</span><br><span class="line"># &lt;(\w+)&gt;(\w+)&lt;/(\w+)&gt;</span><br><span class="line"># s = &#x27;&lt;html&gt;bb&lt;head&gt;aa&lt;title&gt;测试标题&lt;/title&gt;&lt;/head&gt;&lt;body&gt;33&lt;/body&gt;&lt;/html&gt;&#x27;</span><br><span class="line"># ret = re.findall(&#x27;&lt;(\w+)&gt;(\w+)&lt;/(\w+)&gt;&#x27; ,s)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># split</span><br><span class="line">#注意：正则表达式加()分组，保留分割后的元素同时也保留匹配元素</span><br><span class="line"># ret = re.split(&#x27;\d+&#x27;, &#x27;ropon8luo68peng282peng&#x27;)</span><br><span class="line"># # ret = re.split(&#x27;(\d+)&#x27;, &#x27;ropon8luo68peng282peng&#x27;)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line">#Python与正则特殊约定</span><br><span class="line"># 分组命名 自定义名称</span><br><span class="line"># (?P&lt;组的名字&gt;正则表达式)</span><br><span class="line"># 后向引用</span><br><span class="line"># (?P=组的名字)</span><br><span class="line"></span><br><span class="line"># s = &#x27;&lt;a&gt;wa21haha&lt;/a&gt;&#x27;</span><br><span class="line"># ret = re.search(&#x27;(?P&lt;con&gt;\d+)&#x27;,s)</span><br><span class="line"># print(ret.group(1))</span><br><span class="line"># print(ret.group(&#x27;con&#x27;))</span><br><span class="line"></span><br><span class="line"># s = &#x27;&lt;a&gt;wahaha&lt;/a&gt;&#x27;</span><br><span class="line"># pattern = &#x27;&lt;(?P&lt;tab&gt;\w+)&gt;(\w+)&lt;/(?P=tab)&gt;&#x27;</span><br><span class="line"># ret = re.search(pattern, s)</span><br><span class="line"># print(ret.group())</span><br><span class="line"># print(ret.group(1))</span><br><span class="line"># print(ret.group(2))</span><br><span class="line"># print(ret.group(3))</span><br><span class="line"># print(ret.group(1) == ret.group(3))</span><br><span class="line"></span><br><span class="line"># s = &#x27;&lt;a&gt;wahaha&lt;/a&gt;&#x27;</span><br><span class="line"># pattern = &#x27;&lt;(?P&lt;tab&gt;\w+)&gt;(\w+)&lt;/(?P=tab)&gt;&#x27;</span><br><span class="line"># ret = re.search(pattern, s)</span><br><span class="line"># print(ret.group(2))</span><br><span class="line"></span><br><span class="line"># time模块</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"># 常用方法</span><br><span class="line"># 延时，单位秒</span><br><span class="line"># time.sleep(secs)</span><br><span class="line"></span><br><span class="line"># time.sleep(3)</span><br><span class="line"># print(&quot;test&quot;)</span><br><span class="line"></span><br><span class="line"># 获取当前时间戳</span><br><span class="line"># time.time()</span><br><span class="line"></span><br><span class="line"># a = time.time()</span><br><span class="line"># print(a)</span><br><span class="line"></span><br><span class="line"># Python中三种方式表示时间：时间戳、元组、格式化时间字符串</span><br><span class="line"># 1、时间戳：返回的float类型</span><br><span class="line"># print(type(time.time()))</span><br><span class="line"># 2、格式化时间字符串</span><br><span class="line"># %y 2位数年份 18</span><br><span class="line"># %Y 4位数年份 2018</span><br><span class="line"># %m 月份 10</span><br><span class="line"># %d 月中某天 12</span><br><span class="line"># %H 小时[24小时制] 16</span><br><span class="line"># %I 小时[12小时制] 04</span><br><span class="line"># %M 分钟 05</span><br><span class="line"># %S 秒 23</span><br><span class="line"># %a 本地简化星期名称 Fri</span><br><span class="line"># %A 本地完整星期名称 Friday</span><br><span class="line"># %b 本地简化月份名称 Oct</span><br><span class="line"># %B 本地完整完整名称 October</span><br><span class="line"># %c 本地相应的日期和时间表示 Fri Oct 12 16:06:40 2018</span><br><span class="line"># %j 年内的一天 285</span><br><span class="line"># %p 本地AM或PM PM</span><br><span class="line"># %U 一年中的星期数，星期天为星期的开始 40</span><br><span class="line"># %w 星期(0-6)，星期天为星期的开始 5</span><br><span class="line"># %W 一年中的星期数，星期一为星期的开始 41</span><br><span class="line"># %x 本地相应日期表示 10/12/18</span><br><span class="line"># %X 本地相应时间表示 16:08:31</span><br><span class="line"># %Z 当前时区名称</span><br><span class="line"># %% %号本身</span><br><span class="line"></span><br><span class="line"># 2018-10-12</span><br><span class="line"># print(time.strftime(&quot;%Y-%m-%d&quot;))</span><br><span class="line"># 2018.10.12</span><br><span class="line"># print(time.strftime(&quot;%Y.%m.%d&quot;))</span><br><span class="line"># 2018 10 12</span><br><span class="line"># print(time.strftime(&quot;%Y %m %d&quot;))</span><br><span class="line"># 15:57:27</span><br><span class="line"># print(time.strftime(&quot;%X&quot;))</span><br><span class="line"></span><br><span class="line"># 3、元组 struct_time元组共有9个元素 年，月，日时，分，秒，一年中第几周，一年中第几天，</span><br><span class="line"></span><br><span class="line"># 总结：时间戳是计算机能识别的时间；时间字符串是人能看懂的时间；元组是用来操作时间的</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/10/12/python%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E4%B9%8Bretime/" data-id="clc4klg6m007nojob64j7bi6n" data-title="Python之常用模块之retime" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/15/python-%E5%8F%91%E7%BA%A2%E5%8C%85%E7%AE%97%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python 发红包算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/12/python%E4%B9%8B%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E4%BA%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python之内置函数二</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

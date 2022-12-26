@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ropon运维">
+<meta property="og:url" content="https://blog.ropon.top/page/21/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:locale">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-一键搭建sersyncrsync相互实时同步（双机热备）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/04/18/%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BAsersyncrsync%E7%9B%B8%E4%BA%92%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%EF%BC%88%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2018-04-18T13:37:51.000Z" itemprop="datePublished">2018-04-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/04/18/%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BAsersyncrsync%E7%9B%B8%E4%BA%92%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%EF%BC%88%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87%EF%BC%89/">一键搭建Sersync+Rsync相互实时同步（双机热备）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">rsname=Rsync+Sersync</span><br><span class="line">rsver=1.0</span><br><span class="line">sip=172.16.8.23</span><br><span class="line">dip=172.16.8.24</span><br><span class="line">run_user=rsync</span><br><span class="line">base_dir=/usr/local</span><br><span class="line">rsync_dir=/home/wwwroot/test22</span><br><span class="line">port=873</span><br><span class="line">auth_users=ropon</span><br><span class="line">passwd=test123</span><br><span class="line">sersync_version=2.5.4</span><br><span class="line">mirrorLink=http://panel.ropon.top/rsync/</span><br><span class="line">sersync_install_dir=/usr/local/sersync</span><br><span class="line">confpath=$sersync_install_dir/confxml.xml</span><br><span class="line">rsync_cmd=&quot;rsync -artuz -R --delete $auth_users@$dip::rsync $rsync_dir --password-file=/etc/rsyncd.pass&quot;</span><br><span class="line">sersync_cmd=&quot;/usr/local/sersync/sersync2 -d -r -o  /usr/local/sersync/confxml.xml&quot;</span><br><span class="line">flag=$1</span><br><span class="line"></span><br><span class="line">Echo()</span><br><span class="line">&#123;</span><br><span class="line">case $1 in</span><br><span class="line">    success)  flag=&quot;\033[1;32m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    failure)  flag=&quot;\033[1;31m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    warning)  flag=&quot;\033[1;33m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    msg)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">    *)  flag=&quot;\033[1;34m&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">if [[ $LANG =~ [Uu][Tt][Ff] ]]</span><br><span class="line">then</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;</span><br><span class="line">else</span><br><span class="line">echo -e &quot;$&#123;flag&#125;$&#123;2&#125;\033[0m&quot;  iconv -f utf-8 -t gbk</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">header()</span><br><span class="line">&#123;</span><br><span class="line">printf &quot;</span><br><span class="line">###################################################################</span><br><span class="line">#  $rsname version $rsver Author: Ropon &lt;idiyrom.com&gt;          #</span><br><span class="line">#  For more information please visit https://idiyrom.com/83.html  #</span><br><span class="line">#-----------------------------------------------------------------#</span><br><span class="line">#  Copyright @2017-2018 idiyrom.com. All rights reserved.         #</span><br><span class="line">###################################################################</span><br><span class="line"></span><br><span class="line">&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showhelp()</span><br><span class="line">&#123;</span><br><span class="line">header</span><br><span class="line">Echo &quot;msg&quot; &quot;Usage: $rsname [OPTIONS]&quot;</span><br><span class="line">echo</span><br><span class="line">Echo &quot;msg&quot; &quot;OPTIONS:&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-h  --help : Show help of $rsname&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-u  --update : update Check for $rsname&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-i  --install : install $rsname version $rsver to This System&quot;</span><br><span class="line">Echo &quot;msg&quot; &quot;-U  --uninstall : Uninstall $rsname from This System&quot;</span><br><span class="line">echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Download_src() &#123;</span><br><span class="line">[ -s &quot;$&#123;src_url##*/&#125;&quot; ] &amp;&amp; Echo &quot;msg&quot; &quot;[$&#123;src_url##*/&#125;] found&quot;  &#123; wget --tries=6 -c --no-check-certificate $src_url; sleep 1; &#125; #判断下载是否已存在</span><br><span class="line">if [ ! -e &quot;$&#123;src_url##*/&#125;&quot; ]; then</span><br><span class="line">Echo &quot;msg&quot; &quot;$&#123;src_url##*/&#125; download failed, Please contact the author!&quot;</span><br><span class="line">kill -9 $$</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Install()</span><br><span class="line">&#123;</span><br><span class="line">pushd $&#123;base_dir&#125;/src</span><br><span class="line">id -u $run_user &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; useradd -M -s /sbin/nologin $run_user</span><br><span class="line">yum install rsync -y</span><br><span class="line">cat &gt; /etc/rsyncd.conf &lt;&lt;EOF</span><br><span class="line">uid=$run_user</span><br><span class="line">gid=$run_user</span><br><span class="line">use chroot = no</span><br><span class="line">port=$port</span><br><span class="line">#address=$sip</span><br><span class="line">max connections=2000</span><br><span class="line">timeout=200</span><br><span class="line">log file=/var/log/rsyncd.log</span><br><span class="line">pid file=/var/run/rsyncd.pid</span><br><span class="line">lock file=/var/run/rsyncd.lock</span><br><span class="line">log format=%t %a %m %f %b</span><br><span class="line"></span><br><span class="line">[rsync]</span><br><span class="line">path=$rsync_dir </span><br><span class="line">commemt=rsync</span><br><span class="line">list=yes</span><br><span class="line">read only=no</span><br><span class="line">#write only=no</span><br><span class="line">auth users=$auth_users</span><br><span class="line">secrets file=/etc/rsyncd.secret</span><br><span class="line">ignore errors=yes</span><br><span class="line">hosts allow=$dip</span><br><span class="line">hosts deny=</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/rsyncd.secret &lt;&lt;EOF</span><br><span class="line">$auth_users:$passwd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/rsyncd.pass &lt;&lt;EOF</span><br><span class="line">$passwd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">chmod 600 /etc/rsyncd.secret /etc/rsyncd.pass</span><br><span class="line">[ ! -d &quot;$rsync_dir&quot; ] &amp;&amp; mkdir -p $rsync_dir</span><br><span class="line">chown $run_user.$run_user -R $rsync_dir</span><br><span class="line">systemctl enable rsyncd</span><br><span class="line">systemctl start rsyncd</span><br><span class="line">[ $? -eq 0 ] &amp;&amp; Echo &quot;success&quot; &quot;rsyncd服务安装成功，且已正常启动。&quot;</span><br><span class="line"></span><br><span class="line">[ ! -f sersync-$&#123;sersync_version&#125;.tar.gz ] &amp;&amp; src_url=$&#123;mirrorLink&#125;/sersync-$&#123;sersync_version&#125;.tar.gz &amp;&amp; Download_src</span><br><span class="line">[ ! -d &quot;$sersync_install_dir&quot; ] &amp;&amp; mkdir -p $sersync_install_dir</span><br><span class="line">tar -xzf sersync-$&#123;sersync_version&#125;.tar.gz  -C $sersync_install_dir</span><br><span class="line">sed -i &quot;s@/ropon@$rsync_dir@g&quot; $confpath</span><br><span class="line">sed -i &quot;s@pengge@$auth_users@g&quot; $confpath</span><br><span class="line">sed -i &quot;s@192.168.19.19@$dip@g&quot; $confpath</span><br><span class="line">/usr/local/sersync/sersync2 -d -r -o  /usr/local/sersync/confxml.xml</span><br><span class="line"></span><br><span class="line">cat &gt;&gt; /etc/rc.d/rc.local &lt;&lt;EOF</span><br><span class="line">$rsync_cmd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &gt;&gt; /etc/rc.d/rc.local &lt;&lt;EOF</span><br><span class="line">$sersync_cmd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">[ $? -eq 0 ] &amp;&amp; Echo &quot;success&quot; &quot;sersync服务安装成功，且已正常启动。&quot;</span><br><span class="line">rm -rf sersync-$&#123;sersync_version&#125;.tar.gz</span><br><span class="line">popd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Uninstall()</span><br><span class="line">&#123;</span><br><span class="line">userdel $run_user</span><br><span class="line">systemctl disable rsyncd</span><br><span class="line">yum remove -y rsync</span><br><span class="line">rm -rf /etc/rsyncd.conf*</span><br><span class="line">rm -rf /etc/rsyncd.secret /etc/rsyncd.pass /etc/rsync_exclude.lst</span><br><span class="line">pkill sersync2</span><br><span class="line">rm -rf $sersync_install_dir</span><br><span class="line">sed -i &#x27;/^\/usr\/local\/sersync.*/d&#x27; /etc/rc.d/rc.local</span><br><span class="line">sed -i &#x27;/^rsync.*/d&#x27; /etc/rc.d/rc.local</span><br><span class="line">Echo &quot;success&quot; &quot;卸载完成&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Update()</span><br><span class="line">&#123;</span><br><span class="line">Echo &quot;msg&quot; &quot;暂未开通&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Main()</span><br><span class="line">&#123;</span><br><span class="line">case $flag in</span><br><span class="line">&#x27;-h&#x27;  &#x27;--help&#x27;  &#x27;?&#x27; )</span><br><span class="line">showhelp</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">&#x27;--install&#x27;  &#x27;-i&#x27; )</span><br><span class="line">Install</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">&#x27;--uninstall&#x27;  &#x27;-U&#x27; )</span><br><span class="line">Uninstall</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">&#x27;--update&#x27;  &#x27;-u&#x27; )</span><br><span class="line">Update</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">* )</span><br><span class="line">showhelp</span><br><span class="line">exit</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">&#125;</span><br><span class="line">Main</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/04/18/%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BAsersyncrsync%E7%9B%B8%E4%BA%92%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%EF%BC%88%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87%EF%BC%89/" data-id="clc4klg7l00a3ojobhs7s30xg" data-title="一键搭建Sersync+Rsync相互实时同步（双机热备）" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-keepalived-nfs" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/04/13/keepalived-nfs/" class="article-date">
+  <time class="dt-published" datetime="2018-04-13T08:27:32.000Z" itemprop="datePublished">2018-04-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/04/13/keepalived-nfs/">nfs高可用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/hosts</span><br><span class="line">172.16.8.20 fs1</span><br><span class="line">172.16.8.21 fs2</span><br><span class="line">172.16.8.22 fs</span><br></pre></td></tr></table></figure>
+
+<h4 id="1、安装服务"><a href="#1、安装服务" class="headerlink" title="1、安装服务"></a>1、安装服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install keepalived</span><br><span class="line">yum install nfs-utils rpcbind -y</span><br><span class="line"></span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">net.ipv4.conf.all.rp_filter=0</span><br><span class="line">net.ipv4.conf.default.rp_filter=0</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">    router_id RSYNC_MASTER</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth1</span><br><span class="line">    virtual_router_id 60</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">    172.16.8.120</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.16.8.120 873 &#123;</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    nat_mask 255.255.255.0</span><br><span class="line">    persistence_timeout 5</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 172.16.8.20 873 &#123;</span><br><span class="line">        weight 3</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 3</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">            connect_port 873</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    real_server 172.16.9.21 873 &#123;</span><br><span class="line">        weight 3</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 3</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">            connect_port 873</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/04/13/keepalived-nfs/" data-id="clc4klg5x005bojob5ufche8c" data-title="nfs高可用" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sersyncrsync互相实时同步" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/04/13/sersyncrsync%E4%BA%92%E7%9B%B8%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" class="article-date">
+  <time class="dt-published" datetime="2018-04-13T08:26:51.000Z" itemprop="datePublished">2018-04-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/04/13/sersyncrsync%E4%BA%92%E7%9B%B8%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/">Sersync+Rsync互相实时同步</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">1、关闭selinux</span><br><span class="line">2、防火墙（iptables、Firewalld）放行873端口（默认）</span><br><span class="line">3、安装Rsync服务</span><br><span class="line">yum install rsync -y</span><br><span class="line">useradd -r -s /sbin/nologin rsync -M</span><br><span class="line">cat &gt; /etc/rsyncd.conf &lt;&lt;EOF</span><br><span class="line">uid = rsync</span><br><span class="line">gid = rsync</span><br><span class="line">use chroot = no</span><br><span class="line">port = 873</span><br><span class="line">address = 192.168.230.10</span><br><span class="line">max connections = 2000</span><br><span class="line">timeout = 200</span><br><span class="line">log file = /var/run/rsyncd.log</span><br><span class="line">pid file = /var/run/rsyncd.pid</span><br><span class="line">lock file = /var/run/rsyncd.lock</span><br><span class="line">log format = %t %a %m %f %b</span><br><span class="line"></span><br><span class="line">[rsync]</span><br><span class="line">path = /home/wwwroot/test/</span><br><span class="line">commemt = rsync</span><br><span class="line">list = yes</span><br><span class="line">read only = no</span><br><span class="line">#write only = no</span><br><span class="line">auth users = homeuser</span><br><span class="line">secrets file = /etc/rsyncd.secret</span><br><span class="line">ignore errors = yes</span><br><span class="line">hosts allow = 192.168.250.101</span><br><span class="line">hosts deny =</span><br><span class="line">EOF</span><br><span class="line">read only 指定是否允许客户上传文件。若为 true 则不允许上传；若为 false 并且服务器目录也具有读写权限则允许上传。 true</span><br><span class="line">write only 指定是否允许客户下载文件。若为 true 则不允许下载；若为 false 并且服务器目录也具有读权限则允许下载。 false</span><br><span class="line"></span><br><span class="line">read only 默认值true 不允许上传，只能读；false 可写（可上传），是否可读取决于write only</span><br><span class="line">write only 默认值false 可读而且可下载；true 不允许下载，是否可写取决于read only</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/rsyncd.secret &lt;&lt;EOF</span><br><span class="line">homeuser:test123</span><br><span class="line">EOF</span><br><span class="line">chmod 600 /etc/rsyncd.secret</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/rsyncd.pass &lt;&lt;EOF</span><br><span class="line">test123</span><br><span class="line">EOF</span><br><span class="line">chmod 600 /etc/rsyncd.pass</span><br><span class="line"></span><br><span class="line">mkdir -p /home/wwwroot/test</span><br><span class="line">chown rsync.rsync -R /home/wwwroot/test</span><br><span class="line">systemctl enable rsyncd</span><br><span class="line">systemctl start rsyncd</span><br><span class="line"></span><br><span class="line">4、安装Sersync服务</span><br><span class="line">wget http://panel.ropon.top/rsync/sersync.zip</span><br><span class="line">unzip sersync.zip -C /usr/local/</span><br><span class="line">tar xf sersync.zip -C /usr/local/</span><br><span class="line">cat //usr/local/sersync/config.xml</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;head version=&quot;2.5&quot;&gt;</span><br><span class="line">&lt;host hostip=&quot;localhost&quot; port=&quot;8008&quot;&gt;&lt;/host&gt;</span><br><span class="line">&lt;debug start=&quot;false&quot;/&gt;</span><br><span class="line">&lt;fileSystem xfs=&quot;false&quot;/&gt;</span><br><span class="line">&lt;filter start=&quot;false&quot;&gt;</span><br><span class="line">&lt;exclude expression=&quot;(.*)\.svn&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">&lt;exclude expression=&quot;(.*)\.gz&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">&lt;exclude expression=&quot;^info/*&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">&lt;exclude expression=&quot;^static/*&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;inotify&gt;</span><br><span class="line">&lt;delete start=&quot;true&quot;/&gt;</span><br><span class="line">&lt;createFolder start=&quot;true&quot;/&gt;</span><br><span class="line">&lt;createFile start=&quot;false&quot;/&gt;</span><br><span class="line">&lt;closeWrite start=&quot;true&quot;/&gt;</span><br><span class="line">&lt;moveFrom start=&quot;true&quot;/&gt;</span><br><span class="line">&lt;moveTo start=&quot;true&quot;/&gt;</span><br><span class="line">&lt;attrib start=&quot;false&quot;/&gt;</span><br><span class="line">&lt;modify start=&quot;false&quot;/&gt;</span><br><span class="line">&lt;/inotify&gt;</span><br><span class="line"></span><br><span class="line">&lt;sersync&gt;</span><br><span class="line">&lt;localpath watch=&quot;/home/wwwroot/test&quot;&gt;</span><br><span class="line">&lt;remote ip=&quot;192.168.250.101&quot; name=&quot;rsync&quot;/&gt;</span><br><span class="line">&lt;!--&lt;remote ip=&quot;192.168.8.39&quot; name=&quot;tongbu&quot;/&gt;--&gt;</span><br><span class="line">&lt;!--&lt;remote ip=&quot;192.168.8.40&quot; name=&quot;tongbu&quot;/&gt;--&gt;</span><br><span class="line">&lt;/localpath&gt;</span><br><span class="line">&lt;rsync&gt;</span><br><span class="line">&lt;commonParams params=&quot;-artuz&quot;/&gt;</span><br><span class="line">&lt;auth start=&quot;true&quot; users=&quot;homeuser&quot; passwordfile=&quot;/etc/rsyncd.pass&quot;/&gt;</span><br><span class="line">&lt;userDefinedPort start=&quot;false&quot; port=&quot;873&quot;/&gt;&lt;!-- port=874 --&gt;</span><br><span class="line">&lt;timeout start=&quot;false&quot; time=&quot;100&quot;/&gt;&lt;!-- timeout=100 --&gt;</span><br><span class="line">&lt;ssh start=&quot;false&quot;/&gt;</span><br><span class="line">&lt;/rsync&gt;</span><br><span class="line">&lt;failLog path=&quot;/tmp/rsync_fail_log.sh&quot; timeToExecute=&quot;60&quot;/&gt;&lt;!--default every 60mins execute once--&gt;</span><br><span class="line">&lt;crontab start=&quot;false&quot; schedule=&quot;600&quot;&gt;&lt;!--600mins--&gt;</span><br><span class="line">&lt;crontabfilter start=&quot;false&quot;&gt;</span><br><span class="line">&lt;exclude expression=&quot;*.php&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">&lt;exclude expression=&quot;info/*&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">&lt;/crontabfilter&gt;</span><br><span class="line">&lt;/crontab&gt;</span><br><span class="line">&lt;plugin start=&quot;false&quot; name=&quot;command&quot;/&gt;</span><br><span class="line">&lt;/sersync&gt;</span><br><span class="line"></span><br><span class="line">&lt;plugin name=&quot;command&quot;&gt;</span><br><span class="line">&lt;param prefix=&quot;/bin/sh&quot; suffix=&quot;&quot; ignoreError=&quot;true&quot;/&gt; &lt;!--prefix /opt/tongbu/mmm.sh suffix--&gt;</span><br><span class="line">&lt;filter start=&quot;false&quot;&gt;</span><br><span class="line">&lt;include expression=&quot;(.*)\.php&quot;/&gt;</span><br><span class="line">&lt;include expression=&quot;(.*)\.sh&quot;/&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br><span class="line"></span><br><span class="line">&lt;plugin name=&quot;socket&quot;&gt;</span><br><span class="line">&lt;localpath watch=&quot;/home/wwwroot/test/&quot;&gt;</span><br><span class="line">&lt;deshost ip=&quot;192.168.250.101&quot; port=&quot;8009&quot;/&gt;</span><br><span class="line">&lt;/localpath&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br><span class="line">&lt;plugin name=&quot;refreshCDN&quot;&gt;</span><br><span class="line">&lt;localpath watch=&quot;/data0/htdocs/cms.xoyo.com/site/&quot;&gt;</span><br><span class="line">&lt;cdninfo domainname=&quot;ccms.chinacache.com&quot; port=&quot;80&quot; username=&quot;xxxx&quot; passwd=&quot;xxxx&quot;/&gt;</span><br><span class="line">&lt;sendurl base=&quot;http://pic.xoyo.com/cms&quot;/&gt;</span><br><span class="line">&lt;regexurl regex=&quot;false&quot; match=&quot;cms.xoyo.com/site([/a-zA-Z0-9]*).xoyo.com/images&quot;/&gt;</span><br><span class="line">&lt;/localpath&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">cat /etc/rc.local</span><br><span class="line">/usr/local/sersync/sersync2 -d -r -o /usr/local/sersync/confxml.xml</span><br><span class="line"></span><br><span class="line">B服务器同理</span><br><span class="line">注意开机启动项</span><br><span class="line">cd /home/wwwroot/test &amp;&amp; rsync -artuz -R --delete homeuser@192.168.230.10::rsync ./ --password-file=/etc/rsyncd.pass</span><br><span class="line">/usr/local/sersync/sersync2 -d -r -o /usr/local/sersync/confxml.xml</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/04/13/sersyncrsync%E4%BA%92%E7%9B%B8%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" data-id="clc4klg6v008hojob9vpn69li" data-title="Sersync+Rsync互相实时同步" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mysql-bin-log日志设置自动清理及如何手工清理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/03/26/mysql-bin-log%E6%97%A5%E5%BF%97%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E6%B8%85%E7%90%86%E5%8F%8A%E5%A6%82%E4%BD%95%E6%89%8B%E5%B7%A5%E6%B8%85%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2018-03-26T05:41:39.000Z" itemprop="datePublished">2018-03-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/03/26/mysql-bin-log%E6%97%A5%E5%BF%97%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E6%B8%85%E7%90%86%E5%8F%8A%E5%A6%82%E4%BD%95%E6%89%8B%E5%B7%A5%E6%B8%85%E7%90%86/">Mysql bin-log日志设置自动清理及如何手工清理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>bin-log日志作用</strong> 1、数据恢复：数据库出现故障时，从二进制日志找出那个那个语句引起，从而会写数据。 2、主从同步：主服务增删改查操作，从服务器通过二进制重写报错数据同步。 <strong>查看bin-log日志</strong> show binlog events; show binlog events in ‘mysql-bin.000002’; <strong>清理bin-log日志</strong> 1、自动清理： cat &#x2F;etc&#x2F;my.cnf expire_logs_days &#x3D; 5 &#x2F;&#x2F;保留最近5天二进制日志 2、手工清理： 没有设置主从复制，可使用reset master;命令清空二进制日志 存在主从复制，使用以下命令清理二进制日志 purge master logs to ‘mysql-bin.000002’; &#x2F;&#x2F;清理mysql-bin.000002日志 purge master logs to ‘2018-03-24 14:30:00’; &#x2F;&#x2F;清理2018-03-24 14:30:00前的日志 purge master logs to before date_sub(now(),interval 2 day); &#x2F;&#x2F;清理2天前的日志</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2018/03/26/mysql-bin-log%E6%97%A5%E5%BF%97%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E6%B8%85%E7%90%86%E5%8F%8A%E5%A6%82%E4%BD%95%E6%89%8B%E5%B7%A5%E6%B8%85%E7%90%86/" data-id="clc4klg63005vojob0jco9fyy" data-title="Mysql bin-log日志设置自动清理及如何手工清理" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-shell中的、和使用范例" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/12/14/shell%E4%B8%AD%E7%9A%84%E3%80%81%E5%92%8C%E4%BD%BF%E7%94%A8%E8%8C%83%E4%BE%8B/" class="article-date">
+  <time class="dt-published" datetime="2017-12-14T02:50:30.000Z" itemprop="datePublished">2017-12-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/12/14/shell%E4%B8%AD%E7%9A%84%E3%80%81%E5%92%8C%E4%BD%BF%E7%94%A8%E8%8C%83%E4%BE%8B/">Shell中的${}、##和%%使用范例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>今天看一个脚本文件的时候有一些地方不太懂，找了一篇文章看了一些，觉得不错，保留下来。 假设我们定义了一个变量为： file&#x3D;&#x2F;dir1&#x2F;dir2&#x2F;dir3&#x2F;my.file.txt 可以用${ }分别替换得到不同的值： ${file#*&#x2F;}：删掉第一个 &#x2F; 及其左边的字符串：dir1&#x2F;dir2&#x2F;dir3&#x2F;my.file.txt ${file##*&#x2F;}：删掉最后一个 &#x2F; 及其左边的字符串：my.file.txt ${file#*.}：删掉第一个 . 及其左边的字符串：file.txt ${file##*.}：删掉最后一个 . 及其左边的字符串：txt ${file%&#x2F;*}：删掉最后一个 &#x2F; 及其右边的字符串：&#x2F;dir1&#x2F;dir2&#x2F;dir3 ${file%%&#x2F;*}：删掉第一个 &#x2F; 及其右边的字符串：(空值) ${file%.*}：删掉最后一个 . 及其右边的字符串：&#x2F;dir1&#x2F;dir2&#x2F;dir3&#x2F;my.file ${file%%.*}：删掉第一个 . 及其右边的字符串：&#x2F;dir1&#x2F;dir2&#x2F;dir3&#x2F;my 记忆的方法为： # 是 去掉左边（键盘上#在 $ 的左边） %是去掉右边（键盘上% 在$ 的右边） 单一符号是最小匹配；两个符号是最大匹配 ${file:0:5}：提取最左边的 5 个字节：&#x2F;dir1 ${file:5:5}：提取第 5 个字节右边的连续5个字节：&#x2F;dir2 也可以对变量值里的字符串作替换： ${file&#x2F;dir&#x2F;path}：将第一个dir 替换为path：&#x2F;path1&#x2F;dir2&#x2F;dir3&#x2F;my.file.txt ${file&#x2F;&#x2F;dir&#x2F;path}：将全部dir 替换为 path：&#x2F;path1&#x2F;path2&#x2F;path3&#x2F;my.file.txt 利用 ${ } 还可针对不同的变数状态赋值(沒设定、空值、非空值)： ${file-my.file.txt} ：假如 $file 沒有设定，則使用 my.file.txt 作传回值。(空值及非空值時不作处理) ${file:-my.file.txt} ：假如 $file 沒有設定或為空值，則使用 my.file.txt 作傳回值。 (非空值時不作处理) ${file+my.file.txt} ：假如 $file 設為空值或非空值，均使用 my.file.txt 作傳回值。(沒設定時不作处理) ${file:+my.file.txt} ：若 $file 為非空值，則使用 my.file.txt 作傳回值。 (沒設定及空值時不作处理) ${file&#x3D;my.file.txt} ：若 $file 沒設定，則使用 my.file.txt 作傳回值，同時將 $file 賦值為 my.file.txt 。 (空值及非空值時不作处理) ${file:&#x3D;my.file.txt} ：若 $file 沒設定或為空值，則使用 my.file.txt 作傳回值，同時將 $file 賦值為my.file.txt 。 (非空值時不作处理) ${file?my.file.txt} ：若 $file 沒設定，則將 my.file.txt 輸出至 STDERR。 (空值及非空值時不作处理) ${file:?my.file.txt} ：若 $file 没设定或为空值，则将 my.file.txt 输出至 STDERR。 (非空值時不作处理) $</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/12/14/shell%E4%B8%AD%E7%9A%84%E3%80%81%E5%92%8C%E4%BD%BF%E7%94%A8%E8%8C%83%E4%BE%8B/" data-id="clc4klg71008sojob4w77cnlq" data-title="Shell中的${}、##和%%使用范例" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-手工安装redis、ioncube、memcached常用组件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/12/13/%E6%89%8B%E5%B7%A5%E5%AE%89%E8%A3%85redis%E3%80%81ioncube%E3%80%81memcached%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/" class="article-date">
+  <time class="dt-published" datetime="2017-12-13T03:40:48.000Z" itemprop="datePublished">2017-12-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/12/13/%E6%89%8B%E5%B7%A5%E5%AE%89%E8%A3%85redis%E3%80%81ioncube%E3%80%81memcached%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/">手工安装redis、ioncube、memcached常用组件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">1、安装redis服务</span><br><span class="line">yum -y install redis</span><br><span class="line">2、安装php组件</span><br><span class="line">wget http://pecl.php.net/get/redis-3.1.0.tgz</span><br><span class="line">tar xzf redis-3.1.0.tgz</span><br><span class="line">cd redis-3.1.0</span><br><span class="line">/usr/local/php56/bin/phpize</span><br><span class="line">./configure --with-php-config=/usr/local/php56/bin/php-config</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">cat /usr/local/php56/etc/php.d/ext-redis.ini &lt;&lt; EOF</span><br><span class="line">extension=redis.so</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">1、安装ioncube组件</span><br><span class="line">cd `/usr/local/php56/bin/php-config --extension-dir`</span><br><span class="line">wget http://download.myhostadmin.net/php/ioncube/ioncube_loader_lin_5.6.so</span><br><span class="line">cat /usr/local/php56/etc/php.d/ext-ioncube.ini &lt;&lt; EOF</span><br><span class="line">[ioncube]</span><br><span class="line">zend_extension=ioncube_loader_lin_5.6.so</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">1、安装memcached服务</span><br><span class="line">yum -y install memcached</span><br><span class="line">修改为127.0.0.1运行</span><br><span class="line">cat /etc/sysconfig/memcached &lt;&lt; EOF</span><br><span class="line">PORT=&quot;11211&quot;</span><br><span class="line">USER=&quot;memcached&quot;</span><br><span class="line">MAXCONN=&quot;1024&quot;</span><br><span class="line">CACHESIZE=&quot;256&quot;</span><br><span class="line">OPTIONS=&quot;-l 127.0.0.1&quot;</span><br><span class="line">EOF</span><br><span class="line">systemctl restart memcached</span><br><span class="line">2、安装memcached组件</span><br><span class="line">wget http://pecl.php.net/get/memcache-2.2.5.tgz</span><br><span class="line">tar xzf memcache-2.2.5.tgz</span><br><span class="line">cd memcache-2.2.5</span><br><span class="line">/usr/local/php56/bin/phpize</span><br><span class="line">./configure --enable-memcache --with-php-config=/usr/local/php56/bin/php-config --with-zlib-dir</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">cat /usr/local/php56/etc/php.d/ext-memcache.ini &lt;&lt; EOF</span><br><span class="line">extension=memcache.so</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/12/13/%E6%89%8B%E5%B7%A5%E5%AE%89%E8%A3%85redis%E3%80%81ioncube%E3%80%81memcached%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/" data-id="clc4klg7x00b6ojobhcvba2pr" data-title="手工安装redis、ioncube、memcached常用组件" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux-shell-字符含义" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/12/12/linux-shell-%E5%AD%97%E7%AC%A6%E5%90%AB%E4%B9%89/" class="article-date">
+  <time class="dt-published" datetime="2017-12-12T02:40:11.000Z" itemprop="datePublished">2017-12-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/12/12/linux-shell-%E5%AD%97%E7%AC%A6%E5%90%AB%E4%B9%89/">Linux shell `` &#39;&#39; \&#34;\&#34;  字符含义</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>‘’ “” 主要解决变量中间有空格 比如： str &#x3D; This is String 这样写会报错，正确书写：str &#x3D; “This is String” 单引号’’，双引号””的区别是单引号’’剥夺了所有字符的特殊含义，单引号’’内就变成了单纯的字符。双引号””则对于双引号””内的参数替换($)和命令替换(``)是个例外。 比如说 　　n&#x3D;3 echo ‘$n’ 结果就是$n 改成双引号　　echo “$n” 结果就是3 `` 是命令替换，命令替换是指Shell可以先执行``中的命令，将输出结果暂时保存，在适当的地方输出。语法:`command` #!&#x2F;bin&#x2F;bash DATE&#x3D;`date` echo “Date is $DATE” USERS&#x3D;`who wc -l` echo “Logged in user are $USERS” UP&#x3D;`date ; uptime` echo “Uptime is $UP” 运行结果： Date is Thu Jul 2 03:59:57 MST 2009 Logged in user are 1 Uptime is Thu Jul 2 03:59:57 MST 2009 03:59:57 up 20 days, 14:03, 1 user, load avg: 0.13, 0.07, 0.15</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/12/12/linux-shell-%E5%AD%97%E7%AC%A6%E5%90%AB%E4%B9%89/" data-id="clc4klg5z005iojob47164962" data-title="Linux shell `` &#39;&#39; \&#34;\&#34;  字符含义" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-详解ftp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/11/30/%E8%AF%A6%E8%A7%A3ftp/" class="article-date">
+  <time class="dt-published" datetime="2017-11-30T09:34:47.000Z" itemprop="datePublished">2017-11-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/11/30/%E8%AF%A6%E8%A7%A3ftp/">详解FTP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1-下载安装包"><a href="#1-下载安装包" class="headerlink" title="1.下载安装包"></a>1.下载安装包</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.6.188/down/ftp/pure-ftpd-1.0.47.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-解压并进入解压后的目录"><a href="#2-解压并进入解压后的目录" class="headerlink" title="2.解压并进入解压后的目录"></a>2.解压并进入解压后的目录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf pure-ftpd-1.0.47.tar.gz</span><br><span class="line">cd pure-ftpd-1.0.47</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-安装编译需要的gcc组件-已安装的跳过"><a href="#3-安装编译需要的gcc组件-已安装的跳过" class="headerlink" title="3.安装编译需要的gcc组件,已安装的跳过"></a>3.安装编译需要的gcc组件,已安装的跳过</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-编辑编译配置"><a href="#4-编辑编译配置" class="headerlink" title="4.编辑编译配置"></a>4.编辑编译配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/pure-ftpd --with-language=simplified-chinese --with-everything</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-编译及编译安装"><a href="#5-编译及编译安装" class="headerlink" title="5.编译及编译安装"></a>5.编译及编译安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-如果想要和yum一样使用快捷命令-设置环境变量或增加软链接"><a href="#6-如果想要和yum一样使用快捷命令-设置环境变量或增加软链接" class="headerlink" title="6.如果想要和yum一样使用快捷命令,设置环境变量或增加软链接"></a>6.如果想要和yum一样使用快捷命令,设置环境变量或增加软链接</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/pure-ftpd/bin/* /usr/bin/</span><br></pre></td></tr></table></figure>
+
+<h4 id="编辑配置文件和创建ftp站点-同方式一第3步及之后步骤"><a href="#编辑配置文件和创建ftp站点-同方式一第3步及之后步骤" class="headerlink" title="编辑配置文件和创建ftp站点,同方式一第3步及之后步骤"></a>编辑配置文件和创建ftp站点,同方式一第3步及之后步骤</h4><h4 id="7-配置文件路径-x2F-usr-x2F-local-x2F-pure-ftpd-x2F-etc-x2F-pure-ftpd-conf-我们一般需要做几个修改"><a href="#7-配置文件路径-x2F-usr-x2F-local-x2F-pure-ftpd-x2F-etc-x2F-pure-ftpd-conf-我们一般需要做几个修改" class="headerlink" title="7.配置文件路径&#x2F;usr&#x2F;local&#x2F;pure-ftpd&#x2F;etc&#x2F;pure-ftpd.conf,我们一般需要做几个修改:"></a>7.配置文件路径&#x2F;usr&#x2F;local&#x2F;pure-ftpd&#x2F;etc&#x2F;pure-ftpd.conf,我们一般需要做几个修改:</h4><h5 id="a-设置数据库"><a href="#a-设置数据库" class="headerlink" title="a.设置数据库"></a>a.设置数据库</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">去掉前面的<span class="comment">#注释符号</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">PureDB /usr/local/pure-ftpd/etc/pure-ftpd/pureftpd.pdb</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="b-开启日志"><a href="#b-开启日志" class="headerlink" title="b.开启日志"></a>b.开启日志</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VerboseLog yes</span><br></pre></td></tr></table></figure>
+
+<h5 id="c-关闭匿名登录"><a href="#c-关闭匿名登录" class="headerlink" title="c.关闭匿名登录"></a>c.关闭匿名登录</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NoAnonymous yes</span><br></pre></td></tr></table></figure>
+
+<h5 id="d-使用被动模式-设置被动端口范围"><a href="#d-使用被动模式-设置被动端口范围" class="headerlink" title="d.使用被动模式,设置被动端口范围"></a>d.使用被动模式,设置被动端口范围</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">去掉前面的<span class="comment">#注释符号,及修改端口范围</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">PassivePortRange 48000 50000</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="8-给ftp创建虚拟用户-密码及指定目录"><a href="#8-给ftp创建虚拟用户-密码及指定目录" class="headerlink" title="8.给ftp创建虚拟用户,密码及指定目录"></a>8.给ftp创建虚拟用户,密码及指定目录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/wwwroot/ropon/</span><br><span class="line">useradd www -s /sbin/nologin -M</span><br><span class="line">pure-pw useradd ropon -d /home/wwwroot/ropon/ -u www -m</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">回车执行后会提示输入密码</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">成功执行后,会生成两个文件pureftpd.passwd和pureftpd.pdb</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="9-最后配置好防火墙策略即可"><a href="#9-最后配置好防火墙策略即可" class="headerlink" title="9.最后配置好防火墙策略即可"></a>9.最后配置好防火墙策略即可</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 21 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --dport 48000:50000 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-启动服务"><a href="#10-启动服务" class="headerlink" title="10.启动服务"></a>10.启动服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">开机自启动,添加到/etc/rc.local中</span></span><br><span class="line">/usr/local/pure-ftpd/sbin/pure-ftpd /usr/local/pure-ftpd/etc/pure-ftpd.conf</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-如何修改已经创建的ftp虚拟用户密码呢"><a href="#11-如何修改已经创建的ftp虚拟用户密码呢" class="headerlink" title="11.如何修改已经创建的ftp虚拟用户密码呢?"></a>11.如何修改已经创建的ftp虚拟用户密码呢?</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pure-pw passwd ropon -m</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-删除ftp的虚拟用户"><a href="#12-删除ftp的虚拟用户" class="headerlink" title="12.删除ftp的虚拟用户"></a>12.删除ftp的虚拟用户</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pure-pw userdel ropon</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-查看ftp虚拟用户列表"><a href="#13-查看ftp虚拟用户列表" class="headerlink" title="13.查看ftp虚拟用户列表"></a>13.查看ftp虚拟用户列表</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pure-pw list</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/11/30/%E8%AF%A6%E8%A7%A3ftp/" data-id="clc4klg8100blojob0fbb37o6" data-title="详解FTP" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-详解php" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/11/29/%E8%AF%A6%E8%A7%A3php/" class="article-date">
+  <time class="dt-published" datetime="2017-11-29T08:31:35.000Z" itemprop="datePublished">2017-11-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/11/29/%E8%AF%A6%E8%A7%A3php/">详解PHP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>检查安装基本组件库</p>
+<p>yum install -y zlib-devel libxml2-devel libjpeg-devel libjpeg-turbo-devel libiconv-devel</p>
+<p>yum install -y freetype-devel libpng-devel gd-devel libcurl-devel libxslt-devel icu libicu libicu-devel</p>
+<p>cd &#x2F;usr&#x2F;local&#x2F;src</p>
+<p>wget <a target="_blank" rel="noopener" href="http://luopengtest.gotoip2.com/shell/lnmp/libiconv-1.15.tar.gz">http://luopengtest.gotoip2.com/shell/lnmp/libiconv-1.15.tar.gz</a></p>
+<p>tar xzf <a target="_blank" rel="noopener" href="http://luopengtest.gotoip2.com/shell/lnmp/libiconv-1.15.tar.gz">libiconv-1.15.tar.gz</a></p>
+<p>cd libiconv-1.15</p>
+<p>mkdir -p &#x2F;usr&#x2F;local&#x2F;libiconv</p>
+<p>.&#x2F;configure –prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;libiconv&#x2F;</p>
+<p>make</p>
+<p>make install</p>
+<p>配置epel源</p>
+<p>mv &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo.backup</p>
+<p>wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/repo/epel-7.repo">http://mirrors.aliyun.com/repo/epel-7.repo</a></p>
+<p>yum install -y libmcrypt-devel mhash mcrypt</p>
+<p>wget <a target="_blank" rel="noopener" href="http://luopengtest.gotoip2.com/shell/lnmp/php-5.6.32.tar.gz">http://luopengtest.gotoip2.com/shell/lnmp/php-5.6.32.tar.gz</a></p>
+<p>tar xzf php-5.6.32.tar.gz</p>
+<p>cd php-5.6.32</p>
+<p>mkdir -p &#x2F;usr&#x2F;local&#x2F;php</p>
+<p>.&#x2F;configure –prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php –with-config-file-path&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;etc \</p>
+<p>--with-config-file-scan-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.d \</p>
+<p>--with-fpm-user&#x3D;www –with-fpm-group&#x3D;www –enable-fpm –disable-opcache –disable-fileinfo \</p>
+<p>--with-mysql&#x3D;mysqlnd –with-mysqli&#x3D;mysqlnd –with-pdo-mysql&#x3D;mysqlnd \</p>
+<p>--with-iconv-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;libiconv –with-freetype-dir –with-jpeg-dir –with-png-dir –with-zlib \</p>
+<p>--with-libxml-dir –enable-xml –disable-rpath –enable-bcmath –enable-shmop –enable-exif \</p>
+<p>--enable-sysvsem –enable-inline-optimization –with-curl&#x3D;&#x2F;usr&#x2F;local –enable-mbregex \</p>
+<p>--enable-mbstring –with-mcrypt –with-gd –enable-gd-native-ttf –with-openssl \</p>
+<p>--with-mhash –enable-pcntl –enable-sockets –with-xmlrpc –enable-ftp –enable-intl –with-xsl \</p>
+<p>--with-gettext –enable-zip –enable-soap –disable-debug $php_modules_options</p>
+<p>make</p>
+<p>make install</p>
+<p>[ -z “`grep ^’export PATH&#x3D;’ &#x2F;etc&#x2F;profile`“ ] &amp;&amp; echo “export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;bin:\$PATH” &gt;&gt; &#x2F;etc&#x2F;profile</p>
+<p>[ -n “`grep ^’export PATH&#x3D;’ &#x2F;etc&#x2F;profile`“ -a -z “`grep $php_install_dir &#x2F;etc&#x2F;profile`“ ] &amp;&amp; sed -i “s@^export PATH&#x3D;\(.*\)@export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;bin:\1@” &#x2F;etc&#x2F;profile</p>
+<p>. &#x2F;etc&#x2F;profile</p>
+<p>&#x2F;bin&#x2F;cp php.ini-production $php_install_dir&#x2F;etc&#x2F;php.ini</p>
+<p>&#x2F;bin&#x2F;cp sapi&#x2F;fpm&#x2F;init.d.php-fpm &#x2F;etc&#x2F;init.d&#x2F;php-fpm</p>
+<p>chmod +x &#x2F;etc&#x2F;init.d&#x2F;php-fpm</p>
+<p>chkconfig –add php-fpm &amp;&amp; chkconfig php-fpm on</p>
+<p><a target="_blank" rel="noopener" href="http://luopengtest.gotoip2.com/shell/lnmp/php.sh">http://luopengtest.gotoip2.com/shell/lnmp/php.sh</a> php自动安装shell脚本</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/11/29/%E8%AF%A6%E8%A7%A3php/" data-id="clc4klg8200btojob5ww56r15" data-title="详解PHP" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-详解mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/11/28/%E8%AF%A6%E8%A7%A3mysql/" class="article-date">
+  <time class="dt-published" datetime="2017-11-28T07:29:26.000Z" itemprop="datePublished">2017-11-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web-jiqun/">web-jiqun</a>►<a class="article-category-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/11/28/%E8%AF%A6%E8%A7%A3mysql/">详解MYSQL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>安装基本组件库</p>
+<p>yum -y install gcc-c++ perl ncurses ncurses-devel libaio numactl numactl-libs perl-Module-Install.noarch net-tools vim wget</p>
+<p>mysql</p>
+<p>1、创建mysql普通用户</p>
+<p>id -u mysql &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</p>
+<p>[ $? -ne 0 ] &amp;&amp; useradd mysql -s &#x2F;sbin&#x2F;nologin -M -g mysql</p>
+<p>[ ! -d &#x2F;home&#x2F;ropon&#x2F;tools ] &amp;&amp; mkdir -p &#x2F;home&#x2F;ropon&#x2F;tools</p>
+<p>cd &#x2F;home&#x2F;ropon&#x2F;tools</p>
+<p>wget -c <a target="_blank" rel="noopener" href="https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz">https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz</a> （mysql编译工具）</p>
+<p>tar zxvf cmake-3.6.2.tar.gz</p>
+<p>cd cmake-3.6.2</p>
+<p>.&#x2F;configure</p>
+<p>make &amp;&amp; make install</p>
+<p>wget -c <a target="_blank" rel="noopener" href="http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.38.tar.gz">http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.38.tar.gz</a></p>
+<p>[ ! -d &#x2F;usr&#x2F;local&#x2F;mysql-5.6.38 ] &amp;&amp; mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql-5.6.38 #创建安装目录</p>
+<p>[ ! -d &#x2F;home&#x2F;mysql ] &amp;&amp; mkdir -p &#x2F;home&#x2F;mysql #创建数据库存放目录</p>
+<p>chown mysql.mysql -R &#x2F;home&#x2F;mysql</p>
+<p>ln -s &#x2F;usr&#x2F;local&#x2F;mysql-5.6.38 &#x2F;usr&#x2F;local&#x2F;mysql</p>
+<p>cd &#x2F;home&#x2F;ropon&#x2F;tools</p>
+<p>tar zxvf mysql-5.6.38.tar.gz</p>
+<p>cd mysql-5.6.38</p>
+<p>cmake . -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql \ #安装目录</p>
+<p>-DMYSQL_DATADIR&#x3D;&#x2F;home&#x2F;mysql \ #数据库存放目录</p>
+<p>-DSYSCONFDIR&#x3D;&#x2F;etc #配置文件目录</p>
+<p>-DWITH_INNOBASE_STORAGE_ENGINE&#x3D;1 \ #安装INNOBASE存储引擎</p>
+<p>-DWITH_PARTITION_STORAGE_ENGINE&#x3D;1 \ #安装数据库分区</p>
+<p>-DWITH_FEDERATED_STORAGE_ENGINE&#x3D;1 \</p>
+<p>-DWITH_BLACKHOLE_STORAGE_ENGINE&#x3D;1 \ #安装BLACKHOLE存储引擎</p>
+<p>-DWITH_MYISAM_STORAGE_ENGINE&#x3D;1 \ #安装MYISAM存储引擎</p>
+<p>-DWITH_EMBEDDED_SERVER&#x3D;1 \</p>
+<p>-DENABLE_DTRACE&#x3D;0 \</p>
+<p>-DENABLED_LOCAL_INFILE&#x3D;1 \</p>
+<p>-DDEFAULT_CHARSET&#x3D;utf8mb4 \</p>
+<p>-DDEFAULT_COLLATION&#x3D;utf8mb4_general_ci \</p>
+<p>-DEXTRA_CHARSETS&#x3D;all \</p>
+<p>-DCMAKE_EXE_LINKER_FLAGS&#x3D;’-ljemalloc’</p>
+<p>以上可选</p>
+<p>make -j 4 #多进程编译，4这个数值请修改cpu核心数</p>
+<p>make install</p>
+<p>&#x2F;bin&#x2F;cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld #拷贝启动项</p>
+<p>sed -i “s@^basedir&#x3D;.*@basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql@” &#x2F;etc&#x2F;init.d&#x2F;mysqld #修改启动项mysql安装目录</p>
+<p>sed -i “s@^datadir&#x3D;.*@datadir&#x3D;&#x2F;home&#x2F;mysql@” &#x2F;etc&#x2F;init.d&#x2F;mysqld #修改启动项mysql存放目录</p>
+<p>chmod +x &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>chkconfig –add mysqld &amp;&amp; chkconfig mysqld on #给执行权限添加开机自启</p>
+<p>优化my.cnf</p>
+<p>[client]</p>
+<p>port &#x3D; 3306</p>
+<p>socket &#x3D; &#x2F;tmp&#x2F;mysql.sock</p>
+<p>default-character-set &#x3D; utf8mb4</p>
+<p>[mysql]</p>
+<p>prompt&#x3D;”MySQL [\\d]&gt; “ #prompt命令可以在mysql提示符中显示当前用户、数据库、时间等信息</p>
+<p>#prompt&#x3D;”MySQL [\\u@\\h:\\d]&gt; “</p>
+<p>#\\u 当前用户 \\h 当前链接地址 \\d 当前数据库</p>
+<p>no-auto-rehash #命令自动补全的意思</p>
+<p>[mysqld]</p>
+<p>port &#x3D; 3306</p>
+<p>socket &#x3D; &#x2F;tmp&#x2F;mysql.sock</p>
+<p>basedir &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql</p>
+<p>datadir &#x3D; &#x2F;home&#x2F;mysql</p>
+<p>pid-file &#x3D; &#x2F;home&#x2F;mysq&#x2F;mysql.pid</p>
+<p>user &#x3D; mysql</p>
+<p>bind-address &#x3D; 0.0.0.0</p>
+<p>server-id &#x3D; 1</p>
+<p>init-connect &#x3D; ‘SET NAMES utf8mb4’</p>
+<p>character-set-server &#x3D; utf8mb4</p>
+<p>skip-name-resolve #禁止掉DNS的查询</p>
+<p>#mysql会在用户登录过程中对客户端IP进行DNS反查，不管你是使用IP登录还是域名登录，这个反查#的过程都是在的。所以如果你的mysql所在的服务器的DNS有问题或者质量不好，那么就有可能造成#我遇到的这个问题，DNS解析出现问题。</p>
+<p>#skip-networking #开启该选项后就不能远程访问MySQL</p>
+<p>back_log &#x3D; 300</p>
+<p>#指出在MySQL暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。也就#是说，如果MySql的连接数达到max_connections时，新来的请求将会被存</p>
+<p>#在堆栈中，以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量#超过back_log，将不被授予连接资源。</p>
+<p>max_connections &#x3D; 1000</p>
+<p>max_connect_errors &#x3D; 6000</p>
+<p>#当此值设置为10时，意味着如果某一客户端尝试连接此MySQL服务器，但是失败（如密码错误等 #）10次，则MySQL会无条件强制阻止此客户端连接。如果希望重置此计数器的值，则必须重启#MySQL服务器或者执行Mysql&gt; FLUSH HOSTS;</p>
+<p>open_files_limit &#x3D; 65535 #打开多少文件描述符</p>
+<p>table_open_cache &#x3D; 128</p>
+<p>max_allowed_packet &#x3D; 500M</p>
+<p>binlog_cache_size &#x3D; 1M</p>
+<p>max_heap_table_size &#x3D; 8M</p>
+<p>tmp_table_size &#x3D; 16M</p>
+<p>read_buffer_size &#x3D; 2M</p>
+<p>read_rnd_buffer_size &#x3D; 8M #MySQL的随机读缓冲区大小</p>
+<p>sort_buffer_size &#x3D; 8M</p>
+<p>join_buffer_size &#x3D; 8M</p>
+<p>key_buffer_size &#x3D; 4M</p>
+<p>thread_cache_size &#x3D; 8</p>
+<p>query_cache_type &#x3D; 1 #查询总是先到查询缓存中查找，即使使用了sql_no_cache仍然查询缓存，</p>
+<p>#因为sql_no_cache只是不缓存查询结果，而不是不使用查询结果。</p>
+<p>query_cache_size &#x3D; 8M</p>
+<p>query_cache_limit &#x3D; 2M</p>
+<p>#ft_min_word_len &#x3D; 4 #配置最小搜索长度</p>
+<p>#从 Mysql 4.0 开始就支持全文索引功能，但是 Mysql 默认的最小索引长度是 4。如果是#英文默认值是比较合理的，但是中文绝大部分词都是2个字符，这就导致小于4个字的词#都不能被索引，全文索引功能就形同虚设了。国内的空间商大部分可能并没有注意到这#个问题，没有修改 Mysql 的默认设置。</p>
+<p>log_bin &#x3D; mysql-bin</p>
+<p>binlog_format &#x3D; mixed</p>
+<p>expire_logs_days &#x3D; 7</p>
+<p>log_error &#x3D; &#x2F;home&#x2F;mysql&#x2F;mysql-error.log</p>
+<p>slow_query_log &#x3D; 1</p>
+<p>long_query_time &#x3D; 1</p>
+<p>slow_query_log_file &#x3D; &#x2F;home&#x2F;mysql&#x2F;mysql-slow.log</p>
+<p>performance_schema &#x3D; 0</p>
+<p>explicit_defaults_for_timestamp</p>
+<p>#lower_case_table_names &#x3D; 1</p>
+<p>skip-external-locking #跳过外部锁定</p>
+<p>#当外部锁定（external-locking）起作用时，每个进程若要访问数据表，则必须等待之前的进程完成</p>
+<p>#操作并解除锁定。由于服务器访问数据表时经常需要等待解锁，因此在单服务器环境下external #locking会让MySQL性能下降。所以在很多Linux发行版的源中，MySQL配置文件中默认使用了skip-#external-locking来避免external locking。</p>
+<p>default_storage_engine &#x3D; InnoDB</p>
+<p>innodb_file_per_table &#x3D; 1</p>
+<p>innodb_open_files &#x3D; 500</p>
+<p>innodb_buffer_pool_size &#x3D; 64M</p>
+<p>innodb_write_io_threads &#x3D; 4</p>
+<p>innodb_read_io_threads &#x3D; 4</p>
+<p>innodb_thread_concurrency &#x3D; 0</p>
+<p>innodb_purge_threads &#x3D; 1</p>
+<p>innodb_flush_log_at_trx_commit &#x3D; 2</p>
+<p>innodb_log_buffer_size &#x3D; 2M</p>
+<p>innodb_log_file_size &#x3D; 32M</p>
+<p>innodb_log_files_in_group &#x3D; 3</p>
+<p>innodb_max_dirty_pages_pct &#x3D; 90</p>
+<p>innodb_lock_wait_timeout &#x3D; 120</p>
+<p>bulk_insert_buffer_size &#x3D; 8M</p>
+<p>myisam_sort_buffer_size &#x3D; 8M</p>
+<p>myisam_max_sort_file_size &#x3D; 10G</p>
+<p>myisam_repair_threads &#x3D; 1</p>
+<p>interactive_timeout &#x3D; 28800</p>
+<p>wait_timeout &#x3D; 28800</p>
+<p>[mysqldump]</p>
+<p>quick</p>
+<p>max_allowed_packet &#x3D; 500M</p>
+<p>[myisamchk]</p>
+<p>key_buffer_size &#x3D; 8M</p>
+<p>sort_buffer_size &#x3D; 8M</p>
+<p>read_buffer &#x3D; 4M</p>
+<p>mysql_install_dir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql</p>
+<p>mysql_data_dir&#x3D;&#x2F;home&#x2F;mysql</p>
+<p>dbrootpwd&#x3D;west263.com</p>
+<p>${mysql_install_dir}&#x2F;scripts&#x2F;mysql_install_db –user&#x3D;mysql –basedir&#x3D;${mysql_install_dir} –datadir&#x3D;${mysql_data_dir}</p>
+<p>&#x2F;bin&#x2F;cp ${mysql_install_dir}&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>sed -i “s@^basedir&#x3D;.*@basedir&#x3D;${mysql_install_dir}@” &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>sed -i “s@^datadir&#x3D;.*@datadir&#x3D;${mysql_data_dir}@” &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>chmod +x &#x2F;etc&#x2F;init.d&#x2F;mysqld</p>
+<p>chkconfig –add mysqld</p>
+<p>chkconfig mysqld on</p>
+<p>service mysqld start</p>
+<p>[ -z “$(grep ^’export PATH&#x3D;’ &#x2F;etc&#x2F;profile)” ] &amp;&amp; echo “export PATH&#x3D;${mysql_install_dir}&#x2F;bin:\$PATH” &gt;&gt; &#x2F;etc&#x2F;profile</p>
+<p>[ -n “$(grep ^’export PATH&#x3D;’ &#x2F;etc&#x2F;profile)” -a -z “$(grep ${mysql_install_dir} &#x2F;etc&#x2F;profile)” ] &amp;&amp; sed -i “s@^export PATH&#x3D;\(.*\)@export PATH&#x3D;${mysql_install_dir}&#x2F;bin:\1@” &#x2F;etc&#x2F;profile</p>
+<p>. &#x2F;etc&#x2F;profile</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -e “grant all privileges on *.* to root@’127.0.0.1’ identified by \“${dbrootpwd}\“ with grant option;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -e “grant all privileges on *.* to root@’localhost’ identified by \“${dbrootpwd}\“ with grant option;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “delete from mysql.user where Password&#x3D;’’;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “delete from mysql.db where User&#x3D;’’;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “delete from mysql.proxies_priv where Host!&#x3D;’localhost’;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “drop database test;”</p>
+<p>${mysql_install_dir}&#x2F;bin&#x2F;mysql -uroot -p${dbrootpwd} -e “reset master;”</p>
+<p><a target="_blank" rel="noopener" href="http://luopengtest.gotoip2.com/shell/lnmp/mysql.sh">http://luopengtest.gotoip2.com/shell/lnmp/mysql.sh</a> mysql自动安装shell脚本</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2017/11/28/%E8%AF%A6%E8%A7%A3mysql/" data-id="clc4klg8100boojob53c5b8nf" data-title="详解MYSQL" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/20/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/22/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ropon运维</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ropon运维">
+<meta property="og:url" content="https://blog.ropon.top/page/12/index.html">
+<meta property="og:site_name" content="Ropon运维">
+<meta property="og:description" content="Ropon运维,Ropon,Go,DevOps,k8s,CI&#x2F;CD,Prometheus,Shell,Python">
+<meta property="og:locale">
+<meta property="article:author" content="Ropon">
+<meta property="article:tag" content="Ropon运维,Ropon,Go,DevOps,CI&#x2F;CD,运维平台,k8s,Prometheus,Shell,Python,Kvm,OpenStack">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ropon运维" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ropon运维</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.ropon.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ftp-一键安装shell脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/09/ftp-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2019-08-09T03:16:49.000Z" itemprop="datePublished">2019-08-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Shell/">Shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/08/09/ftp-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/">Ftp 一键安装shell脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># Author: Ropon</span><br><span class="line"># Blog: https://www.ropon.top</span><br><span class="line"></span><br><span class="line">InstallFtp() &#123;</span><br><span class="line">pushd $BaseDir</span><br><span class="line"># 批量下载并解压所需包</span><br><span class="line">for key in $&#123;!FtpFiles[*]&#125;; do</span><br><span class="line">[ ! -f $&#123;FtpFiles[$key]&#125;.tar.gz ] &amp;&amp; Download $&#123;MirrorLink&#125;/$&#123;FtpFiles[$key]&#125;.tar.gz</span><br><span class="line">[ ! -d $&#123;FtpFiles[$key]&#125; ] &amp;&amp; tar xzf $&#123;FtpFiles[$key]&#125;.tar.gz</span><br><span class="line">    done</span><br><span class="line"># 批量检测并创建所需目录</span><br><span class="line">for key in $&#123;!FtpDirs[*]&#125;; do</span><br><span class="line">[ ! -d &quot;$&#123;FtpDirs[$key]&#125;&quot; ] &amp;&amp; mkdir -p $&#123;FtpDirs[$key]&#125;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">id -u $RunUser &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; useradd -M -s /sbin/nologin $RunUser</span><br><span class="line">pushd $&#123;FtpFiles[ftp]&#125;</span><br><span class="line">./configure --prefix=$&#123;FtpDirs[FtpInstallDir]&#125; CFLAGS=-O2 --with-puredb --with-quotas --with-cookie --with-virtualhosts \</span><br><span class="line">--with-virtualchroot --with-diraliases --with-sysquotas --with-ratios --with-altlog --with-paranoidmsg --with-shadow \</span><br><span class="line">--with-welcomemsg --with-throttling --with-uploadscript --with-language=english --with-rfc2640 $FtpModulesOptions</span><br><span class="line">make -j$&#123;Thread&#125; &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">if [ -e &quot;$&#123;FtpDirs[FtpInstallDir]&#125;/bin/pure-pw&quot; ]; then</span><br><span class="line">popd</span><br><span class="line"># 批量清理下载文件及解压后文件夹</span><br><span class="line">for key in $&#123;!FtpFiles[*]&#125;;do</span><br><span class="line">rm -rf $&#123;FtpFiles[$key]&#125;.tar.gz $&#123;FtpFiles[$key]&#125;</span><br><span class="line">done</span><br><span class="line">Echo &quot;success&quot; &quot;$&#123;FtpFiles[ftp]&#125;安装成功&quot;</span><br><span class="line">else</span><br><span class="line">rm -rf $&#123;FtpDirs[FtpInstallDir]&#125;</span><br><span class="line">Echo &quot;failure&quot; &quot;$&#123;FtpFiles[ftp]&#125;安装失败&quot; &amp;&amp; Exit</span><br><span class="line">fi</span><br><span class="line"># 判断加path</span><br><span class="line">[ -z &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; ] &amp;&amp; echo &quot;export PATH=$&#123;FtpDirs[FtpInstallDir]&#125;/bin:\$PATH&quot; &gt;&gt; /etc/profile</span><br><span class="line">[ -n &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; -a -z &quot;`grep $&#123;FtpDirs[FtpInstallDir]&#125; /etc/profile`&quot; ] &amp;&amp; sed -i &quot;s@^export PATH=\(.*\)@export PATH=$&#123;FtpDirs[FtpInstallDir]&#125;/bin:\1@&quot; /etc/profile</span><br><span class="line">sleep 1</span><br><span class="line">. /etc/profile</span><br><span class="line"></span><br><span class="line">if [ -e /bin/systemctl ]; then</span><br><span class="line">wget -O /lib/systemd/system/pureftp.service http://panel.ropon.top/panel/lnmp/init.d/pureftp.service.txt</span><br><span class="line">sed -i &quot;s@/usr/local/nginx@$&#123;FtpDirs[FtpInstallDir]&#125;@g&quot; /lib/systemd/system/pureftp.service</span><br><span class="line">systemctl enable pureftp</span><br><span class="line">fi</span><br><span class="line">wget -O $&#123;FtpDirs[FtpInstallDir]&#125;/etc/pure-ftpd.conf http://panel.ropon.top/panel/lnmp/config/pure-ftpd.txt</span><br><span class="line">systemctl start pureftp</span><br><span class="line">popd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ftp() &#123;</span><br><span class="line">if [ -z $FtpVer ]; then</span><br><span class="line">Echo &quot;msg&quot; &quot;跳过安装Ftp&quot;</span><br><span class="line">else</span><br><span class="line">Echo &quot;msg&quot; &quot;正在安装Ftp$&#123;FtpVer&#125;&quot;</span><br><span class="line">InstallFtp</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/08/09/ftp-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85shell%E8%84%9A%E6%9C%AC/" data-id="clc4klg580036ojobhwtbfwwz" data-title="Ftp 一键安装shell脚本" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-flask-入口源码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/25/flask-%E5%85%A5%E5%8F%A3%E6%BA%90%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2019-07-25T03:30:20.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/07/25/flask-%E5%85%A5%E5%8F%A3%E6%BA%90%E7%A0%81/">Flask 入口源码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/6/28 9:37</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : test.py</span><br><span class="line"></span><br><span class="line">from werkzeug.wrappers import Response</span><br><span class="line">from werkzeug.serving import run_simple</span><br><span class="line"></span><br><span class="line">class Flask(object):</span><br><span class="line">    def __call__(self, environ, start_response):</span><br><span class="line">        ret = Response(&quot;hello world&quot;)</span><br><span class="line">        # 从原始信息获取请求方式</span><br><span class="line">        print(environ.get(&#x27;REQUEST_METHOD&#x27;))</span><br><span class="line">        rip = environ.get(&#x27;REMOTE_ADDR&#x27;)</span><br><span class="line">        if rip == &#x27;192.168.3.20&#x27;:</span><br><span class="line">            ret = Response(&quot;黑客 禁止访问&quot;)</span><br><span class="line">        return ret(environ, start_response)</span><br><span class="line"></span><br><span class="line">    def run(self):</span><br><span class="line">        run_simple(&quot;192.168.3.20&quot;, 5002, self)</span><br><span class="line"></span><br><span class="line">app = Flask()</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># from flask import Flask</span><br><span class="line">#</span><br><span class="line"># app = Flask(__name__)</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># @app.route(&quot;/index&quot;)</span><br><span class="line"># def index():</span><br><span class="line">#     print(&quot;index&quot;)</span><br><span class="line">#     return &quot;index&quot;</span><br><span class="line">#</span><br><span class="line"># class MiddleWare(object):</span><br><span class="line">#     def __init__(self, old_app):</span><br><span class="line">#         self.old_app = old_app</span><br><span class="line">#     def __call__(self, environ, start_response):</span><br><span class="line">#         print(&quot;执行前&quot;)</span><br><span class="line">#         ret = self.old_app(environ, start_response)</span><br><span class="line">#         print(&quot;执行后&quot;)</span><br><span class="line">#         return ret</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">#     app.wsgi_app = MiddleWare(app.wsgi_app)</span><br><span class="line">#     app.run(host=&quot;192.168.3.20&quot;)</span><br><span class="line"></span><br><span class="line"># 类()  执行__int__方法</span><br><span class="line"># 对象() 执行__call__方法</span><br><span class="line"></span><br><span class="line">app.run() =&gt; </span><br><span class="line">    self是app</span><br><span class="line">    run_simple(host, port, self, **options) =&gt;</span><br><span class="line">        对象加() 执行__call__方法 实际执行app.wsgi_app()方法 environ请求原始信息 start_response用于设置响应</span><br><span class="line">        app.wsgi_app(environ, start_response) =&gt;</span><br><span class="line">            ctx = app.request_context(environ) = RequestContext(app, environ) 类实例化执行__init__方法 =&gt;</span><br><span class="line">                request_class是类Request</span><br><span class="line">                request = app.request_class(environ) 类实例化执行__init__方法 将请求原始信息作为参数转入</span><br><span class="line">                ctx.request = request 二次加工的请求信息</span><br><span class="line">                ctx.session = None =&gt;</span><br><span class="line">                    ctx.push()</span><br><span class="line">                    session_interface = ctx.app.session_interface = ctx.app.SecureCookieSessionInterface()</span><br><span class="line">                        ctx.session = session_interface.open_session(ctx.app, ctx.request)</span><br><span class="line">                            若cookie有session就读取 解密 反序列化</span><br><span class="line">                            val = request.cookies.get(app.session_cookie_name) app.session_cookie_name=&quot;session&quot;</span><br><span class="line">                            data = s.loads(val, max_age=max_age)</span><br><span class="line">                            ctx.session = session_interface.session_class(data)</span><br><span class="line">                    response = app.full_dispatch_request() 执行视图函数</span><br><span class="line">                        rv = self.dispatch_request() 真正调用视图函数</span><br><span class="line">                            process_response(self, response)</span><br><span class="line">                                将session写入cookie</span><br><span class="line">                                self.session_interface.save_session(self, ctx.session, response)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/07/25/flask-%E5%85%A5%E5%8F%A3%E6%BA%90%E7%A0%81/" data-id="clc4klg53002tojobf0my8qyl" data-title="Flask 入口源码" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-php-rpm打包spec文件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/23/php-rpm%E6%89%93%E5%8C%85spec%E6%96%87%E4%BB%B6/" class="article-date">
+  <time class="dt-published" datetime="2019-07-23T01:59:12.000Z" itemprop="datePublished">2019-07-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/07/23/php-rpm%E6%89%93%E5%8C%85spec%E6%96%87%E4%BB%B6/">php rpm打包spec文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line">Name: php</span><br><span class="line">Version: 7.0.33</span><br><span class="line">Release: 1%&#123;?dist&#125;</span><br><span class="line">Summary: php-7.0.33 RPM</span><br><span class="line">Group: applications/php</span><br><span class="line">License: GPL</span><br><span class="line">URL: https://www.php.net</span><br><span class="line">Source0: %&#123;name&#125;-%&#123;version&#125;.tar.gz</span><br><span class="line">#Source1: libiconv-1.15.tar.gz</span><br><span class="line">BuildRoot: %(mktemp -ud %&#123;_tmppath&#125;/%&#123;name&#125;-%&#123;version&#125;-%&#123;release&#125;-XXXXXX)</span><br><span class="line">BuildRequires: gcc-c++ libxml2-devel openssl-devel libcurl-devel gd-devel libmcrypt-devel libxslt-devel mhash mcrypt icu libicu libicu-devel libzip</span><br><span class="line">Requires: libxml2-devel openssl-devel libcurl-devel gd-devel libmcrypt-devel libxslt-devel mhash mcrypt icu libicu libicu-devel libzip</span><br><span class="line">#php7.3 协助原cmake重新安装cmake-3.13.3</span><br><span class="line"></span><br><span class="line">Packager: ropon@west.cn</span><br><span class="line">AutoReqProv: no</span><br><span class="line"></span><br><span class="line">%description</span><br><span class="line">%&#123;name&#125;-%&#123;version&#125;</span><br><span class="line">%define _phpflag 70</span><br><span class="line">%define _runuser www</span><br><span class="line">%define _prefix /usr/local/%&#123;name&#125;-%&#123;version&#125;</span><br><span class="line"></span><br><span class="line">#构建前的准备</span><br><span class="line">%prep</span><br><span class="line">%setup -q</span><br><span class="line"></span><br><span class="line">#构建</span><br><span class="line">%build</span><br><span class="line">./configure --prefix=%&#123;_prefix&#125; \</span><br><span class="line">--with-config-file-path=%&#123;_prefix&#125;/etc \</span><br><span class="line">--with-config-file-scan-dir=%&#123;_prefix&#125;/etc/php.d \</span><br><span class="line">--with-fpm-user=%&#123;_runuser&#125; \</span><br><span class="line">--with-fpm-group=%&#123;_runuser&#125; \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--disable-opcache \</span><br><span class="line">--disable-fileinfo \</span><br><span class="line">--with-mysql=mysqlnd \</span><br><span class="line">--with-mysqli=mysqlnd \</span><br><span class="line">--with-pdo-mysql=mysqlnd \</span><br><span class="line">--with-iconv-dir=/usr/local \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-png-dir \</span><br><span class="line">--with-zlib \</span><br><span class="line">--with-libxml-dir \</span><br><span class="line">--enable-xml \</span><br><span class="line">--disable-rpath \</span><br><span class="line">--enable-bcmath \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-exif \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-inline-optimization \</span><br><span class="line">--with-curl=/usr/local \</span><br><span class="line">--enable-mbregex \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--with-mcrypt \</span><br><span class="line">--with-gd \</span><br><span class="line">--enable-gd-native-ttf \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-mhash \</span><br><span class="line">--enable-pcntl \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--with-xmlrpc \</span><br><span class="line">--enable-ftp \</span><br><span class="line">--enable-intl \</span><br><span class="line">--with-xsl \</span><br><span class="line">--with-gettext \</span><br><span class="line">--enable-zip \</span><br><span class="line">--enable-soap \</span><br><span class="line">--disable-debug</span><br><span class="line"></span><br><span class="line">make %&#123;?_smp_mflags&#125;</span><br><span class="line"></span><br><span class="line">#安装</span><br><span class="line">%install</span><br><span class="line">rm -rf %&#123;buildroot&#125;</span><br><span class="line">make INSTALL_ROOT=%&#123;buildroot&#125; install</span><br><span class="line">rm -rf %&#123;buildroot&#125;/&#123;.channels,.depdb,.depdblock,.filemap,.lock,.registry&#125;</span><br><span class="line"></span><br><span class="line">install -p -D -m 0755 sapi/fpm/init.d.php-fpm  %&#123;buildroot&#125;/etc/init.d/php%&#123;_phpflag&#125;-fpm</span><br><span class="line">install -p -D -m 0644 php.ini-production  %&#123;buildroot&#125;/%&#123;_prefix&#125;/etc/php.ini</span><br><span class="line"></span><br><span class="line">#rpm安装前执行的脚本</span><br><span class="line">%pre</span><br><span class="line">id -u %&#123;_runuser&#125; &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -ne 0 ] &amp;&amp; useradd -M -s /sbin/nologin %&#123;_runuser&#125;</span><br><span class="line">echo &#x27;/usr/local/lib64</span><br><span class="line">/usr/local/lib</span><br><span class="line">/usr/lib</span><br><span class="line">/usr/lib64&#x27;&gt;&gt;/etc/ld.so.conf</span><br><span class="line">ldconfig -v</span><br><span class="line"></span><br><span class="line">#rpm安装后执行的脚本</span><br><span class="line">%post</span><br><span class="line">[ -z &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; ] &amp;&amp; echo &quot;export PATH=%&#123;_prefix&#125;/bin:\$PATH&quot; &gt;&gt; /etc/profile</span><br><span class="line">[ -n &quot;`grep ^&#x27;export PATH=&#x27; /etc/profile`&quot; -a -z &quot;`grep %&#123;_prefix&#125; /etc/profile`&quot; ] &amp;&amp; sed -i &quot;s@^export PATH=\(.*\)@export PATH=%&#123;_prefix&#125;/bin:\1@&quot; /etc/profile</span><br><span class="line">. /etc/profile</span><br><span class="line"></span><br><span class="line">sed -i &#x27;s@^;date.timezone.*@date.timezone = Asia/Shanghai@&#x27; %&#123;_prefix&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^short_open_tag = Off@short_open_tag = On@&#x27; %&#123;_prefix&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^post_max_size.*@post_max_size = 100M@&#x27; %&#123;_prefix&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^upload_max_PhpFilesize.*@upload_max_PhpFilesize = 50M@&#x27; %&#123;_prefix&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^max_execution_time.*@max_execution_time = 300@&#x27; %&#123;_prefix&#125;/etc/php.ini</span><br><span class="line">sed -i &#x27;s@^disable_functions.*@disable_functions = passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen@&#x27; %&#123;_prefix&#125;/etc/php.ini</span><br><span class="line"></span><br><span class="line">wget -O /etc/init.d/php%&#123;_phpflag&#125;-fpm http://panel.ropon.top/panel/lnmp/init.d/php-fpm.txt</span><br><span class="line">sed -i &quot;s@^prefix=.*@prefix=%&#123;_prefix&#125;@&quot; /etc/init.d/php%&#123;_phpflag&#125;-fpm</span><br><span class="line">sed -i &quot;s@php-fpm.pid@php%&#123;_phpflag&#125;-fpm.pid@&quot; /etc/init.d/php%&#123;_phpflag&#125;-fpm</span><br><span class="line">chmod +x /etc/init.d/php%&#123;_phpflag&#125;-fpm</span><br><span class="line">chkconfig --add php%&#123;_phpflag&#125;-fpm</span><br><span class="line">chkconfig php%&#123;_phpflag&#125;-fpm on</span><br><span class="line">wget -O %&#123;_prefix&#125;/etc/php-fpm.conf http://panel.ropon.top/panel/lnmp/config/php-fpm.txt</span><br><span class="line">sed -i &quot;s@www@%&#123;_runuser&#125;@&quot; %&#123;_prefix&#125;/etc/php-fpm.conf</span><br><span class="line">sed -i &quot;s@php@php%&#123;_phpflag&#125;@&quot; %&#123;_prefix&#125;/etc/php-fpm.conf</span><br><span class="line">service php%&#123;_phpflag&#125;-fpm start</span><br><span class="line"></span><br><span class="line">#rpm卸载前执行的脚本</span><br><span class="line">%preun</span><br><span class="line">service php%&#123;_phpflag&#125;-fpm stop</span><br><span class="line">chkconfig --del php%&#123;_phpflag&#125;-fpm</span><br><span class="line">id -u %&#123;_runuser&#125; &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">[ $? -eq 0 ] &amp;&amp; userdel %&#123;_runuser&#125;</span><br><span class="line"></span><br><span class="line">#卸载后执行的脚本</span><br><span class="line">%postun</span><br><span class="line">[ -d %&#123;_prefix&#125; ] &amp;&amp; rm -rf %&#123;_prefix&#125;</span><br><span class="line">#[ -f /etc/init.d/php%&#123;_phpflag&#125;-fpm ] &amp;&amp; rm -f /etc/init.d/php%&#123;_phpflag&#125;-fpm</span><br><span class="line"></span><br><span class="line">%clean</span><br><span class="line">rm -rf %&#123;buildroot&#125;</span><br><span class="line"></span><br><span class="line">%files</span><br><span class="line">%defattr(-, %&#123;_runuser&#125;, %&#123;_runuser&#125;)</span><br><span class="line">%attr(744, %&#123;_runuser&#125;, %&#123;_runuser&#125;) %&#123;_prefix&#125;/*</span><br><span class="line">%attr(0755,root,root) /etc/init.d/php%&#123;_phpflag&#125;-fpm</span><br><span class="line"></span><br><span class="line">%changelog</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/07/23/php-rpm%E6%89%93%E5%8C%85spec%E6%96%87%E4%BB%B6/" data-id="clc4klg6d006rojob3ve53r82" data-title="php rpm打包spec文件" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-python-装饰器小结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/06/03/python-%E8%A3%85%E9%A5%B0%E5%99%A8%E5%B0%8F%E7%BB%93/" class="article-date">
+  <time class="dt-published" datetime="2019-06-03T06:28:37.000Z" itemprop="datePublished">2019-06-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yunwei-tools/">yunwei-tools</a>►<a class="article-category-link" href="/categories/yunwei-tools/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/06/03/python-%E8%A3%85%E9%A5%B0%E5%99%A8%E5%B0%8F%E7%BB%93/">Python 装饰器小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/6/3 13:36</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : 12_02.py</span><br><span class="line"></span><br><span class="line"># 装饰器</span><br><span class="line"></span><br><span class="line"># def warpper(fn):</span><br><span class="line">#     def inner():</span><br><span class="line">#         print(&quot;装饰函数执行前&quot;)</span><br><span class="line">#         fn() #利用闭包让函数常驻内存</span><br><span class="line">#         print(&quot;装饰函数执行后&quot;)</span><br><span class="line">#     return inner</span><br><span class="line">#</span><br><span class="line"># def test_func():</span><br><span class="line">#     print(&quot;这是一个测试函数&quot;)</span><br><span class="line">#</span><br><span class="line"># test_func = warpper(test_func)</span><br><span class="line"># test_func()</span><br><span class="line"></span><br><span class="line"># 需要传入参数装饰器</span><br><span class="line"></span><br><span class="line"># def warpper(fn):</span><br><span class="line">#     def inner(*args, **kwargs):</span><br><span class="line">#         print(&quot;装饰函数执行前&quot;)</span><br><span class="line">#         fn(*args, **kwargs) #利用闭包让函数常驻内存</span><br><span class="line">#         print(&quot;装饰函数执行后&quot;)</span><br><span class="line">#     return inner</span><br><span class="line">#</span><br><span class="line"># def test_func(name, age):</span><br><span class="line">#     print(f&quot;这是一个测试函数, 姓名是:&#123;name&#125;, 年龄是:&#123;age&#125;&quot;)</span><br><span class="line">#</span><br><span class="line"># test_func = warpper(test_func)</span><br><span class="line"># test_func(&quot;ropon&quot;, 18)</span><br><span class="line"></span><br><span class="line"># 带返回值得装饰器</span><br><span class="line"></span><br><span class="line"># def warpper(fn):</span><br><span class="line">#     def inner(*args, **kwargs):</span><br><span class="line">#         print(&quot;装饰函数执行前&quot;)</span><br><span class="line">#         ret = fn(*args, **kwargs) #利用闭包让函数常驻内存</span><br><span class="line">#         print(&quot;装饰函数执行后&quot;)</span><br><span class="line">#         return ret</span><br><span class="line">#     return inner</span><br><span class="line">#</span><br><span class="line"># def test_func(name, age):</span><br><span class="line">#     print(f&quot;这是一个测试函数, 姓名是:&#123;name&#125;, 年龄是:&#123;age&#125;&quot;)</span><br><span class="line">#     return &#123;&quot;name&quot;: name, &quot;age&quot;: age&#125;</span><br><span class="line">#</span><br><span class="line"># test_func = warpper(test_func)</span><br><span class="line"># res = test_func(&quot;ropon&quot;, 18)</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 带参数的装饰器</span><br><span class="line"></span><br><span class="line"># def warpper_out(fn, flag):</span><br><span class="line">#     def warpper(*args, **kwargs):</span><br><span class="line">#         if flag:</span><br><span class="line">#             print(&quot;装饰函数执行前&quot;)</span><br><span class="line">#             ret = fn(*args, **kwargs)  # 利用闭包让函数常驻内存</span><br><span class="line">#             print(&quot;装饰函数执行后&quot;)</span><br><span class="line">#         else:</span><br><span class="line">#             ret = fn(*args, **kwargs)  # 利用闭包让函数常驻内存</span><br><span class="line">#         return ret</span><br><span class="line">#     return warpper</span><br><span class="line">#</span><br><span class="line"># def test_func(name, age):</span><br><span class="line">#     print(f&quot;这是一个测试函数, 姓名是:&#123;name&#125;, 年龄是:&#123;age&#125;&quot;)</span><br><span class="line">#     return &#123;&quot;name&quot;: name, &quot;age&quot;: age&#125;</span><br><span class="line">#</span><br><span class="line"># test_func = warpper_out(test_func, True)</span><br><span class="line"># res = test_func(&quot;ropon&quot;, 18)</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 语法糖 @</span><br><span class="line"></span><br><span class="line"># def warpper_out(flag):</span><br><span class="line">#     def warpper(fn):</span><br><span class="line">#         def inner(*args, **kwargs):</span><br><span class="line">#             if flag:</span><br><span class="line">#                 print(&quot;装饰函数执行前&quot;)</span><br><span class="line">#                 ret = fn(*args, **kwargs) #利用闭包让函数常驻内存</span><br><span class="line">#                 print(&quot;装饰函数执行后&quot;)</span><br><span class="line">#             else:</span><br><span class="line">#                 ret = fn(*args, **kwargs)  # 利用闭包让函数常驻内存</span><br><span class="line">#             return ret</span><br><span class="line">#         return inner</span><br><span class="line">#     return warpper</span><br><span class="line">#</span><br><span class="line"># @warpper_out(False)</span><br><span class="line"># def test_func(name, age):</span><br><span class="line">#     print(f&quot;这是一个测试函数, 姓名是:&#123;name&#125;, 年龄是:&#123;age&#125;&quot;)</span><br><span class="line">#     return &#123;&quot;name&quot;: name, &quot;age&quot;: age&#125;</span><br><span class="line">#</span><br><span class="line"># res = test_func(&quot;ropon&quot;, 18)</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 多个装饰器</span><br><span class="line"></span><br><span class="line"># def warpper_out1():</span><br><span class="line">#     pass</span><br><span class="line">#</span><br><span class="line"># def warpper_out2():</span><br><span class="line">#     pass</span><br><span class="line">#</span><br><span class="line"># def warpper_out3():</span><br><span class="line">#     pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># @warpper_out1</span><br><span class="line"># @warpper_out2</span><br><span class="line"># @warpper_out3</span><br><span class="line"># def func():</span><br><span class="line">#     pass</span><br><span class="line"></span><br><span class="line"># 执行流程</span><br><span class="line">#     warpper_out1</span><br><span class="line">#         warpper_out2</span><br><span class="line">#             warpper_out3</span><br><span class="line">#             func</span><br><span class="line">#             warpper_out3</span><br><span class="line">#         warpper_out2</span><br><span class="line">#     warpper_out1</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/06/03/python-%E8%A3%85%E9%A5%B0%E5%99%A8%E5%B0%8F%E7%BB%93/" data-id="clc4klg6k007fojob61l59cpv" data-title="Python 装饰器小结" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法基本整理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/28/%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%95%B4%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T06:18:55.000Z" itemprop="datePublished">2019-05-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/28/%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%95%B4%E7%90%86/">算法基本整理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#算法基本整理</span><br><span class="line"></span><br><span class="line">def func2(n):</span><br><span class="line">    if n &gt; 0:</span><br><span class="line">        func2(n - 1)</span><br><span class="line">        print(n)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># func2(2)</span><br><span class="line">#         输出2</span><br><span class="line"># func2(1)</span><br><span class="line">#         输出1</span><br><span class="line"># func2(0)</span><br><span class="line">#     没有输出</span><br><span class="line"># func2(2)</span><br><span class="line"></span><br><span class="line"># print(&quot;====&quot;, end=&quot;\n&quot;)</span><br><span class="line"># print(&quot;====&quot;, end=&quot;&quot;)</span><br><span class="line"></span><br><span class="line">def func3(n):</span><br><span class="line">    if n &gt; 0:</span><br><span class="line">        print(&quot;抱着&quot;, end=&quot;&quot;)</span><br><span class="line">        func3(n - 1)</span><br><span class="line">        print(&quot;的我&quot;, end=&quot;&quot;)</span><br><span class="line">    else:</span><br><span class="line">        print(&quot;我的小鲫鱼&quot;, end=&quot;&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># func3(3)</span><br><span class="line">#     输出 抱着</span><br><span class="line">#     func3(2)</span><br><span class="line">#         再输出 抱着</span><br><span class="line">#         func3(1)</span><br><span class="line">#             再输出 抱着</span><br><span class="line">#             func3(0)</span><br><span class="line">#             输出 我的小鲫鱼</span><br><span class="line">#     的我</span><br><span class="line">#     的我</span><br><span class="line">#     的我</span><br><span class="line"></span><br><span class="line"># func3(3)</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def cal_time(func):</span><br><span class="line">    def inner(*args, **kwargs):</span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = func(*args, **kwargs)</span><br><span class="line">        stop = time.time()</span><br><span class="line">        temp = stop - start</span><br><span class="line">        print(f&#x27;函数执行了&#123;temp&#125;秒&#x27;)</span><br><span class="line">        return ret</span><br><span class="line"></span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fbnqxl(n):</span><br><span class="line">    if n == 0 or n == 1:</span><br><span class="line">        return 1</span><br><span class="line">    else:</span><br><span class="line">        return fbnqxl(n - 1) + fbnqxl(n - 2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@cal_time</span><br><span class="line">def fib1(n):</span><br><span class="line">    return fbnqxl(n)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@cal_time</span><br><span class="line">def fib2(n):</span><br><span class="line">    li = [1, 1]</span><br><span class="line">    for i in range(2, n + 1):</span><br><span class="line">        # li.append(li[i - 1] + li[i - 2])</span><br><span class="line">        li.append(li[-1] + li[-2])</span><br><span class="line">    return li[n]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 1 1 2 3 5 8</span><br><span class="line"></span><br><span class="line">@cal_time</span><br><span class="line">def fib3(n):</span><br><span class="line">    a = 1</span><br><span class="line">    b = 1</span><br><span class="line">    c = 1</span><br><span class="line">    for i in range(2, n + 1):</span><br><span class="line">        c = a + b</span><br><span class="line">        a = b</span><br><span class="line">        b = c</span><br><span class="line">    return c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># print(fib1(20))</span><br><span class="line"># print(fib2(10000))</span><br><span class="line"># print(fib3(10))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/05/28/%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%95%B4%E7%90%86/" data-id="clc4klg7z00bdojob11jw689c" data-title="算法基本整理" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-nginx多条件判断" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/14/nginx%E5%A4%9A%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD/" class="article-date">
+  <time class="dt-published" datetime="2019-05-14T01:12:46.000Z" itemprop="datePublished">2019-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/14/nginx%E5%A4%9A%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD/">nginx多条件判断</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#比如过滤大量POST首页恶意请求</span><br><span class="line"></span><br><span class="line">以下规则可编写在 标签段：server,location</span><br><span class="line">set $flag 0;</span><br><span class="line">if ($request_method ~ ^(POST)$) &#123;</span><br><span class="line">set $flag &quot;$&#123;flag&#125;1&quot;;</span><br><span class="line">&#125;</span><br><span class="line">#if ($document_uri ~ ^(/)$) &#123;</span><br><span class="line">if ($request_uri ~ ^(/)$) &#123;</span><br><span class="line">set $flag &quot;$&#123;flag&#125;2&quot;;</span><br><span class="line">&#125;</span><br><span class="line">if ($flag = &quot;012&quot;) &#123;</span><br><span class="line">return 403;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#开启rewrite log 日志分析</span><br><span class="line"></span><br><span class="line">rewrite_log on;</span><br><span class="line">error_log /home/wwwlogs/dev2.ropon.top_nginx_error.log notice;</span><br><span class="line"></span><br><span class="line">2019/05/14 09:10:34 [notice] 7317#0: *10 &quot;^(POST)$&quot; matches &quot;POST&quot;, client: 127.0.0.1, request: &quot;POST / HTTP/1.1&quot;, host: &quot;dev2.ropon.top&quot;</span><br><span class="line">2019/05/14 09:10:34 [notice] 7317#0: *10 &quot;^(/)$&quot; matches &quot;/&quot;, client: 127.0.0.1, request: &quot;POST / HTTP/1.1&quot;, host: &quot;dev2.ropon.top&quot;</span><br><span class="line"></span><br><span class="line">[14/May/2019:09:10:34 +0800] &quot;POST / HTTP/1.1&quot; 403 162 &quot;-&quot; &quot;PostmanRuntime/7.6.0&quot;</span><br><span class="line">[14/May/2019:09:15:31 +0800] &quot;POST /login HTTP/1.1&quot; 200 43 &quot;-&quot; &quot;PostmanRuntime/7.6.0&quot;</span><br><span class="line"></span><br><span class="line">大量POST 请求有规律页面，且IP分散</span><br><span class="line"></span><br><span class="line">127.0.0.1 - - [17/May/2019:08:49:23 +0800] &quot;POST /12-3-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:02 +0800] &quot;POST /12-3-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:02 +0800] &quot;POST /12-3-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:02 +0800] &quot;POST /12-3-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:17 +0800] &quot;POST /12-31-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:20 +0800] &quot;POST /11-31-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:23 +0800] &quot;POST /11-31-2.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:26 +0800] &quot;POST /14-31-2.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:31 +0800] &quot;POST /4-31-2.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:33 +0800] &quot;POST /4-1-2.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:35 +0800] &quot;POST /4-1-2.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:37 +0800] &quot;POST /4-1-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line">127.0.0.1 - - [17/May/2019:08:51:40 +0800] &quot;POST /4-6-1.html HTTP/1.1&quot; 403 162 &quot;-&quot; </span><br><span class="line"></span><br><span class="line">同理修改下rewrite规则</span><br><span class="line">if ($request_uri ~ ^(/([1-9]+)-([1-9]+)-([1-9]+)\.html)$) &#123;</span><br><span class="line">set $flag &quot;$&#123;flag&#125;2&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">查看rewrite log</span><br><span class="line">[notice] 21483#0: *1 &quot;^(POST)$&quot; matches &quot;POST&quot;, client: 127.0.0.1, : &quot;POST /4-6-1.html HTTP/1.1&quot;, host: &quot;dev2.ropon.top&quot;</span><br><span class="line">[notice] 21483#0: *1 &quot;^(/([1-9]+)-([1-9]+)-([1-9]+)\.html)$&quot; matches &quot;/4-6-1.html&quot;, client: 127.0.0.1, : &quot;POST /4-6-1.html HTTP/1.1&quot;, host: &quot;dev2.ropon.top&quot;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/05/14/nginx%E5%A4%9A%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD/" data-id="clc4klg6a006hojob43u2af6n" data-title="nginx多条件判断" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-微信小程序推送模板消息demo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/11/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A8%E9%80%81%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AFdemo/" class="article-date">
+  <time class="dt-published" datetime="2019-05-11T03:59:03.000Z" itemprop="datePublished">2019-05-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/11/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A8%E9%80%81%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AFdemo/">微信小程序推送模板消息demo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/5/8 13:38</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : send_msg.py</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">from westkq.utils.config import wxData</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_access_token():</span><br><span class="line">    req = requests.get(&#x27;https://api.weixin.qq.com/cgi-bin/token&#x27;, params=wxData, timeout=3)</span><br><span class="line">    access_token = req.json().get(&#x27;access_token&#x27;, &quot;&quot;)</span><br><span class="line">    return access_token</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def template_push(openid, form_id, kqinfo, access_token):</span><br><span class="line">    data = &#123;</span><br><span class="line">        &quot;touser&quot;: openid,</span><br><span class="line">        &quot;template_id&quot;: &quot;&quot;,</span><br><span class="line">        &quot;form_id&quot;: form_id,</span><br><span class="line">        &#x27;page&#x27;: &#x27;pages/search/search&#x27;,</span><br><span class="line">        &quot;data&quot;: &#123;</span><br><span class="line">            &#x27;keyword1&#x27;: &#123;</span><br><span class="line">                &#x27;value&#x27;: kqinfo.get(&quot;name&quot;)</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;keyword2&#x27;: &#123;</span><br><span class="line">                &#x27;value&#x27;: kqinfo.get(&quot;date&quot;)</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;keyword3&#x27;: &#123;</span><br><span class="line">                &#x27;value&#x27;: kqinfo.get(&quot;banci&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;emphasis_keyword&quot;: &#x27;keyword3.DATA&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    push_url = f&#x27;https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=&#123;access_token&#125;&#x27;</span><br><span class="line">    result = requests.post(push_url, json=data, timeout=3)</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def auto_push(nickName):</span><br><span class="line">    import datetime</span><br><span class="line">    riqi = str(datetime.date.today() + datetime.timedelta(days=1))</span><br><span class="line">    nickName = nickName</span><br><span class="line">    from westkq.models import User</span><br><span class="line">    user_obj = User.query.filter_by(nickName=nickName).first()</span><br><span class="line">    print(user_obj.userName)</span><br><span class="line">    print(user_obj.openidval)</span><br><span class="line">    if not user_obj:</span><br><span class="line">        return f&quot;&#123;nickName&#125;昵称对应用户不存在&quot;</span><br><span class="line">    data = &#123;</span><br><span class="line">        &quot;ukey&quot;: &quot;&quot;,</span><br><span class="line">        &quot;uname&quot;: user_obj.userName,</span><br><span class="line">        &quot;udate&quot;: riqi</span><br><span class="line">    &#125;</span><br><span class="line">    openid = user_obj.openidval</span><br><span class="line">    from westkq import create_app</span><br><span class="line">    my_app = create_app()</span><br><span class="line">    with my_app.app_context():</span><br><span class="line">        from westkq import db</span><br><span class="line">        from westkq.models import FormId</span><br><span class="line">        ftemp_obj = FormId.query.filter(FormId.openidval == openid)</span><br><span class="line">        if not ftemp_obj:</span><br><span class="line">            return f&quot;&#123;nickName&#125;昵称对应用户无FormId&quot;</span><br><span class="line">        form_id = ftemp_obj.first().formidval</span><br><span class="line">        FormId.query.filter(FormId.formidval == form_id).delete()</span><br><span class="line">        db.session.commit()</span><br><span class="line">    req = requests.get(&#x27;https://dev2.ropon.top/kaoqin&#x27;, params=data, timeout=3)</span><br><span class="line">    kqinfo = req.json().get(&quot;data&quot;)</span><br><span class="line">    access_token = get_access_token()</span><br><span class="line"></span><br><span class="line">    res = template_push(openid, form_id, kqinfo, access_token)</span><br><span class="line">    return res.json()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/05/11/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A8%E9%80%81%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AFdemo/" data-id="clc4klg7w00b3ojobg5pn39th" data-title="微信小程序推送模板消息demo" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sqlalchemy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/22/sqlalchemy/" class="article-date">
+  <time class="dt-published" datetime="2019-04-22T09:13:45.000Z" itemprop="datePublished">2019-04-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/22/sqlalchemy/">Sqlalchemy 单表操作基本用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/4/3 14:48</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : sqlalchemy.py</span><br><span class="line"></span><br><span class="line"># 导入官宣基础模型</span><br><span class="line">from sqlalchemy.ext.declarative import declarative_base</span><br><span class="line"># 实例化官宣基础模型</span><br><span class="line">Base = declarative_base()</span><br><span class="line">class User(Base):</span><br><span class="line">    # 配置表名</span><br><span class="line">    __tablename__ = &quot;user&quot;</span><br><span class="line">    from sqlalchemy import Column, Integer, String</span><br><span class="line">    # id = Column()</span><br><span class="line">    # int = Integer</span><br><span class="line">    # 配置列 整型 主键 自增</span><br><span class="line">    nid = Column(Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    # 同理配置列 字符串 创建索引</span><br><span class="line">    name = Column(String(32), index=True)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from sqlalchemy import create_engine</span><br><span class="line"># 创建数据库引擎</span><br><span class="line">engine = create_engine(&quot;mysql+pymysql://sqlormtest:xxxxxx@x.x.x.x:3306/sqlormtest?charset=utf8&quot;)</span><br><span class="line"># mysql+pymysql：指定链接那种类型数据库</span><br><span class="line"># sqlormtest：用户名</span><br><span class="line"># xxxxxx：sqlormtest用户的密码</span><br><span class="line"># x.x.x.x:3306 数据库的IP及端口号</span><br><span class="line"># sqlormtest 数据库名</span><br><span class="line"># charset=utf8 数据库字符集</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Base.metadata.create_all(engine)</span><br><span class="line"></span><br><span class="line">###################################################################</span><br><span class="line">from sqlormtest import User</span><br><span class="line"># 创建一个操作会话</span><br><span class="line">from sqlalchemy.orm import sessionmaker</span><br><span class="line"># 导入之前创建数据库引擎</span><br><span class="line">from sqlormtest import engine</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line">#############################################</span><br><span class="line"># 添加数据</span><br><span class="line">user1 = User(name=&quot;Ropon&quot;)</span><br><span class="line"># db_session会话中添加一条 User ORM模型创建的数据</span><br><span class="line"># db_session.add(user1)</span><br><span class="line"># 将db_session 会话所有指令一次性提交</span><br><span class="line"># db_session.commit()</span><br><span class="line"># 关闭会话</span><br><span class="line"># db_session.close()</span><br><span class="line"></span><br><span class="line"># user_list = [</span><br><span class="line">#     User(name=&quot;Ro&quot;),</span><br><span class="line">#     User(name=&quot;Lp&quot;),</span><br><span class="line">#     User(name=&quot;Pg&quot;)</span><br><span class="line"># ]</span><br><span class="line"># db_session.add_all(user_list)</span><br><span class="line"># db_session.commit()</span><br><span class="line"># db_session.close()</span><br><span class="line">#############################################</span><br><span class="line"># 查询数据</span><br><span class="line"># user_all_list = db_session.query(User).all()</span><br><span class="line"># user_all_list = db_session.query(User).filter(User.nid &gt;= 3).all()</span><br><span class="line"># print(user_all_list)</span><br><span class="line"># for obj in user_all_list:</span><br><span class="line">#     print(obj.nid, obj.name)</span><br><span class="line"></span><br><span class="line"># user = db_session.query(User).filter(User.nid &gt;= 3).first()</span><br><span class="line"># print(user.nid, user.name)</span><br><span class="line"></span><br><span class="line"># wulong1 = db_session.query(User).filter(User.nid &gt;= 3)</span><br><span class="line"># print(wulong1)</span><br><span class="line">#</span><br><span class="line"># wulong2 = db_session.query(User)</span><br><span class="line"># print(wulong2)</span><br><span class="line"></span><br><span class="line">#############################################</span><br><span class="line"># 修改数据</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter(User.nid == 3).update(&#123;&quot;name&quot;: &quot;LuoPeng&quot;&#125;)</span><br><span class="line"># print(res)</span><br><span class="line"># db_session.commit()</span><br><span class="line"># db_session.close()</span><br><span class="line"></span><br><span class="line">#############################################</span><br><span class="line"># 删除数据</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter(User.nid==2).delete()</span><br><span class="line"># print(res)</span><br><span class="line"># db_session.commit()</span><br><span class="line"># db_session.close()</span><br><span class="line"></span><br><span class="line">#############################################</span><br><span class="line"># 高级操作  查询</span><br><span class="line">from sqlalchemy.sql import and_, or_</span><br><span class="line"># res = db_session.query(User).filter(and_(User.nid &gt; 2, User.name == &quot;pengge&quot;)).first()</span><br><span class="line"># print(res.name)</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter(or_(User.nid &lt; 3, User.name == &quot;pengge&quot;)).all()</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 指定列做个别名 name as username</span><br><span class="line"># res = db_session.query(User.name.label(&quot;username&quot;), User.nid).first()</span><br><span class="line"># print(res.nid, res.username)</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter(User.name == &quot;ropon&quot;).all()</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 原生SQL筛选条件</span><br><span class="line"># res = db_session.query(User).filter_by(name=&quot;luopeng&quot;).all()</span><br><span class="line"># res2 = db_session.query(User).filter_by(name=&quot;luopeng&quot;).first()</span><br><span class="line"># print(res)</span><br><span class="line"># print(res2.name)</span><br><span class="line"></span><br><span class="line"># 字符串匹配筛选条件 order_by 进行排序</span><br><span class="line">from sqlalchemy.sql import text</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter(text(&quot;nid&lt;:value and name=:name&quot;)).params(value=3, name=&quot;luopeng&quot;).order_by(</span><br><span class="line">#     User.nid).first()</span><br><span class="line"># print(res.nid)</span><br><span class="line"></span><br><span class="line"># 原生SQL语句查询?</span><br><span class="line"># res = db_session.query(User).filter(text(&quot;select * from User id&gt;:value&quot;))</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 筛选查询列</span><br><span class="line"># res = db_session.query(User.name).first()</span><br><span class="line"># print(res.name)</span><br><span class="line"></span><br><span class="line"># 排序 默认升序 加desc()方法降序</span><br><span class="line"># user_list = db_session.query(User.nid).order_by(User.nid.desc()).all()</span><br><span class="line"># print(user_list)</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter_by(name=&quot;ropon&quot;).all()</span><br><span class="line"># print(res)</span><br><span class="line"># 且</span><br><span class="line"># res = db_session.query(User).filter(User.nid &gt; 1, User.name == &quot;pengge&quot;).all()</span><br><span class="line"># between(1, 3) 大于1小于3</span><br><span class="line"># res2 = db_session.query(User).filter(User.nid.between(1, 3), User.name == &quot;pengge&quot;).all()</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"># 只查询nid等于1,3,4</span><br><span class="line"># res = db_session.query(User).filter(User.nid.in_([1, 3, 4])).all()</span><br><span class="line"># 查询nid不等于1,2,4</span><br><span class="line"># res2 = db_session.query(User).filter(~User.nid.in_([1, 2, 4])).all()</span><br><span class="line"># print(res2[0].nid)</span><br><span class="line"></span><br><span class="line"># 子查询</span><br><span class="line"># res = db_session.query(User).filter(User.nid.in_(db_session.query(User.nid).filter_by(name=&quot;pg&quot;))).all()</span><br><span class="line"># print(res[0].name)</span><br><span class="line"></span><br><span class="line"># 且 或</span><br><span class="line"># from sqlalchemy import and_, or_</span><br><span class="line"># res = db_session.query(User).filter(and_(User.nid &gt; 3, User.name == &quot;ropon&quot;)).all()</span><br><span class="line"># res2 = db_session.query(User).filter(or_(User.nid &gt; 2, User.name == &quot;ropon&quot;)).all()</span><br><span class="line"># print(res2)</span><br><span class="line"></span><br><span class="line"># 通配符 % 取反 ~</span><br><span class="line"># 限制 [1:2]</span><br><span class="line"># res = db_session.query(User).filter(User.name.like(&quot;ropon%&quot;))[1:2]</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line">from sqlalchemy.sql import func</span><br><span class="line"># res = db_session.query(User.name).group_by(User.nid).all()</span><br><span class="line"># res = db_session.query(func.max(User.nid)).group_by(User.name).all()</span><br><span class="line"># print(res)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#############################################</span><br><span class="line"># 高级操作  修改</span><br><span class="line"></span><br><span class="line"># res = db_session.query(User).filter(User.nid&gt;2).update(&#123;&quot;name&quot;: &quot;Pgg&quot;&#125;)</span><br><span class="line"># res1 = db_session.query(User.nid, User.name).all()</span><br><span class="line"># print(res1)</span><br><span class="line"></span><br><span class="line"># db_session.query(User).filter(User.nid&gt;3).update(&#123;User.name: User.name + &quot;GoodBoy&quot;&#125;, synchronize_session=False)</span><br><span class="line">db_session.query(User).filter(User.nid&lt;2).update(&#123;User.name: User.name + 123&#125;, synchronize_session=&quot;evaluate&quot;)</span><br><span class="line"></span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/04/22/sqlalchemy/" data-id="clc4klg72008wojob27qah1q7" data-title="Sqlalchemy 单表操作基本用法" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-flask-ipv6检测小例子" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/18/flask-ipv6%E6%A3%80%E6%B5%8B%E5%B0%8F%E4%BE%8B%E5%AD%90/" class="article-date">
+  <time class="dt-published" datetime="2019-04-18T02:07:02.000Z" itemprop="datePublished">2019-04-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/18/flask-ipv6%E6%A3%80%E6%B5%8B%E5%B0%8F%E4%BE%8B%E5%AD%90/">Flask Ipv6检测小例子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">#后端代码：</span><br><span class="line"></span><br><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/4/15 14:38</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : ws_demo.py</span><br><span class="line"></span><br><span class="line">from flask import Flask, request, render_template</span><br><span class="line">from geventwebsocket.handler import WebSocketHandler</span><br><span class="line">from gevent.pywsgi import WSGIServer</span><br><span class="line">from geventwebsocket.websocket import WebSocket</span><br><span class="line">import subprocess</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/ipv6check&quot;)</span><br><span class="line">def index():</span><br><span class="line">    return render_template(&quot;ws_demo.html&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ipv6 = &quot;240e:d9:c200:101:7bb2::120&quot;</span><br><span class="line"></span><br><span class="line">user_socket_list = []</span><br><span class="line">user_socket_dict = &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/ws/&lt;ipv6&gt;&quot;)</span><br><span class="line">def ws(ipv6):</span><br><span class="line">    user_socket = request.environ.get(&quot;wsgi.websocket&quot;)  # type:WebSocket   # 做语法提示</span><br><span class="line">    if user_socket:</span><br><span class="line">        user_socket_dict[ipv6] = user_socket</span><br><span class="line">    msg = user_socket.receive()</span><br><span class="line">    msg_dict = json.loads(msg)</span><br><span class="line">    p = subprocess.Popen(&quot;ping -6 -c 4 &quot; + ipv6, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)</span><br><span class="line">    while True:</span><br><span class="line">        line = p.stdout.readline().rstrip().decode(&#x27;utf8&#x27;)</span><br><span class="line">        # print(line)</span><br><span class="line">        user_socket_dict[ipv6].send(line)</span><br><span class="line">        if not line:</span><br><span class="line">            break</span><br><span class="line">    if msg_dict.get(&quot;curl&quot;):</span><br><span class="line">        user_socket_dict[ipv6].send(&quot;-------------------------------------&quot;)</span><br><span class="line">        p = subprocess.Popen(&quot;curl -6 -I &quot; + ipv6, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)</span><br><span class="line">        while True:</span><br><span class="line">            line = p.stdout.readline().rstrip().decode(&#x27;utf8&#x27;)</span><br><span class="line">            # print(line)</span><br><span class="line">            user_socket_dict[ipv6].send(line)</span><br><span class="line">            if not line:</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">    if msg_dict.get(&quot;curl&quot;):</span><br><span class="line">        user_socket_dict[ipv6].send(&quot;-------------------------------------&quot;)</span><br><span class="line">        p = subprocess.Popen(&quot;tcping -v6 &quot; + ipv6 + &quot; 80&quot;, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)</span><br><span class="line">        while True:</span><br><span class="line">            line = p.stdout.readline().rstrip().decode(&#x27;utf8&#x27;)</span><br><span class="line">            # print(line)</span><br><span class="line">            user_socket_dict[ipv6].send(line)</span><br><span class="line">            if not line:</span><br><span class="line">                break</span><br><span class="line">    return &quot;ok&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    http_serv = WSGIServer((&quot;127.0.0.1&quot;, 9527), app, handler_class=WebSocketHandler)</span><br><span class="line">    http_serv.serve_forever()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#前端代码</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;IPV6检测&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;ipv6&quot; id=&quot;ipv6&quot; placeholder=&quot;请输入ipv6地址或域名,ipv6地址不支持curl&quot; style=&quot;width:300px;&quot;&gt;</span><br><span class="line">&lt;input type=&quot;checkbox&quot; name=&quot;opother&quot; id=&quot;curl&quot; value=&quot;1&quot;&gt;curl</span><br><span class="line">&lt;input type=&quot;checkbox&quot; name=&quot;opother&quot; id=&quot;tcping&quot; value=&quot;2&quot;&gt;tcping</span><br><span class="line">&lt;button onclick=&quot;checkipv6()&quot;&gt;检测&lt;/button&gt;</span><br><span class="line">&lt;div id=&quot;ping_list&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function checkipv6() &#123;</span><br><span class="line">        document.getElementById(&quot;ping_list&quot;).innerHTML = &quot;&quot;;</span><br><span class="line">var domainflag = document.domain;</span><br><span class="line">        var ipv6 = document.getElementById(&#x27;ipv6&#x27;).value;</span><br><span class="line">        var curlflag = document.getElementById(&#x27;curl&#x27;).checked;</span><br><span class="line">        var tcpingflag = document.getElementById(&#x27;tcping&#x27;).checked;</span><br><span class="line">        var ws = new WebSocket(&quot;wss://django.ropon.top/ws/&quot; + ipv6);</span><br><span class="line">        var send_str = &#123;</span><br><span class="line">&quot;domain&quot;: domainflag,</span><br><span class="line">            &quot;curl&quot;: curlflag,</span><br><span class="line">            &quot;tcping&quot;: tcpingflag</span><br><span class="line">        &#125;;</span><br><span class="line">        ws.onopen = function sendopen() &#123;</span><br><span class="line">            ws.send(JSON.stringify(send_str));</span><br><span class="line">        &#125;;</span><br><span class="line">        ws.onmessage = function (data) &#123;</span><br><span class="line">            var ptag = document.createElement(&#x27;p&#x27;);</span><br><span class="line">            ptag.innerText = data.data;</span><br><span class="line">            document.getElementById(&#x27;ping_list&#x27;).appendChild(ptag)</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/04/18/flask-ipv6%E6%A3%80%E6%B5%8B%E5%B0%8F%E4%BE%8B%E5%AD%90/" data-id="clc4klg51002nojobbmy4cog5" data-title="Flask Ipv6检测小例子" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-dbutils-连接池" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/10/dbutils-%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="article-date">
+  <time class="dt-published" datetime="2019-04-10T08:18:32.000Z" itemprop="datePublished">2019-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flask/">Flask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/10/dbutils-%E8%BF%9E%E6%8E%A5%E6%B1%A0/">Dbutils 连接池</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/4/10 13:27</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : dbpool.py</span><br><span class="line"></span><br><span class="line">import pymysql</span><br><span class="line">from DBUtils.PooledDB import PooledDB</span><br><span class="line"></span><br><span class="line">POOL = PooledDB(</span><br><span class="line">    creator=pymysql,  # 连接数据库的模块</span><br><span class="line">    maxconnections=10,  # 连接池中允许最大连接数 0和None 表示不限制</span><br><span class="line">    mincached=3,  # 初始化时，连接池中至少创建空闲连接数 0表示不创建</span><br><span class="line">    maxcached=5,  # 连接池中最多闲置连接数 0和None 表示不限制</span><br><span class="line">    maxshared=5,  # 连接池中最多共享的连接数 0和None 表示全部共享</span><br><span class="line">    blocking=True,  # 连接池中无可用连接，是否阻塞等待 True 等待 False 不等待报错</span><br><span class="line">    maxusage=None,  # 一个连接最多被重复使用次数 None表示无限制</span><br><span class="line">    setsession=[],</span><br><span class="line">    ping=0,</span><br><span class="line">    host=&quot;x.x.x.x&quot;,</span><br><span class="line">    port=3306,</span><br><span class="line">    user=&quot;xxxxxx&quot;,</span><br><span class="line">    password=&quot;xxxxxx&quot;,</span><br><span class="line">    db=&quot;xxxxxx&quot;,</span><br><span class="line">    charset=&quot;utf8&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019/4/10 14:07</span><br><span class="line"># @Author  : Ropon</span><br><span class="line"># @File    : sqlhelper.py</span><br><span class="line"></span><br><span class="line">import pymysql</span><br><span class="line">from dbpool import POOL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def create_conn():</span><br><span class="line">    conn = POOL.connection()</span><br><span class="line">    cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)</span><br><span class="line">    return conn, cursor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def close_conn(conn, cursor):</span><br><span class="line">    cursor.close()</span><br><span class="line">    conn.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def insert(sql, args):</span><br><span class="line">    conn, cursor = create_conn()</span><br><span class="line">    res = cursor.execute(sql, args)</span><br><span class="line">    conn.commit()</span><br><span class="line">    close_conn(conn, cursor)</span><br><span class="line">    return res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fetch_one(sql, args=None):</span><br><span class="line">    conn, cursor = create_conn()</span><br><span class="line">    cursor.execute(sql, args)</span><br><span class="line">    res = cursor.fetchone()</span><br><span class="line">    close_conn(conn, cursor)</span><br><span class="line">    return res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fetch_all(sql, args=None):</span><br><span class="line">    conn, cursor = create_conn()</span><br><span class="line">    cursor.execute(sql, args)</span><br><span class="line">    res = cursor.fetchall()</span><br><span class="line">    close_conn(conn, cursor)</span><br><span class="line">    return res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># sql = &quot;select * from user where nid=%s&quot;</span><br><span class="line"># print(fetch_one(sql, 4))</span><br><span class="line"></span><br><span class="line">sql = &quot;select * from user&quot;</span><br><span class="line">print(fetch_all(sql))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.ropon.top/2019/04/10/dbutils-%E8%BF%9E%E6%8E%A5%E6%B1%A0/" data-id="clc4klg4q001kojobbhot0p5b" data-title="Dbutils 连接池" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/13/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Django/">Django</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kubernetes/">Kubernetes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/Kvm/">Kvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/OpenStack/">OpenStack</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/">monitoring-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/monitoring-tools/Prometheus/">Prometheus</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/uncategorized/">uncategorized</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/">web-jiqun</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web-jiqun/%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4/">网站集群</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/">yunwei-tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Cmd/">Cmd</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/yunwei-tools/Shell/">Shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/">集群架构</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/" rel="tag">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/" rel="tag">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wdcp/" rel="tag">wdcp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91/" rel="tag">云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/ssl/" style="font-size: 10px;">ssl</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/wdcp/" style="font-size: 10px;">wdcp</a> <a href="/tags/%E4%BA%91/" style="font-size: 10px;">云</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%88%87%E7%89%87/">Go语言中切片</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%ADmap/">Go语言中map</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%87%BD%E6%95%B0/">Go语言中函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言中结构体</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8C%85/">Go语言中包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Ropon<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
